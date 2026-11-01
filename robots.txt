@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+# Vorschau – beim Livegang PREVIEW=False setzen
