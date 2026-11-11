@@ -101,10 +101,11 @@
         "cta_secondary_label": "Drops ansehen",
         "cta_secondary_url": "/collections/all",
         "foto_1_text": "Fabio am Zeichenbrett",
-        "foto_2_text": "unsere Celica T18, Bj. 1992",
+        "foto_2_text": "unsere Celica am Meet",
         "foto_3_text": "Custom für einen Kunden",
         "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
-        "bg_image_alt": "Tokyo night street"
+        "bg_image_alt": "Tokyo night street",
+        "foto_2": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg"
       }
     },
     "featured_duo": {
@@ -198,7 +199,9 @@
     "ueber": {
       "type": "nn-ueber-uns",
       "settings": {
-        "button_url": "/pages/brandstory"
+        "button_url": "/pages/brandstory",
+        "foto_2": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg",
+        "foto_2_text": "Celica T18 am Meet"
       }
     }
   },

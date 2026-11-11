@@ -1,0 +1,75 @@
+<section class="nn-abschnitt nn-wrap">
+  <div class="nn-zweispaltig" style="grid-template-columns:.8fr 1.2fr;">
+    <div>
+      {%- if section.settings.notiz != blank -%}<span class="nn-notiz">{{ section.settings.notiz }}</span>{%- endif -%}
+      <h2 class="nn-h2">{{ section.settings.titel }}</h2>
+      <p style="margin-top:16px;">Noch was offen? Schreib uns an <a class="nn-link" href="mailto:info@nipponnites.com">info@nipponnites.com</a>.</p>
+    </div>
+    <div class="nn-auf">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.frage }}</summary>
+          <div class="nn-auf__inhalt nn-text">{{ block.settings.antwort }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- if section.settings.schema and section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {%- for block in section.blocks -%}
+  {"@type":"Question","name":{{ block.settings.frage | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.antwort | strip_html | json }}}}{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+]}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Fragen (kurz)",
+  "settings": [
+    {
+      "type": "text",
+      "id": "notiz",
+      "label": "Handnotiz",
+      "default": "gut zu wissen"
+    },
+    {
+      "type": "text",
+      "id": "titel",
+      "label": "Titel",
+      "default": "Häufige Fragen"
+    },
+    {
+      "type": "checkbox",
+      "id": "schema",
+      "label": "Als FAQ für Google auszeichnen",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "frage",
+      "name": "Frage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "frage",
+          "label": "Frage"
+        },
+        {
+          "type": "richtext",
+          "id": "antwort",
+          "label": "Antwort"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fragen (kurz)"
+    }
+  ]
+}
+{% endschema %}

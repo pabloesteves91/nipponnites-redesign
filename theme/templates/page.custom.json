@@ -11,8 +11,136 @@
   "sections": {
     "main": {
       "type": "page-custom",
-      "settings": {}
+      "settings": {
+        "passion_image": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg",
+        "cta_label": "Custom bestellen",
+        "bild_text": "so sieht's am Meet aus"
+      }
+    },
+    "prozess": {
+      "type": "nn-prozess",
+      "blocks": {
+        "s1": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Du schickst Fotos",
+            "text": "Nach der Bestellung melden wir uns per Mail. Du schickst uns Fotos von deinem Auto und erzählst, was dir wichtig ist.",
+            "leer": "Foto folgt: Kundenauto"
+          }
+        },
+        "s2": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Wir skizzieren",
+            "text": "Mit Bleistift entsteht die Linie: Haltung, Felgen, Details. Du siehst den Entwurf, bevor wir weitermachen.",
+            "leer": "Foto folgt: Bleistiftskizze"
+          }
+        },
+        "s3": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Farbe und Feinschliff",
+            "text": "Die Skizze wird sauber nachgezogen und koloriert. Änderungswünsche bauen wir ein.",
+            "leer": "Foto folgt: kolorierte Zeichnung"
+          }
+        },
+        "s4": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Dein Unikat",
+            "text": "Druck oder Stickerei, Qualitätscheck, Versand: ca. 1–2 Wochen Produktion plus Lieferung.",
+            "leer": "Foto folgt: fertiges Shirt"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "notiz": "so läuft's",
+        "titel": "Vom Foto zum Unikat",
+        "button": "Custom bestellen",
+        "button_url": "/products/custom-hoodie-t-shirt"
+      }
+    },
+    "galerie": {
+      "type": "nn-galerie",
+      "settings": {
+        "notiz": "schon gezeichnet",
+        "titel": "Aus der Galerie",
+        "limit": 6,
+        "button": "",
+        "button_url": ""
+      }
+    },
+    "fragen": {
+      "type": "nn-fragen",
+      "blocks": {
+        "f1": {
+          "type": "frage",
+          "settings": {
+            "frage": "Wie funktioniert eine Custom-Bestellung?",
+            "antwort": "<p>Du bestellst Custom-Hoodie oder -Shirt im Shop. Danach melden wir uns per Mail, du schickst Fotos deines Autos und deine Ideen. Wir zeichnen, du gibst frei, dann geht's in Produktion.</p>"
+          }
+        },
+        "f2": {
+          "type": "frage",
+          "settings": {
+            "frage": "Welche Autos könnt ihr zeichnen?",
+            "antwort": "<p>Jedes. JDM-Klassiker, Euro-Sportwagen, Muscle Cars, Projektautos. Wenn du es fährst, zeichnen wir es.</p>"
+          }
+        },
+        "f3": {
+          "type": "frage",
+          "settings": {
+            "frage": "Kann ich eigene Ideen oder eine Skizze mitschicken?",
+            "antwort": "<p>Ja. Schick uns Idee, Skizze oder Referenzbilder, wir setzen es gemeinsam mit dir im Nippon-Nites-Stil um.</p>"
+          }
+        },
+        "f4": {
+          "type": "frage",
+          "settings": {
+            "frage": "Wie lange dauert es?",
+            "antwort": "<p>Ca. 1–2 Wochen für Zeichnung und Produktion, danach ca. 10 Tage Lieferung.</p>"
+          }
+        },
+        "f5": {
+          "type": "frage",
+          "settings": {
+            "frage": "Kann ich ein Custom zurückgeben?",
+            "antwort": "<p>Nein. Custom-Teile werden nur für dich angefertigt und sind darum vom Umtausch ausgeschlossen.</p>"
+          }
+        },
+        "f6": {
+          "type": "frage",
+          "settings": {
+            "frage": "Nutzt ihr KI für die Designs?",
+            "antwort": "<p>Nein. Jedes Motiv wird von Hand gezeichnet.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5",
+        "f6"
+      ],
+      "settings": {
+        "notiz": "gut zu wissen",
+        "titel": "Fragen zu Custom",
+        "schema": false
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "prozess",
+    "galerie",
+    "fragen"
+  ]
 }

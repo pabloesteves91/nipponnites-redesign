@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "nn-galerie",
+      "settings": {
+        "notiz": "eure Autos, unsere Linien",
+        "titel": "Kunden-Galerie",
+        "text": "Jedes Bild hier ist ein Einzelstück: ein echtes Kundenauto, von Hand gezeichnet in Winterthur und auf Hoodie oder Shirt gebracht. Dein Auto fehlt noch?",
+        "limit": 48,
+        "ueberschrift_h1": true,
+        "button": "Dein Auto zeichnen lassen",
+        "button_url": "/pages/custom"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,4 +1,32 @@
-{{ product | structured_data }}
+{%- assign _f_ld = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _f_ld = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _f_ld = 0.85 -%}{%- endif -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": "{{ shop.url }}{{ product.url }}",
+  "description": {{ product.description | strip_html | strip_newlines | truncate: 4900 | json }},
+  "image": [{% for image in product.images limit: 6 %}"https:{{ image | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}{% endfor %}],
+  "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+  {%- if product.type != blank %}"category": {{ product.type | json }},{% endif %}
+  "sku": {{ product.selected_or_first_available_variant.sku | default: product.selected_or_first_available_variant.id | json }},
+  "offers": [
+    {%- for v in product.variants -%}
+    {
+      "@type": "Offer",
+      "name": {{ v.title | json }},
+      "sku": {{ v.sku | default: v.id | json }},
+      "price": "{{ v.price | times: _f_ld | round | divided_by: 100.0 }}",
+      "priceCurrency": "{{ cart.currency.iso_code }}",
+      "availability": "{% if v.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+      "itemCondition": "https://schema.org/NewCondition",
+      "url": "{{ shop.url }}{{ v.url }}",
+      "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
 {%- assign _col = product.collections.first -%}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[

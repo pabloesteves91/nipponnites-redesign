@@ -1,169 +1,52 @@
-<!-- Hero -->
-<section class="relative h-screen flex items-end overflow-hidden pt-20 bg-surface">
-  <div class="absolute inset-0 z-0">
-    {% if section.settings.hero_image != blank %}
-      <img
-        src="{{ section.settings.hero_image | img_url: '2000x' }}"
-        alt="{{ section.settings.hero_image.alt | escape }}"
-        class="w-full h-full object-cover brightness-50"
-      >
-    {% else %}
-      <div class="w-full h-full bg-surface-container-high"></div>
-    {% endif %}
-    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
-  </div>
-  <div class="relative z-10 w-full px-8 pb-16 md:pb-24 flex flex-col items-start max-w-7xl mx-auto">
-    <span class="font-label text-primary uppercase tracking-[0.4em] mb-4 text-sm">Individualität ohne Kompromisse</span>
-    <h1 class="font-headline text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-4xl">
-      Bestelle deinen <span style="-webkit-text-stroke: 2px #ffb4a9; color: transparent;">eigenen</span> Merch
-    </h1>
-    <a
-      href="{{ section.settings.cta_url | default: '/pages/shop?filter=custom' }}"
-      class="inline-block bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold uppercase py-6 px-12 tracking-wider hover:brightness-110 active:scale-95 transition-all"
-    >
-      GET YOUR OWN
-    </a>
-  </div>
-</section>
-
-
-<!-- 3-Step Bento Grid -->
-<section class="bg-surface-container-low py-32 px-8">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-      <h2 class="font-headline text-5xl md:text-7xl font-black uppercase max-w-2xl leading-[0.9]">
-        Dein Weg zum<br>Unikat.
-      </h2>
-      <div class="text-primary font-headline text-6xl italic opacity-20">01—03</div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
-
-      <!-- Step 1 -->
-      <div class="bg-surface-container border-r border-surface-variant p-12 flex flex-col min-h-[400px]">
-        <span class="font-headline text-primary text-4xl mb-8">01.</span>
-        <h3 class="font-headline text-2xl uppercase mb-4">Select</h3>
-        <p class="text-on-surface/60 mb-12 flex-grow">Wähle aus Hoodie oder T-Shirt und welche Stickereien.</p>
-        {% if section.settings.step1_image != blank %}
-          <img
-            src="{{ section.settings.step1_image | img_url: '600x' }}"
-            alt="{{ section.settings.step1_image.alt | escape }}"
-            class="w-full grayscale brightness-75"
-          >
-        {% else %}
-          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
-            <span class="material-symbols-outlined text-4xl text-white/20">checkroom</span>
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Step 2 -->
-      <div class="bg-surface p-12 flex flex-col min-h-[400px]">
-        <span class="font-headline text-primary text-4xl mb-8">02.</span>
-        <h3 class="font-headline text-2xl uppercase mb-4">Choose Design</h3>
-        <p class="text-on-surface/60 mb-12 flex-grow">Schick uns deine Idee per Mail an <a href="mailto:info@nipponnites.com" class="text-primary hover:brightness-110 transition-all">info@nipponnites.com</a>. Wir besprechen es gemeinsam und ich illustriere dein Design von Hand — kein KI, echte Handarbeit.</p>
-        {% if section.settings.step2_image != blank %}
-          <div class="relative overflow-hidden group">
-            <img
-              src="{{ section.settings.step2_image | img_url: '600x' }}"
-              alt="{{ section.settings.step2_image.alt | escape }}"
-              class="w-full"
-            >
-            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          </div>
-        {% else %}
-          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
-            <span class="material-symbols-outlined text-4xl text-white/20">draw</span>
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Step 3 -->
-      <div class="bg-surface-container border-l border-surface-variant p-12 flex flex-col min-h-[400px]">
-        <span class="font-headline text-primary text-4xl mb-8">03.</span>
-        <h3 class="font-headline text-2xl uppercase mb-4">Final Order</h3>
-        <p class="text-on-surface/60 mb-12 flex-grow">Wir lassen dein Design prüfen, produzieren dein Einzelstück und senden es direkt zu dir.</p>
-        {% if section.settings.step3_image != blank %}
-          <img
-            src="{{ section.settings.step3_image | img_url: '600x' }}"
-            alt="{{ section.settings.step3_image.alt | escape }}"
-            class="w-full brightness-50"
-          >
-        {% else %}
-          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
-            <span class="material-symbols-outlined text-4xl text-white/20">local_shipping</span>
-          </div>
-        {% endif %}
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Passion Statement -->
-<section class="bg-surface py-32 px-8">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+{%- assign _ch = all_products['custom-hoodie-t-shirt'] -%}
+{%- assign _ct = all_products['custom-t-shirt'] -%}
+{%- assign _bild = section.settings.passion_image | default: section.settings.hero_image | default: _ch.featured_media -%}
+<section class="nn-seitenkopf nn-wrap nn-punkte" style="padding-bottom:clamp(48px,7vw,96px);">
+  <nav class="nn-krumen" aria-label="Brotkrumen"><ol><li><a href="/">Home</a></li><li aria-current="page">Custom-Merch</li></ol></nav>
+  <div class="nn-hero__in">
     <div>
-      {% if section.settings.passion_image != blank %}
-        <img
-          src="{{ section.settings.passion_image | img_url: '1200x' }}"
-          alt="{{ section.settings.passion_image.alt | escape }}"
-          class="w-full h-auto object-cover grayscale"
-        >
-      {% else %}
-        <div class="aspect-[4/3] bg-surface-container-high"></div>
-      {% endif %}
-    </div>
-    <div class="flex flex-col items-start">
-      <h2 class="font-headline text-5xl font-black uppercase mb-8 leading-tight">Passion is not a crime.</h2>
-      <p class="font-body text-xl text-on-surface/70 mb-12 leading-relaxed">
-        Wir glauben, dass Kleidung mehr ist als nur Stoff. Es ist ein Statement. Nippon Nites wurde in den schattigen Hinterhöfen und nächtlichen Parkhäusern geboren. Dein Custom Hoodie trägt diese Energie weiter.
-      </p>
-      <div class="flex flex-col gap-6 w-full">
-        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
-          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">local_fire_department</span>
-          <div>
-            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Unikat Garantie</span>
-            <span class="text-on-surface/60 text-sm">Jedes Design wird nur für dich angefertigt.</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
-          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">speed</span>
-          <div>
-            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Express Production</span>
-            <span class="text-on-surface/60 text-sm">Fertigstellung innerhalb von 7–10 Werktagen.</span>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
-          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">eco</span>
-          <div>
-            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Bio-Baumwolle</span>
-            <span class="text-on-surface/60 text-sm">100% organisch. Qualität die man spürt.</span>
-          </div>
-        </div>
+      <h1 class="nn-h1">{{ section.settings.titel | default: 'Dein Auto auf Merch' }}</h1>
+      <p class="nn-lead">{{ section.settings.text }}</p>
+      <div class="nn-knopfreihe">
+        <a class="nn-btn nn-btn--marker" href="{{ section.settings.cta_url | default: _ch.url }}">{{ section.settings.cta_label | default: 'Custom bestellen' }}</a>
+        <a class="nn-btn" href="#custom-ablauf">So läuft's</a>
       </div>
+    </div>
+    <div style="position:relative;max-width:520px;justify-self:center;width:100%;">
+      {% render 'nn-foto', bild: _bild, text: section.settings.bild_text, alt: 'Nippon Nites Community am Car Meet mit Custom-Merch', sizes: '(min-width: 860px) 40vw, 92vw', format: '4 / 3', prio: true, dreh: '2deg' %}
+      <span style="position:absolute;left:-14px;bottom:-30px;z-index:3;">{% render 'nn-stempel', text: '1 von 1' %}</span>
     </div>
   </div>
 </section>
 
-<!-- Final CTA -->
-<section class="bg-primary py-24 text-center">
-  <div class="max-w-4xl mx-auto px-8">
-    <h2 class="font-headline text-4xl md:text-6xl font-black text-on-primary-fixed uppercase tracking-tighter mb-12">
-      Bereit für deinen Merch?
-    </h2>
-    <a
-      href="{{ section.settings.cta_url | default: '/pages/shop?filter=custom' }}"
-      class="inline-block bg-surface text-primary font-headline font-bold uppercase py-6 px-16 tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-2xl"
-    >
-      GET YOUR OWN
-    </a>
+<section class="nn-abschnitt nn-wrap" style="padding-top:clamp(40px,6vw,80px);">
+  <div class="nn-kopfzeile">
+    <div>
+      <span class="nn-notiz">wähl deine Basis</span>
+      <h2 class="nn-h2">Hoodie oder Shirt?</h2>
+    </div>
+    <p style="max-width:28em;margin:0;">Ärmel-Stickerei links, rechts oder beidseitig für CHF 5.00 pro Seite. Grösse und Stickerei wählst du direkt beim Produkt.</p>
+  </div>
+  <div class="nn-karten2">
+    {%- for _p in (1..2) -%}
+      {%- if _p == 1 -%}{%- assign _x = _ct -%}{%- else -%}{%- assign _x = _ch -%}{%- endif -%}
+      {%- if _x != blank -%}
+        <a href="{{ _x.url }}">
+          {{ _x.featured_media | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', sizes: '(min-width: 600px) 45vw, 92vw', alt: _x.title, loading: 'lazy' }}
+          <span class="nn-h3">{{ _x.title }}</span>
+          <span>ab <strong>{{ _x.price_min | times: 0.8 | round | money }}</strong> <s class="nn-klein">{{ _x.price_min | money }}</s></span>
+          <span class="nn-btn nn-btn--marker" style="justify-self:start;">{% if _p == 1 %}Shirt gestalten{% else %}Hoodie gestalten{% endif %}</span>
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
   </div>
 </section>
+
+<div id="custom-ablauf"></div>
 
 {% schema %}
 {
-  "name": "Custom Hoodie Page",
+  "name": "Custom-Seite",
   "settings": [
     {
       "type": "header",
@@ -172,7 +55,7 @@
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Hero Hintergrundbild"
+      "label": "Bild im Kopf (leer = Meet-Foto/Custom-Hoodie)"
     },
     {
       "type": "url",
@@ -183,9 +66,9 @@
       "type": "text",
       "id": "cta_label",
       "label": "CTA Button Text",
-      "default": "GET YOUR OWN"
+      "default": "Custom bestellen"
     },
-{
+    {
       "type": "header",
       "content": "3-Step Process"
     },
@@ -212,6 +95,28 @@
       "type": "image_picker",
       "id": "passion_image",
       "label": "Passion Bild (Model + Car)"
+    },
+    {
+      "type": "header",
+      "content": "Texte"
+    },
+    {
+      "type": "text",
+      "id": "titel",
+      "label": "Titel",
+      "default": "Dein Auto auf Merch"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Dein Auto als Einzelstück auf Hoodie oder T-Shirt: von Hand gezeichnet in Winterthur, fertig in 1–2 Wochen plus Versand. JDM, Euro, Daily oder Projekt, wir zeichnen jedes Auto."
+    },
+    {
+      "type": "text",
+      "id": "bild_text",
+      "label": "Notiz zum Bild",
+      "default": "so sieht's am Meet aus"
     }
   ],
   "presets": [
