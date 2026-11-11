@@ -5,8 +5,8 @@
   --papier: #F4EFE4;
   --karton: #E7DFCC;
   --tinte: #1E1B17;
-  --graphit: #6E675D;
-  --marker: #D7351F;
+  --graphit: #5E574E;
+  --marker: #B52A16;
   --blaustift: #2D4E86;
   --tape: rgba(232, 199, 106, .7);
   --linie: rgba(30, 27, 23, .16);
@@ -75,7 +75,7 @@ body.nn-body {
 
 /* Marker-Hervorhebung: fährt beim Sichtbarwerden hinter das Wort */
 .nn-marker {
-  background-image: linear-gradient(transparent 58%, rgba(215, 53, 31, .28) 58%, rgba(215, 53, 31, .28) 92%, transparent 92%);
+  background-image: linear-gradient(transparent 58%, rgba(181, 42, 22, .26) 58%, rgba(181, 42, 22, .26) 92%, transparent 92%);
   background-repeat: no-repeat; background-size: 0% 100%;
   transition: background-size .9s var(--weich) .15s;
   padding-inline: .06em;
@@ -95,7 +95,7 @@ body.nn-body {
 .nn-btn:hover { background: var(--karton); }
 .nn-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--tinte); }
 .nn-btn--marker { background: var(--marker); border-color: var(--tinte); color: #fff !important; }
-.nn-btn--marker:hover { background: #bd2c18; }
+.nn-btn--marker:hover { background: #9a2312; }
 .nn-btn--voll { width: 100%; }
 .nn-btn[disabled] { opacity: .5; pointer-events: none; }
 .nn-knopfreihe { display: flex; flex-wrap: wrap; gap: 14px 18px; align-items: center; margin-top: 1.8rem; }
