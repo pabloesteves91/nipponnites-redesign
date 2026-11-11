@@ -445,7 +445,7 @@ body.nn-body {
   .nn-nav { display: none; }
   .nn-menu-btn { display: grid; }
   .nn-header__tools { margin-left: auto; }
-  .nn-hero__in, .nn-duo, .nn-ueber, .nn-produkt, .nn-zweispaltig, .nn-footer__news { grid-template-columns: 1fr; }
+  .nn-hero__in, .nn-duo, .nn-ueber, .nn-produkt, .nn-zweispaltig, .nn-footer__news { grid-template-columns: minmax(0, 1fr) !important; }
   .nn-hero__collage { min-height: 380px; max-width: 520px; }
   .nn-ueber__fotos { min-height: 360px; max-width: 480px; }
   .nn-produkt__info { position: static; }
