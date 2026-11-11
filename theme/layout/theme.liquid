@@ -2,6 +2,7 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add('nn-js')</script>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="canonical" href="{{ canonical_url }}">
@@ -61,6 +62,10 @@
     "url": "{{ shop.url }}",
     "logo": "{{ 'logo_nippon.png' | file_img_url: '200x200' }}",
     "description": "{{ shop.description | strip_html | escape }}",
+    "email": "info@nipponnites.com",
+    "foundingDate": "2024",
+    "founder": { "@type": "Person", "name": "Fabio Berta", "url": "{{ shop.url }}/pages/brandstory" },
+    "areaServed": ["CH", "DE", "AT"],
     "sameAs": ["https://www.instagram.com/nipponnites/", "https://www.tiktok.com/@nippon_nites"],
     "address": {
       "@type": "PostalAddress",
@@ -72,15 +77,27 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "{{ shop.name | escape }}",
+    "url": "{{ shop.url }}",
+    "inLanguage": "de-CH",
+    "potentialAction": { "@type": "SearchAction", "target": "{{ shop.url }}/search?q={search_term_string}", "query-input": "required name=search_term_string" }
+  }
+  </script>
   {{ content_for_header }}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
   <style>.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }</style>
   {{ 'theme.min.css' | asset_url | stylesheet_tag }}
+  {{ 'nn.css' | asset_url | stylesheet_tag }}
 </head>
-<body class="bg-night text-white font-sans antialiased">
+<body class="nn-body">
+  <a class="nn-skip" href="#MainContent">Zum Inhalt springen</a>
   {% section 'ticker-bar' %}
   {% section 'announcement-bar' %}
   {% section 'header' %}
@@ -91,12 +108,11 @@
   {% render 'cart-drawer' %}
   <ul hidden><li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li></ul>
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-  <button id="scroll-top-btn"
-    aria-label="Nach oben"
-    class="fixed bottom-8 right-6 z-40 md:hidden flex items-center justify-center w-12 h-12 opacity-0 pointer-events-none transition-opacity duration-300"
-    style="background:linear-gradient(to bottom right,#ffb4a9,#fb5a48);"
+  <script src="{{ 'nn.js' | asset_url }}" defer="defer"></script>
+  <button id="scroll-top-btn" type="button" aria-label="Nach oben" class="opacity-0 pointer-events-none"
+    style="position:fixed;right:16px;bottom:20px;z-index:40;width:48px;height:48px;border-radius:50%;background:var(--papier);border:2px solid var(--tinte);display:grid;place-items:center;transition:opacity .3s;"
     onclick="window.scrollTo({top:0,behavior:'smooth'})">
-    <span class="material-symbols-outlined" style="color:#410000;font-size:22px;">arrow_upward</span>
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
   </button>
 </body>
 </html>

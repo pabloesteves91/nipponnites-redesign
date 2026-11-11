@@ -1,0 +1,20 @@
+{%- comment -%}
+  Handgezeichnete Linie. Parameter: art (unterstrich|kreis|pfeil|haken|kreuz|stern), klasse, zeichnen (true = zeichnet sich beim Sichtbarwerden)
+{%- endcomment -%}
+{%- case art -%}
+  {%- when 'kreis' -%}{%- assign vb = '0 0 200 100' -%}
+  {%- when 'pfeil' -%}{%- assign vb = '0 0 120 70' -%}
+  {%- when 'haken' -%}{%- assign vb = '0 0 40 36' -%}
+  {%- when 'kreuz' or 'stern' -%}{%- assign vb = '0 0 40 40' -%}
+  {%- else -%}{%- assign vb = '0 0 200 20' -%}
+{%- endcase -%}
+<svg class="nn-scribble {{ klasse }}" viewBox="{{ vb }}" preserveAspectRatio="none" aria-hidden="true" focusable="false"{% if zeichnen %} data-zeichnen{% endif %} stroke-width="2.5">
+{%- case art -%}
+  {%- when 'kreis' -%}<path pathLength="1" d="M30 22C70 4 165 6 190 40c15 30-40 56-95 54C40 92 4 74 8 50c3-20 32-36 62-38"/>
+  {%- when 'pfeil' -%}<path pathLength="1" d="M6 60C30 20 70 10 108 18"/><path pathLength="1" d="M92 6l17 12-15 14"/>
+  {%- when 'haken' -%}<path pathLength="1" d="M6 19l9 10L35 4"/>
+  {%- when 'kreuz' -%}<path pathLength="1" d="M6 6l28 28"/><path pathLength="1" d="M34 7L7 33"/>
+  {%- when 'stern' -%}<path pathLength="1" d="M20 3l4 13h13l-11 8 4 13-10-8-10 8 4-13-11-8h13z"/>
+  {%- else -%}<path pathLength="1" d="M3 13c37-7 87 2 127-4s55-2 67 2"/><path pathLength="1" d="M22 17c48-4 98 1 148-3"/>
+{%- endcase -%}
+</svg>

@@ -1,0 +1,20 @@
+{%- comment -%}
+  Polaroid mit Klebeband. Parameter:
+  bild (image, optional), text (Bildunterschrift), alt, leer_text (Notiz ohne Bild),
+  sizes, format (z. B. '4 / 5'), fallen (true = fällt aufs Blatt), prio (true = LCP-Bild), link, dreh
+{%- endcomment -%}
+{%- assign _tag = 'figure' -%}{%- if link != blank -%}{%- assign _tag = 'a' -%}{%- endif -%}
+<{{ _tag }} class="nn-foto{% if bild == blank %} nn-foto--leer{% endif %}"{% if link != blank %} href="{{ link }}"{% endif %} style="{% if format %}--format: {{ format }};{% endif %}{% if dreh %}--dreh: {{ dreh }};{% endif %}"{% if fallen %} data-fallen{% endif %}>
+  <div class="nn-foto__bild">
+    {%- if bild != blank -%}
+      {%- if prio -%}
+        {{ bild | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 960, 1200', sizes: sizes, alt: alt, fetchpriority: 'high', loading: 'eager' }}
+      {%- else -%}
+        {{ bild | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 960, 1200', sizes: sizes, alt: alt, loading: 'lazy' }}
+      {%- endif -%}
+    {%- else -%}
+      <span>{{ leer_text | default: 'Foto folgt' }}</span>
+    {%- endif -%}
+  </div>
+  {%- if text != blank %}{% if _tag == 'a' %}<span class="nn-foto__text">{% else %}<figcaption>{% endif %}{{ text }}{% if _tag == 'a' %}</span>{% else %}</figcaption>{% endif %}{% endif -%}
+</{{ _tag }}>

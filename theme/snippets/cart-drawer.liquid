@@ -1,86 +1,57 @@
 <script>window.__moneyFormat = {{ shop.money_format | json }};</script>
 
-<div id="cart-backdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-500" onclick="closeCartDrawer()"></div>
+<div id="cart-backdrop" class="nn-schleier opacity-0 pointer-events-none" onclick="closeCartDrawer()"></div>
 
-<aside id="cart-drawer" class="fixed right-0 top-0 h-full z-[60] flex flex-col p-6 bg-[#131313] w-full md:w-96 shadow-2xl translate-x-full transition-transform duration-500 ease-in-out" aria-label="Warenkorb">
-  <div class="flex justify-between items-start mb-10">
+<aside id="cart-drawer" class="nn-zettel translate-x-full" aria-label="Warenkorb">
+  <div class="nn-zettel__kopf">
     <div>
-      <h2 class="font-headline uppercase font-black text-3xl text-primary tracking-tighter">Warenkorb</h2>
-      <p class="font-label text-xs tracking-[0.2em] text-white/40 uppercase">Ready to drift</p>
+      <h2 class="nn-h3">Warenkorb</h2>
+      <span class="nn-notiz" style="font-size:1.4rem;">gut ausgewählt</span>
     </div>
-    <button onclick="closeCartDrawer()" class="hover:bg-[#353535] p-2 transition-colors" aria-label="Warenkorb schliessen">
-      <span class="material-symbols-outlined text-white">close</span>
+    <button type="button" onclick="closeCartDrawer()" class="nn-icon" aria-label="Warenkorb schliessen">
+      {% render 'nn-scribble', art: 'kreuz' %}
     </button>
   </div>
 
-  <div id="cart-drawer-items" class="flex-grow overflow-y-auto space-y-8">
-    {% if cart.item_count == 0 %}
-      <div class="flex flex-col items-center justify-center h-full gap-4 opacity-30">
-        <span class="material-symbols-outlined text-6xl">shopping_bag</span>
-        <p class="font-headline uppercase font-bold tracking-tighter">Dein Warenkorb ist leer</p>
+  <div id="cart-drawer-items" class="nn-zettel__liste">
+    {%- if cart.item_count == 0 -%}
+      <div class="nn-zettel__leer">
+        <p class="nn-h4">Dein Warenkorb ist leer</p>
+        <p class="nn-klein">Schau dich in den Drops um oder lass dein eigenes Auto zeichnen.</p>
       </div>
-    {% else %}
-      {% for item in cart.items %}
-        <div class="flex gap-4 items-start" data-cart-item="{{ item.key }}">
-          <a href="{{ item.url }}" class="w-24 h-24 bg-[#1b1b1b] flex-shrink-0 overflow-hidden block">
-            {% if item.image %}
-              <img src="{{ item.image | img_url: '200x200', crop: 'center' }}" alt="{{ item.image.alt | escape }}" class="w-full h-full object-cover">
-            {% endif %}
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div class="nn-zettel__posten" data-cart-item="{{ item.key }}">
+          <a href="{{ item.url }}">
+            {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: alt: item.product.title, width: 84, height: 84, loading: 'lazy' }}{%- endif -%}
           </a>
-          <div class="flex flex-col flex-grow">
-            <div class="flex justify-between items-start gap-2">
-              <a href="{{ item.url }}" class="font-headline font-bold text-sm tracking-tighter uppercase leading-tight hover:text-primary transition-colors">{{ item.product.title }}</a>
-              <button onclick="cartRemoveItem('{{ item.key }}')" class="text-white/20 hover:text-primary transition-colors flex-shrink-0" aria-label="{{ item.product.title | escape }} entfernen">
-                <span class="material-symbols-outlined text-sm">delete</span>
-              </button>
-            </div>
-            {% unless item.variant.title == 'Default Title' %}
-              <span class="text-[10px] text-white/40 uppercase tracking-widest font-label mt-1">{{ item.variant.title }}</span>
-            {% endunless %}
-            <div class="mt-4 flex justify-between items-center">
-              <div class="flex items-center gap-3 bg-[#1b1b1b] px-3 py-1">
-                <button onclick="cartUpdateItem('{{ item.key }}', {{ item.quantity | minus: 1 }})" class="text-white/40 hover:text-white transition-colors" aria-label="Menge verringern"><span class="material-symbols-outlined" style="font-size:14px">remove</span></button>
-                <span class="font-headline font-bold text-xs w-5 text-center" data-item-qty="{{ item.key }}">{{ item.quantity | prepend: '0' | slice: -2, 2 }}</span>
-                <button onclick="cartUpdateItem('{{ item.key }}', {{ item.quantity | plus: 1 }})" class="text-white/40 hover:text-white transition-colors" aria-label="Menge erhöhen"><span class="material-symbols-outlined" style="font-size:14px">add</span></button>
+          <div>
+            <a href="{{ item.url }}" class="nn-zettel__titel">{{ item.product.title }}</a>
+            {%- unless item.variant.title == 'Default Title' -%}<span class="nn-zettel__variante">{{ item.variant.title }}</span>{%- endunless -%}
+            <div class="nn-zettel__zeile">
+              <div class="nn-zettel__menge">
+                <button type="button" onclick="cartUpdateItem('{{ item.key }}', {{ item.quantity | minus: 1 }})" aria-label="Menge verringern">−</button>
+                <span data-item-qty="{{ item.key }}">{{ item.quantity }}</span>
+                <button type="button" onclick="cartUpdateItem('{{ item.key }}', {{ item.quantity | plus: 1 }})" aria-label="Menge erhöhen">+</button>
               </div>
-              <span class="font-headline font-bold text-primary" data-item-price="{{ item.key }}">{{ item.final_line_price | money }}</span>
+              <strong data-item-price="{{ item.key }}">{{ item.final_line_price | money }}</strong>
             </div>
+            <button type="button" class="nn-zettel__weg" onclick="cartRemoveItem('{{ item.key }}')" aria-label="{{ item.product.title | escape }} entfernen">Entfernen</button>
           </div>
         </div>
-      {% endfor %}
-    {% endif %}
+      {%- endfor -%}
+    {%- endif -%}
   </div>
 
-  <div class="mt-auto pt-6 border-t border-[#353535]">
-    <div class="flex justify-between items-center mb-2">
-      <span class="font-label text-xs tracking-widest text-white/40 uppercase">Zwischensumme</span>
-      <span id="cart-drawer-subtotal" class="font-headline font-black text-xl text-white">{{ cart.total_price | money }}</span>
-    </div>
-    <div class="flex justify-between items-center mb-2">
-      <span class="font-label text-xs tracking-widest text-white/40 uppercase">Versand</span>
-      <span class="font-headline font-bold text-sm text-primary uppercase">im Checkout</span>
-    </div>
-    <p class="text-[11px] text-white/40 font-body mb-6">Wird für dich produziert · Lieferung in 10–20 Werktagen · TWINT, PayPal & Karte</p>
-    <div id="cart-drawer-cta">
-      {% if cart.item_count > 0 %}
-        <a href="/checkout" class="block w-full py-5 bg-gradient-to-br from-[#ffb4a9] to-[#fb5a48] text-[#410000] font-headline font-black uppercase text-center tracking-tighter text-lg hover:brightness-110 active:scale-[0.98] transition-all duration-300">Zur Kasse</a>
-      {% else %}
-        <a href="/collections/all" class="block w-full py-5 bg-[#353535] text-white/60 font-headline font-black uppercase text-center tracking-tighter text-lg hover:bg-[#ffb4a9] hover:text-[#410000] transition-all duration-300">Jetzt shoppen</a>
-      {% endif %}
+  <div class="nn-zettel__fuss">
+    <div class="nn-zettel__summe"><span>Zwischensumme</span><span id="cart-drawer-subtotal">{{ cart.total_price | money }}</span></div>
+    <p class="nn-klein" style="margin:0;">Versand und Rabatte siehst du im Checkout. Jedes Teil wird für dich produziert: Lieferung in 10–20 Werktagen.</p>
+    <div id="cart-drawer-cta" style="margin-top:8px;">
+      {%- if cart.item_count > 0 -%}
+        <a href="/checkout" class="nn-btn nn-btn--marker nn-btn--voll">Zur Kasse</a>
+      {%- else -%}
+        <a href="/collections/all" class="nn-btn nn-btn--voll">Drops ansehen</a>
+      {%- endif -%}
     </div>
   </div>
 </aside>
-<script>
-  /* Uebersetzt Texte, die global.js dynamisch setzt */
-  (function(){
-    var map = { 'Your bag is empty':'Dein Warenkorb ist leer', 'PROCEED TO CHECKOUT':'Zur Kasse', 'SHOP NOW':'Jetzt shoppen', '✓ Added!':'✓ Hinzugefügt' };
-    function fix(root){
-      var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
-      var n; while ((n = w.nextNode())) { var t = n.nodeValue.trim(); if (map[t]) n.nodeValue = n.nodeValue.replace(t, map[t]); }
-    }
-    function start(){
-      new MutationObserver(function(ms){ ms.forEach(function(m){ if (m.type === 'characterData') { fix(m.target.parentNode || document.body); } m.addedNodes && m.addedNodes.forEach(function(a){ if (a.nodeType === 1) fix(a); else if (a.nodeType === 3 && a.parentNode) fix(a.parentNode); }); }); }).observe(document.body, { childList:true, subtree:true, characterData:true });
-    }
-    if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
-  })();
-</script>

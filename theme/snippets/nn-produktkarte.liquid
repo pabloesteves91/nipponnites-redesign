@@ -1,0 +1,37 @@
+{%- comment -%} Gemeinsame Produktkarte für alle Raster. Parameter: product, prio (true = erste Reihe sofort laden) {%- endcomment -%}
+{%- assign _b1 = product.featured_media -%}
+{%- assign _b2 = product.media[1] -%}
+{%- assign _sizes = '(min-width: 1000px) 25vw, (min-width: 600px) 33vw, 50vw' -%}
+<article class="nn-karte">
+  <a class="nn-karte__link" href="{{ product.url }}">
+    <div class="nn-karte__bild">
+      {%- if _b1 -%}
+        {%- if prio -%}
+          {{ _b1 | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: _sizes, alt: product.title, loading: 'eager' }}
+        {%- else -%}
+          {{ _b1 | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: _sizes, alt: product.title, loading: 'lazy' }}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if _b2 and _b2.media_type == 'image' -%}
+        {{ _b2 | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: _sizes, alt: '', loading: 'lazy', class: 'nn-karte__zweit' }}
+      {%- endif -%}
+      {%- assign _neu_grenze = 'now' | date: '%s' | minus: 3888000 -%}
+      {%- assign _erstellt = product.created_at | date: '%s' | plus: 0 -%}
+      {%- if product.type == 'Custom' -%}
+        <span class="nn-karte__marke">{% render 'nn-stempel', text: '1 von 1' %}</span>
+      {%- elsif product.compare_at_price > product.price -%}
+        <span class="nn-karte__marke">{% render 'nn-stempel', text: 'Aktion' %}</span>
+      {%- elsif _erstellt > _neu_grenze -%}
+        <span class="nn-karte__marke">{% render 'nn-stempel', text: 'Neu' %}</span>
+      {%- endif -%}
+    </div>
+    <div class="nn-karte__info">
+      <h3 class="nn-karte__titel">{{ product.title }}</h3>
+      <span class="nn-karte__preis">
+        {%- if product.price_varies %}ab {% endif %}{{ product.price | money -}}
+        {%- if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif -%}
+      </span>
+      {%- if product.metafields.reviews.rating_count > 0 -%}{% render 'star-rating', product: product %}{%- endif -%}
+    </div>
+  </a>
+</article>

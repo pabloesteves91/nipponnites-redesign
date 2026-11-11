@@ -1,18 +1,11 @@
 {% if section.settings.show %}
-<div style="background:#e00000;overflow:hidden;white-space:nowrap;height:2rem;display:flex;align-items:center;">
-  <div class="nn-ticker-track" style="display:inline-flex;align-items:center;gap:0;animation:nn-ticker {{ section.settings.speed }}s linear infinite;">
-    {%- assign text = section.settings.ticker_text | default: 'Aktuelle Aktion — Jetzt entdecken' -%}
-    {%- for i in (1..6) -%}
-      <span style="font-family:'Space Grotesk',sans-serif;font-size:0.6875rem;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#fff;padding:0 3rem;">{{ text }}</span>
-    {%- endfor -%}
+{%- assign text = section.settings.ticker_text | default: 'Aktuelle Aktion — Jetzt entdecken' -%}
+<div class="nn-band" style="--dauer: {{ section.settings.speed | times: 2 }}s;">
+  <p class="nn-sr">{{ text }}</p>
+  <div class="nn-band__spur" aria-hidden="true">
+    {%- for i in (1..8) -%}<span>{{ text }}</span>{%- endfor -%}
   </div>
 </div>
-<style>
-@keyframes nn-ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-</style>
 {% endif %}
 
 {% schema %}
