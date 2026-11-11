@@ -343,6 +343,73 @@ body.nn-body {
 .nn-karten2 > a:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tinte); }
 .nn-karten2 img { aspect-ratio: 1; object-fit: contain; background: var(--karton); mix-blend-mode: multiply; }
 
+/* ---------- Produktseite: Slider, Varianten, Modal ---------- */
+.nn-produkt__slider { position: relative; overflow: hidden; background: var(--karton); border: 2px solid var(--tinte); }
+.nn-produkt__spur { display: flex; transition: transform .45s var(--weich); will-change: transform; }
+.nn-produkt__spur .nn-produkt__bild { flex: 0 0 100%; }
+.nn-produkt__pfeil { position: absolute; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; display: grid; place-items: center; background: var(--papier); border: 2px solid var(--tinte); border-radius: 50%; z-index: 3; }
+.nn-produkt__pfeil svg { width: 22px; height: 22px; }
+.nn-produkt__pfeil--l { left: 12px; } .nn-produkt__pfeil--r { right: 12px; }
+.nn-produkt__daumen { display: flex; gap: 10px; margin-top: 12px; overflow-x: auto; padding: 4px 2px; }
+.nn-produkt__daumen button { flex: none; width: 72px; height: 72px; background: var(--karton); border: 2px solid transparent; opacity: .65; transition: opacity .2s, border-color .2s; }
+.nn-produkt__daumen button.is-an, .nn-produkt__daumen button:hover { opacity: 1; border-color: var(--tinte); }
+.nn-produkt__daumen img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.nn-produkt__details { margin-top: clamp(32px, 4vw, 56px); padding-top: 24px; border-top: 2px solid var(--tinte); }
+.nn-produkt__details .nn-h3 { margin-bottom: 14px; }
+.nn-produkt__form { margin-top: 26px; }
+.nn-produkt__fakten { margin-top: 26px; }
+.nn-produkt__fakten li { font-size: 1.05rem; }
+.nn-optionen__kopf { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.nn-optionen__name { font: 600 1.05rem/1 var(--kopf); text-transform: uppercase; letter-spacing: .03em; }
+.nn-wahlknopf { min-width: 52px; min-height: 46px; padding: 0 14px; border: 2px solid var(--tinte) !important; background: #fffdf8 !important; font: 600 1.05rem/1 var(--kopf) !important; text-transform: uppercase; transition: background-color .15s, color .15s; }
+.nn-wahlknopf:hover { background: var(--karton) !important; }
+.nn-wahlknopf.is-an { background: var(--tinte) !important; color: var(--papier) !important; }
+.nn-produkt__info .shopify-payment-button__button { border-radius: 0 !important; min-height: 52px; font-family: var(--kopf) !important; text-transform: uppercase !important; letter-spacing: .06em !important; }
+.nn-produkt__info .shopify-payment-button__more-options { color: var(--tinte) !important; text-decoration: underline; }
+.nn-sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; background: var(--papier); border-top: 2px solid var(--tinte); padding: 10px var(--rand) calc(10px + env(safe-area-inset-bottom)); display: none; align-items: center; gap: 12px; transform: translateY(110%); transition: transform .3s var(--weich); }
+.nn-sticky.is-visible { transform: none; }
+.nn-sticky__info { flex: 1; min-width: 0; font-weight: 600; }
+.nn-sticky__t { font: 700 1rem/1.1 var(--kopf); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nn-modal { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 16px; }
+.nn-modal.hidden { display: none !important; }
+.nn-modal__schleier { position: absolute; inset: 0; background: rgba(30,27,23,.5); }
+.nn-modal__blatt { position: relative; width: min(560px, 100%); max-height: 90vh; overflow: auto; }
+.nn-tabelle { width: 100%; border-collapse: collapse; font-size: .98rem; }
+.nn-tabelle th, .nn-tabelle td { padding: 10px 8px; border-bottom: 1px dashed rgba(30,27,23,.3); text-align: center; }
+.nn-tabelle thead th { font: 600 1rem/1 var(--kopf); text-transform: uppercase; border-bottom: 2px solid var(--tinte); }
+.nn-tabelle tbody th { font: 700 1.1rem/1 var(--kopf); color: var(--marker); text-align: left; }
+@media (max-width: 860px) {
+  .nn-sticky { display: flex; }
+  .nn-produkt__info { padding-bottom: 20px; }
+  body.template-product #scroll-top-btn { bottom: 88px !important; }
+}
+
+/* ---------- Sterne, Filter, Seiten ---------- */
+.nn-sterne { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.nn-sterne__reihe { display: inline-flex; gap: 1px; color: var(--marker); font-size: 1rem; line-height: 1; }
+.nn-sterne__reihe .is-leer { color: rgba(30,27,23,.22); }
+.nn-sterne__zahl { font-size: .88rem; color: var(--graphit); }
+.nn-sterne__knopf { font-size: .9rem; font-weight: 600; }
+.nn-filterleiste { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; padding-block: 16px; border-block: 2px solid var(--tinte); }
+.nn-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+.nn-filter button { min-height: 42px; padding: 0 16px; border: 2px solid var(--tinte); background: #fffdf8; font: 600 1.05rem/1 var(--kopf); text-transform: uppercase; display: inline-flex; gap: 8px; align-items: center; border-radius: 22px; transition: background-color .15s; }
+.nn-filter button span { color: var(--graphit); font-weight: 500; }
+.nn-filter button:hover { background: var(--karton); }
+.nn-filter button.is-an { background: var(--tinte); color: var(--papier); }
+.nn-filter button.is-an span { color: var(--tape); }
+.nn-sortieren { display: flex; align-items: center; gap: 10px; font: 600 1.05rem/1 var(--kopf); text-transform: uppercase; }
+.nn-sortieren select { border: 2px solid var(--tinte); background: #fffdf8; padding: 9px 12px; font: 500 1rem var(--text); text-transform: none; }
+.nn-seiten { margin-top: 40px; display: flex; gap: 10px; justify-content: center; font: 600 1.2rem/1 var(--kopf); }
+.nn-seiten .current { color: var(--marker); }
+.nn-seiten a, .nn-seiten span { padding: 6px 10px; }
+@media (max-width: 600px) {
+  .nn-filter { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--rand) * -1); padding: 2px var(--rand); width: calc(100% + var(--rand) * 2); }
+  .nn-filter button { flex: none; }
+}
+
+.nn-suche { display: flex; gap: 10px; max-width: 640px; margin-top: 24px; }
+.nn-suche .nn-eingabe { flex: 1; min-height: 52px; font-size: 1.1rem; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
   .nn-raster { grid-template-columns: repeat(3, 1fr); }
@@ -375,7 +442,7 @@ body.nn-body {
   .nn-hero__collage .nn-foto:nth-child(3) { width: 54%; left: 22%; }
   .nn-hero__collage .nn-foto figcaption { font-size: 1.15rem; min-height: 2.2em; padding: 6px 2px 8px; }
   .nn-hero__collage .nn-foto--leer .nn-foto__bild span { font-size: 1.2rem; }
-  .nn-hero__collage .nn-stempel { width: 84px; height: 84px; font-size: .9rem; right: 0; bottom: auto; top: 44%; }
+  .nn-hero__collage .nn-stempel { width: 78px; height: 78px; font-size: .85rem; right: -4px; bottom: auto; top: 30%; }
   .nn-header__logo span { font-size: 1.25rem; }
 }
 

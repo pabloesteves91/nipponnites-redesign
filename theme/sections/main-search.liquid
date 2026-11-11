@@ -1,125 +1,39 @@
-<main class="pt-8 pb-20 bg-surface min-h-screen">
+<section class="nn-seitenkopf nn-wrap">
+  <span class="nn-notiz">wonach suchst du?</span>
+  <h1 class="nn-h1">Suche</h1>
+  <form action="/search" method="get" role="search" class="nn-suche">
+    <label class="nn-sr" for="nn-suche-q">Suchbegriff</label>
+    <input id="nn-suche-q" class="nn-eingabe" type="search" name="q" value="{{ search.terms | escape }}" placeholder="z. B. Hoodie, Supra, Custom">
+    <input type="hidden" name="type" value="product">
+    <button type="submit" class="nn-btn nn-btn--marker">Suchen</button>
+  </form>
+  {%- if search.performed -%}
+    <p class="nn-klein" style="margin-top:16px;">
+      {%- if search.results_count == 0 -%}Keine Treffer für «{{ search.terms | escape }}».{%- else -%}{{ search.results_count }} Treffer für «{{ search.terms | escape }}»{%- endif -%}
+    </p>
+  {%- endif -%}
+</section>
 
-  <!-- Search Header -->
-  <section class="px-8 py-16 bg-surface-container-low">
-    <div class="max-w-screen-xl mx-auto">
-      <h1 class="text-6xl md:text-8xl font-black font-headline uppercase tracking-tighter mb-8 leading-none">
-        SUCHE
-      </h1>
-      <form action="/search" method="get" class="flex gap-0 max-w-2xl">
-        <input
-          type="text"
-          name="q"
-          value="{{ search.terms | escape }}"
-          placeholder="SUCHBEGRIFF..."
-          class="flex-1 bg-transparent border-b-2 border-surface-variant focus:border-primary outline-none py-4 font-headline text-xl uppercase placeholder:text-white/20 tracking-widest"
-        >
-        <button
-          type="submit"
-          class="px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-black uppercase tracking-widest hover:brightness-110 transition-all"
-        >
-          <span class="material-symbols-outlined">search</span>
-        </button>
-      </form>
-      {% if search.performed %}
-        <p class="font-label text-xs tracking-[0.2em] uppercase text-white/40 mt-6">
-          {% if search.results_count == 0 %}
-            Keine Resultate für „{{ search.terms | escape }}"
-          {% else %}
-            {{ search.results_count }} Resultate für „{{ search.terms | escape }}"
-          {% endif %}
-        </p>
-      {% endif %}
-    </div>
-  </section>
-
-  <!-- Results -->
-  {% if search.performed %}
-    <section class="max-w-screen-xl mx-auto px-8 py-12">
-      {% if search.results_count == 0 %}
-        <div class="text-center py-32">
-          <p class="font-headline text-4xl font-black uppercase tracking-tighter text-white/20">Nichts gefunden.</p>
-          <p class="text-white/40 mt-4 font-body">Versuch einen anderen Suchbegriff.</p>
-          <a href="/collections/all" class="inline-block mt-8 px-12 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-black uppercase tracking-widest">
-            Alle Produkte
-          </a>
+{%- if search.performed -%}
+  <section class="nn-wrap" style="padding-bottom:clamp(56px,8vw,112px);">
+    {%- if search.results_count == 0 -%}
+      <div class="nn-blatt" style="max-width:560px;">
+        <p class="nn-h3">Nichts gefunden</p>
+        <p>Probier einen kürzeren Begriff, zum Beispiel «Hoodie» oder den Namen deines Autos. Oder schau dir alle Drops an.</p>
+        <a href="/collections/all" class="nn-btn nn-btn--marker">Alle Drops ansehen</a>
+      </div>
+    {%- else -%}
+      {% paginate search.results by 12 %}
+        <div class="nn-raster">
+          {%- for result in search.results -%}
+            {%- if result.object_type == 'product' -%}{% render 'nn-produktkarte', product: result %}{%- endif -%}
+          {%- endfor -%}
         </div>
-      {% else %}
-        {% paginate search.results by 12 %}
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-16 gap-x-8">
-            {% for result in search.results %}
-              {% if result.object_type == 'product' %}
-                {% assign product = result %}
-                <div class="group relative">
-                  <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
-                    <a href="{{ product.url }}">
-                      {% if product.featured_image %}
-                        <img
-                          src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}"
-                          alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        >
-                      {% else %}
-                        <div class="w-full h-full flex items-center justify-center text-white/10 font-headline text-xs uppercase">No image</div>
-                      {% endif %}
-                    </a>
-                    {% if product.compare_at_price > product.price %}
-                      <div class="absolute top-4 left-4">
-                        <span class="bg-primary text-on-primary-fixed px-3 py-1 text-[10px] font-black uppercase tracking-widest">Sale</span>
-                      </div>
-                    {% endif %}
-                  </div>
-                  <div class="space-y-2">
-                    <div class="flex justify-between items-start gap-4">
-                      <h3 class="font-headline font-bold text-lg uppercase leading-tight group-hover:text-primary transition-colors">
-                        <a href="{{ product.url }}">{{ product.title }}</a>
-                      </h3>
-                      <span class="font-body text-sm text-white/70 shrink-0">{{ product.price | money }}</span>
-                    </div>
-                    {% if product.type != blank %}
-                      <p class="text-xs text-white/40 font-body uppercase tracking-tighter">{{ product.type }}</p>
-                    {% endif %}
-                    <a
-                      href="{{ product.url }}"
-                      class="block w-full mt-4 py-4 bg-surface-container-highest border border-outline-variant hover:bg-primary hover:text-on-primary-fixed font-headline uppercase text-xs tracking-[0.2em] text-center transition-all"
-                    >
-                      Ansehen
-                    </a>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-
-          {% if paginate.pages > 1 %}
-            <div class="mt-20 flex justify-center items-center space-x-4">
-              {% if paginate.previous %}
-                <a href="{{ paginate.previous.url }}" class="w-12 h-12 flex items-center justify-center border border-outline-variant text-white/50 hover:text-primary transition-colors">
-                  <span class="material-symbols-outlined">chevron_left</span>
-                </a>
-              {% endif %}
-              {% for part in paginate.parts %}
-                {% if part.is_link %}
-                  <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center border border-outline-variant text-white/50 hover:text-primary font-headline font-bold transition-colors">{{ part.title }}</a>
-                {% elsif part.title == paginate.current_page %}
-                  <span class="w-12 h-12 flex items-center justify-center bg-primary text-on-primary-fixed font-headline font-bold">{{ part.title }}</span>
-                {% else %}
-                  <span class="w-12 h-12 flex items-center justify-center text-white/20 font-headline font-bold">{{ part.title }}</span>
-                {% endif %}
-              {% endfor %}
-              {% if paginate.next %}
-                <a href="{{ paginate.next.url }}" class="w-12 h-12 flex items-center justify-center border border-outline-variant text-white/50 hover:text-primary transition-colors">
-                  <span class="material-symbols-outlined">chevron_right</span>
-                </a>
-              {% endif %}
-            </div>
-          {% endif %}
-        {% endpaginate %}
-      {% endif %}
-    </section>
-  {% endif %}
-
-</main>
+        {%- if paginate.pages > 1 -%}<nav class="nn-seiten" aria-label="Seiten">{{ paginate | default_pagination: next: 'Weiter', previous: 'Zurück' }}</nav>{%- endif -%}
+      {% endpaginate %}
+    {%- endif -%}
+  </section>
+{%- endif -%}
 
 {% schema %}
 {

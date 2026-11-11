@@ -1,179 +1,131 @@
+{{ product | structured_data }}
+{%- assign _col = product.collections.first -%}
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "{{ product.title | escape }}",
-  "description": "{{ product.description | strip_html | strip_newlines | escape }}",
-  "image": "https:{{ product.featured_image | image_url: width: 1200 }}",
-  "brand": { "@type": "Brand", "name": "{{ shop.name | escape }}" },
-  "offers": {
-    "@type": "Offer",
-    "price": "{{ product.price | divided_by: 100.0 }}",
-    "priceCurrency": "{{ cart.currency.iso_code }}",
-    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
-    "url": "{{ shop.url }}{{ product.url }}"
-  }
-}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+  {"@type":"ListItem","position":2,"name":"Shop","item":"{{ shop.url }}/collections/all"},
+  {"@type":"ListItem","position":3,"name":{{ product.title | json }},"item":"{{ shop.url }}{{ product.url }}"}
+]}
 </script>
-{%- comment -%} Titel sauber aufteilen: 'A | B' oder letztes Wort farbig {%- endcomment -%}
-{%- if product.title contains ' | ' -%}
-  {%- assign _tparts = product.title | split: ' | ' -%}
-  {%- assign _t1 = _tparts.first -%}
-  {%- assign _t2 = _tparts.last -%}
-{%- else -%}
-  {%- assign _twords = product.title | split: ' ' -%}
-  {%- if _twords.size > 1 -%}
-    {%- assign _t2 = _twords.last -%}
-    {%- assign _t1 = product.title | remove_last: _t2 | strip -%}
-  {%- else -%}
-    {%- assign _t1 = product.title -%}
-    {%- assign _t2 = '' -%}
-  {%- endif -%}
-{%- endif -%}
 {%- assign _factor = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
 {%- assign _is_apparel = false -%}
 {%- for option in product.options_with_values -%}
   {%- assign _on = option.name | downcase -%}
   {%- if _on contains 'size' or _on contains 'grösse' or _on contains 'größe' -%}{%- assign _is_apparel = true -%}{%- endif -%}
 {%- endfor -%}
-<style>
-  .nn-pdp{display:grid;grid-template-columns:1fr;}
-  .nn-pdp__media{order:1;padding:16px;}
-  .nn-pdp__buy{order:2;padding:24px 16px 32px;}
-  .nn-pdp__desc{order:3;padding:0 16px 48px;}
-  .nn-pdp__slider{aspect-ratio:4/5;}
-  .nn-pdp__title{font-size:40px;}
-  .nn-pdp__ship{display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,.65);margin-top:14px;}
-  .nn-pdp__ship .material-symbols-outlined{font-size:18px;color:#ffb4a9;}
-  .nn-pdp__sizetip{font-family:'Inter',sans-serif;font-size:12px;color:#ffb4a9;margin:-0.5rem 0 1.25rem;}
-  .nn-sticky{position:fixed;left:0;right:0;bottom:0;z-index:45;background:#131313;border-top:1px solid rgba(255,255,255,.1);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s;}
-  .nn-sticky.is-visible{transform:translateY(0);}
-  .nn-sticky__info{flex:1;min-width:0;}
-  .nn-sticky__t{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .nn-sticky__p{font-family:'Space Grotesk',sans-serif;font-size:14px;color:#ffb4a9;}
-  .nn-sticky__btn{background:linear-gradient(to right,#ffb4a9,#fb5a48);color:#410000;font-family:'Space Grotesk',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:13px;padding:14px 18px;border:0;cursor:pointer;}
-  #scroll-top-btn{bottom:88px !important;}
-  @media (min-width:768px){
-    .nn-pdp{grid-template-columns:7fr 5fr;}
-    .nn-pdp__media{grid-column:1;grid-row:1;padding:48px;}
-    .nn-pdp__desc{grid-column:1;grid-row:2;padding:0 48px 64px;}
-    .nn-pdp__buy{grid-column:2;grid-row:1 / span 2;align-self:start;position:sticky;top:5rem;padding:64px;}
-    .nn-pdp__slider{aspect-ratio:3/4;}
-    .nn-pdp__title{font-size:64px;}
-    .nn-sticky{display:none;}
-  }
-</style>
-<div class="nn-pdp bg-surface">
 
-  <!-- Bilder -->
-  <div class="nn-pdp__media">
-    <div id="pdp-slider" class="nn-pdp__slider relative overflow-hidden bg-surface-container-low select-none" style="width:100%;">
-      <div id="pdp-slides" style="display:flex; width:100%; height:100%; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform;">
-        {% for image in product.images %}
-          <div style="flex:0 0 100%; width:100%; position:relative; overflow:hidden;">
-            <img src="{{ image | image_url: width: 1000 }}"
-                 alt="{{ image.alt | default: product.title | escape }}"
-                 {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}
-                 style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
-          </div>
-        {% endfor %}
-      </div>
-      {% if product.images.size > 1 %}
-        <button onclick="pdpSlide(-1)" aria-label="Vorheriges Bild"
-          style="position:absolute; left:0.75rem; top:50%; transform:translateY(-50%); background:rgba(19,19,19,0.75); border:1px solid rgba(255,255,255,0.15); color:#ffb4a9; width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; padding:0;">
-          <span class="material-symbols-outlined" style="font-size:20px;">chevron_left</span>
-        </button>
-        <button onclick="pdpSlide(1)" aria-label="Nächstes Bild"
-          style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); background:rgba(19,19,19,0.75); border:1px solid rgba(255,255,255,0.15); color:#ffb4a9; width:2.5rem; height:2.5rem; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:10; padding:0;">
-          <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
-        </button>
-        <div style="position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:0.4rem; z-index:10;">
-          {% for image in product.images %}
-            <button onclick="pdpGoTo({{ forloop.index0 }})" aria-label="Bild {{ forloop.index }}" class="pdp-dot"
-              style="width:0.5rem; height:0.5rem; border-radius:9999px; border:none; cursor:pointer; padding:0; background:{% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.3){% endif %};"></button>
-          {% endfor %}
-        </div>
-      {% endif %}
-      {% if product.tags contains 'limited' %}
-        <div style="position:absolute; top:1rem; left:1rem; z-index:10;">
-          <span class="bg-surface-container-highest px-4 py-1 text-primary text-xs font-label tracking-[0.2em] uppercase flex items-center gap-2">
-            <span class="w-2 h-2 bg-primary animate-pulse rounded-full"></span>
-            Limited Edition
-          </span>
-        </div>
-      {% endif %}
-    </div>
-    <script>
-      (function() {
-        var _cur = 0, _total = {{ product.images.size }}, _sx = 0;
-        function _update() {
-          var track = document.getElementById('pdp-slides');
-          if (track) track.style.transform = 'translateX(-' + (_cur * 100) + '%)';
-          document.querySelectorAll('.pdp-dot').forEach(function(d, i) { d.style.background = (i === _cur) ? '#ffb4a9' : 'rgba(255,255,255,0.3)'; });
-        }
-        window.pdpSlide = function(dir) { if (_total < 2) return; _cur = (_cur + dir + _total) % _total; _update(); };
-        window.pdpGoTo = function(idx) { _cur = idx; _update(); };
-        var sl = document.getElementById('pdp-slider');
-        if (sl) {
-          sl.addEventListener('touchstart', function(e) { _sx = e.touches[0].clientX; }, { passive: true });
-          sl.addEventListener('touchend', function(e) { var dx = e.changedTouches[0].clientX - _sx; if (Math.abs(dx) > 40) pdpSlide(dx < 0 ? 1 : -1); }, { passive: true });
-        }
-      })();
-    </script>
-  </div>
+<div class="nn-wrap" style="padding-top:24px;">
+  <nav class="nn-krumen" aria-label="Brotkrumen">
+    <ol>
+      <li><a href="/">Home</a></li>
+      <li><a href="/collections/all">Shop</a></li>
+      <li aria-current="page">{{ product.title }}</li>
+    </ol>
+  </nav>
 
-  <!-- Kaufbereich -->
-  <div class="nn-pdp__buy bg-surface-container-low h-fit">
-    <div class="flex flex-col gap-6">
-      <div class="space-y-2">
-        {% if product.type != blank %}
-          <p class="text-white/40 font-label text-sm tracking-[0.3em] uppercase">{{ product.type }}</p>
-        {% endif %}
-        <h1 class="nn-pdp__title font-headline font-black tracking-tighter uppercase leading-none">
-          {{ _t1 }}{% if _t2 != blank %}<br><span class="text-primary">{{ _t2 }}</span>{% endif %}
-        </h1>
-        {%- if _factor != 1 -%}
-          {%- assign discounted_price = product.price | times: _factor | round -%}
-          <p id="product-price" class="text-2xl font-headline font-bold mt-4">
-            <s style="color:rgba(255,255,255,0.35);font-size:0.875em;font-weight:400;">{{ product.price | money }}</s>
-            <span style="margin-left:0.5rem;">{{ discounted_price | money }}</span>
-          </p>
-        {%- else -%}
-          <p id="product-price" class="text-2xl font-headline font-bold mt-4">{{ product.price | money }}</p>
-        {%- endif -%}
-        {% render 'star-rating', product: product, show_button: true %}
-      </div>
-
-      {% if product.metafields.custom.short_description != blank %}
-        <p class="text-white/70 font-body leading-relaxed max-w-md">{{ product.metafields.custom.short_description }}</p>
-      {% endif %}
-
-      {% form 'product', product, id: 'pdp-form' %}
-        <div>
-          {% for option in product.options_with_values %}
-            {%- assign _oname = option.name | downcase -%}
-            <div data-option-index="{{ forloop.index }}" style="margin-bottom:1.5rem;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-                <label style="font-family:'Space Grotesk',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.15em; color:rgba(255,255,255,0.5);">{% if _oname == 'size' %}Grösse{% elsif _oname == 'color' %}Farbe{% else %}{{ option.name }}{% endif %}</label>
-                {% if _is_apparel and forloop.last %}
-                  <button type="button" onclick="document.getElementById('size-guide-modal').classList.remove('hidden')"
-                    style="font-family:'Space Grotesk',sans-serif; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:#ffb4a9; text-decoration:underline; background:none; border:none; cursor:pointer; padding:0;">Grössentabelle</button>
-                {% endif %}
-              </div>
-              <div style="display:flex; flex-wrap:wrap; gap:0.5rem;">
-                {% for value in option.values %}
-                  <button type="button" data-option="{{ forloop.parentloop.index }}" data-value="{{ value | escape }}"
-                    onclick="selectVariantOption({{ forloop.parentloop.index }}, '{{ value | escape }}', this)"
-                    style="height:3rem; min-width:3rem; padding:0 1.1rem; border:1px solid {% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.15){% endif %}; color:{% if forloop.first %}#ffb4a9{% else %}rgba(255,255,255,0.7){% endif %}; background:{% if forloop.first %}rgba(255,180,169,0.1){% else %}transparent{% endif %}; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.1em; cursor:pointer; transition:all 0.15s ease;">{{ value }}</button>
-                {% endfor %}
-              </div>
+  <div class="nn-produkt">
+    <!-- Bilder -->
+    <div>
+      <div id="pdp-slider" class="nn-produkt__slider">
+        <div id="pdp-slides" class="nn-produkt__spur">
+          {%- for image in product.images -%}
+            <div class="nn-produkt__bild">
+              {%- if forloop.first -%}
+                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: image.alt | default: product.title, fetchpriority: 'high', loading: 'eager' }}
+              {%- else -%}
+                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: image.alt | default: product.title, loading: 'lazy' }}
+              {%- endif -%}
             </div>
-            {% if _is_apparel and forloop.last %}
-              <p class="nn-pdp__sizetip">Tipp: Bestelle eine Nummer grösser.</p>
-            {% endif %}
-          {% endfor %}
-          <input type="hidden" name="id" id="variant-id" value="{{ product.variants.first.id }}">
+          {%- endfor -%}
         </div>
+        {%- if product.images.size > 1 -%}
+          <button type="button" class="nn-produkt__pfeil nn-produkt__pfeil--l" onclick="pdpSlide(-1)" aria-label="Vorheriges Bild">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button type="button" class="nn-produkt__pfeil nn-produkt__pfeil--r" onclick="pdpSlide(1)" aria-label="Nächstes Bild">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        {%- endif -%}
+        {%- if product.tags contains 'limited' or product.tags contains 'Limited' -%}
+          <span class="nn-karte__marke">{% render 'nn-stempel', text: 'Limited' %}</span>
+        {%- elsif product.type == 'Custom' -%}
+          <span class="nn-karte__marke">{% render 'nn-stempel', text: '1 von 1' %}</span>
+        {%- endif -%}
+      </div>
+      {%- if product.images.size > 1 -%}
+        <div class="nn-produkt__daumen">
+          {%- for image in product.images -%}
+            <button type="button" class="pdp-dot{% if forloop.first %} is-an{% endif %}" onclick="pdpGoTo({{ forloop.index0 }})" aria-label="Bild {{ forloop.index }}">
+              {{ image | image_url: width: 160 | image_tag: alt: '', loading: 'lazy', width: 80, height: 80 }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <script>
+        (function() {
+          var _cur = 0, _total = {{ product.images.size }}, _sx = 0;
+          function _update() {
+            var track = document.getElementById('pdp-slides');
+            if (track) track.style.transform = 'translateX(-' + (_cur * 100) + '%)';
+            document.querySelectorAll('.pdp-dot').forEach(function(d, i) { d.classList.toggle('is-an', i === _cur); });
+          }
+          window.pdpSlide = function(dir) { if (_total < 2) return; _cur = (_cur + dir + _total) % _total; _update(); };
+          window.pdpGoTo = function(idx) { _cur = idx; _update(); };
+          var sl = document.getElementById('pdp-slider');
+          if (sl) {
+            sl.addEventListener('touchstart', function(e) { _sx = e.touches[0].clientX; }, { passive: true });
+            sl.addEventListener('touchend', function(e) { var dx = e.changedTouches[0].clientX - _sx; if (Math.abs(dx) > 40) pdpSlide(dx < 0 ? 1 : -1); }, { passive: true });
+          }
+        })();
+      </script>
+
+      {%- if product.description != blank -%}
+        <div class="nn-produkt__details">
+          <h2 class="nn-h3">Produktdetails</h2>
+          <div class="nn-text">{{ product.description }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Kaufbereich -->
+    <div class="nn-produkt__info">
+      {%- if product.type != blank -%}<span class="nn-notiz">{{ product.type }}</span>{%- endif -%}
+      <h1 class="nn-h2" style="margin-top:.15em;">{{ product.title | replace: ' | ', ' · ' }}</h1>
+
+      {%- if _factor != 1 -%}
+        {%- assign discounted_price = product.price | times: _factor | round -%}
+        <p id="product-price" class="nn-produkt__preis"><span>{{ discounted_price | money }}</span> <s>{{ product.price | money }}</s></p>
+      {%- else -%}
+        <p id="product-price" class="nn-produkt__preis">{{ product.price | money }}</p>
+      {%- endif -%}
+      {% render 'star-rating', product: product, show_button: true %}
+
+      {%- if product.metafields.custom.short_description != blank -%}
+        <p style="margin:18px 0 0;max-width:34em;">{{ product.metafields.custom.short_description }}</p>
+      {%- endif -%}
+
+      {% form 'product', product, id: 'pdp-form', class: 'nn-produkt__form' %}
+        {%- for option in product.options_with_values -%}
+          {%- assign _oname = option.name | downcase -%}
+          <div class="nn-optionen" data-option-index="{{ forloop.index }}">
+            <div class="nn-optionen__kopf">
+              <span class="nn-optionen__name">{% if _oname == 'size' %}Grösse{% elsif _oname == 'color' %}Farbe{% else %}{{ option.name | replace: 'Größe', 'Grösse' }}{% endif %}</span>
+              {%- if _is_apparel and forloop.last -%}
+                <button type="button" class="nn-link" onclick="document.getElementById('size-guide-modal').classList.remove('hidden')">Grössentabelle</button>
+              {%- endif -%}
+            </div>
+            <div class="nn-optionen__reihe">
+              {%- for value in option.values -%}
+                <button type="button" class="nn-wahlknopf{% if forloop.first %} is-an{% endif %}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" data-option="{{ forloop.parentloop.index }}" data-value="{{ value | escape }}"
+                  onclick="selectVariantOption({{ forloop.parentloop.index }}, '{{ value | escape }}', this)">{{ value }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- if _is_apparel and forloop.last -%}
+            <p class="nn-hinweis" style="margin:-6px 0 18px;">Tipp: lieber eine Nummer grösser.</p>
+          {%- endif -%}
+        {%- endfor -%}
+        <input type="hidden" name="id" id="variant-id" value="{{ product.variants.first.id }}">
 
         <script>
           var _variants = {{ product.variants | json }};
@@ -183,8 +135,8 @@
           function selectVariantOption(idx, value, el) {
             _selected[idx] = value;
             var group = el.closest('[data-option-index]');
-            group.querySelectorAll('button[data-option]').forEach(function(b) { b.style.borderColor = 'rgba(255,255,255,0.15)'; b.style.color = 'rgba(255,255,255,0.7)'; b.style.background = 'transparent'; });
-            el.style.borderColor = '#ffb4a9'; el.style.color = '#ffb4a9'; el.style.background = 'rgba(255,180,169,0.1)';
+            group.querySelectorAll('button[data-option]').forEach(function(b) { b.classList.remove('is-an'); b.setAttribute('aria-pressed', 'false'); });
+            el.classList.add('is-an'); el.setAttribute('aria-pressed', 'true');
             var match = _variants.find(function(v) { return v.options.every(function(opt, i) { return _selected[i + 1] === opt; }); });
             if (!match) return;
             document.getElementById('variant-id').value = match.id;
@@ -195,7 +147,7 @@
             function f(c) { var a = (c / 100).toFixed(2); return fmt.replace(_t1, a).replace(_t2, a.replace('.', ',')).replace(_t3, String(Math.floor(c / 100))); }
             var discFactor = {{ _factor | default: 1 }};
             var html = discFactor !== 1
-              ? '<s style="color:rgba(255,255,255,0.35);font-size:0.875em;font-weight:400;">' + f(match.price) + '</s><span style="margin-left:0.5rem;">' + f(Math.round(match.price * discFactor)) + '</span>'
+              ? '<span>' + f(Math.round(match.price * discFactor)) + '</span> <s>' + f(match.price) + '</s>'
               : f(match.price);
             var priceEl = document.getElementById('product-price');
             if (priceEl) priceEl.innerHTML = html;
@@ -206,71 +158,48 @@
           }
         </script>
 
-        <div class="space-y-4 pt-2">
-          {% if product.available %}
-            <button type="submit" name="add" id="pdp-add"
-                    class="w-full bg-gradient-to-r from-primary to-primary-container h-16 text-on-primary-fixed font-headline font-extrabold uppercase tracking-widest hover:scale-[1.02] active:scale-95 transition-transform">In den Warenkorb</button>
-          {% else %}
-            <button disabled class="w-full bg-surface-container-highest h-16 text-white/30 font-headline font-extrabold uppercase tracking-widest cursor-not-allowed">Ausverkauft</button>
-          {% endif %}
+        <div style="display:grid;gap:12px;margin-top:6px;">
+          {%- if product.available -%}
+            <button type="submit" name="add" id="pdp-add" class="nn-btn nn-btn--marker nn-btn--voll">In den Warenkorb</button>
+          {%- else -%}
+            <button type="button" disabled class="nn-btn nn-btn--voll">Ausverkauft</button>
+          {%- endif -%}
           {{ form | payment_button }}
         </div>
       {% endform %}
 
-      <div>
-        <p class="nn-pdp__ship"><span class="material-symbols-outlined">local_shipping</span>Wird für dich produziert · Lieferung in 10–20 Werktagen</p>
-        <p class="nn-pdp__ship"><span class="material-symbols-outlined">undo</span>14 Tage Rückgaberecht</p>
-        <p class="nn-pdp__ship"><span class="material-symbols-outlined">lock</span>Sichere Bezahlung mit TWINT, PayPal oder Karte</p>
-      </div>
+      <ul class="nn-check nn-produkt__fakten" data-abhaken>
+        <li><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>{% if product.type == 'Custom' %}Von Hand gezeichnet, 1–2 Wochen Produktion{% else %}Auf Bestellung produziert, 10–20 Werktage{% endif %}</span></li>
+        <li><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>{% if product.type == 'Custom' %}Einzelstück, darum kein Umtausch{% else %}14 Tage Rückgaberecht{% endif %}</span></li>
+        <li><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>TWINT, PayPal oder Karte</span></li>
+      </ul>
 
-      <div class="flex items-center gap-3 flex-wrap">
-        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;"><rect width="38" height="24" rx="3" fill="#1A1F71"/><text x="19" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white" text-anchor="middle" letter-spacing="1">VISA</text></svg>
-        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;"><rect width="38" height="24" rx="3" fill="#252525"/><circle cx="15" cy="12" r="7" fill="#EB001B"/><circle cx="23" cy="12" r="7" fill="#F79E1B"/><path d="M19 6.8a7 7 0 0 1 0 10.4A7 7 0 0 1 19 6.8z" fill="#FF5F00"/></svg>
-        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;"><rect width="38" height="24" rx="3" fill="white"/><text x="19" y="16" font-family="Arial,sans-serif" font-size="8" font-weight="900" fill="#000" text-anchor="middle" letter-spacing="0.5">TWINT</text></svg>
-        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;"><rect width="38" height="24" rx="3" fill="#000"/><path d="M13.5 8.2c.5-.6.8-1.4.7-2.2-.7 0-1.5.5-2 1.1-.4.5-.8 1.3-.7 2.1.8.1 1.5-.4 2-1z" fill="white"/><path d="M16.2 9.2c-1.1-.1-2.1.6-2.6.6s-1.3-.6-2.2-.6C10 9.3 8.6 10.1 8 11.4c-1.2 2.1-.3 5.2.9 6.9.6.8 1.3 1.7 2.2 1.7.9 0 1.2-.6 2.2-.6 1.1 0 1.3.6 2.2.6.9 0 1.6-.9 2.2-1.7.4-.5.5-1 .7-1-.7-.3-2.4-1.4-2.4-3.4 0-1.8 1.3-2.7 1.4-2.8-.7-1.1-1.9-1.9-3.2-1.9z" fill="white"/></svg>
-        <svg width="38" height="24" viewBox="0 0 38 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="border:1px solid rgba(255,255,255,0.12); border-radius:3px;"><rect width="38" height="24" rx="3" fill="#002C8A"/><text x="19" y="16" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white" text-anchor="middle">PayPal</text></svg>
-      </div>
-
-      <div class="border-t border-white/10 pt-6 space-y-4">
-        <details class="group cursor-pointer">
-          <summary class="flex justify-between items-center py-2 list-none">
-            <h4 class="font-label uppercase tracking-widest text-sm">Versand & Rückgabe</h4>
-            <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <div class="text-xs text-white/50 leading-relaxed font-body mt-3 space-y-2">
+      <div class="nn-auf" style="margin-top:28px;">
+        <details>
+          <summary>Versand &amp; Rückgabe</summary>
+          <div class="nn-auf__inhalt nn-text">
             <p>Jedes Teil wird nach deiner Bestellung für dich produziert. Die Lieferung dauert 10–20 Werktage, mit Sendungsverfolgung (sofern verfügbar). Die Versandkosten siehst du im Checkout.</p>
-            <p>Rückgabe innert 14 Tagen für ungetragene, ungewaschene Artikel. Die Kosten für den Rückversand trägst du. Personalisierte Artikel sind von der Rückgabe ausgeschlossen. <a href="/policies/refund-policy" class="text-primary underline">Details</a></p>
+            <p>Rückgabe innert 14 Tagen für ungetragene, ungewaschene Artikel. Die Kosten für den Rückversand trägst du. Personalisierte Artikel sind von der Rückgabe ausgeschlossen. <a href="/policies/refund-policy">Details</a></p>
           </div>
         </details>
-        {% if _is_apparel %}
-        <details class="group cursor-pointer">
-          <summary class="flex justify-between items-center py-2 list-none">
-            <h4 class="font-label uppercase tracking-widest text-sm">Material & Pflege</h4>
-            <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
-          </summary>
-          <p class="text-xs text-white/50 leading-relaxed font-body mt-3">Kalt und auf links waschen. Nicht in den Trockner. Bei niedriger Temperatur bügeln (Druck und Stickerei aussparen).</p>
+        {%- if _is_apparel -%}
+        <details>
+          <summary>Material &amp; Pflege</summary>
+          <div class="nn-auf__inhalt nn-text"><p>Kalt und auf links waschen. Nicht in den Trockner. Bei niedriger Temperatur bügeln, Druck und Stickerei aussparen.</p></div>
         </details>
-        {% endif %}
+        {%- endif -%}
       </div>
     </div>
   </div>
-
-  <!-- Produktdetails -->
-  {% if product.description != blank %}
-    <div class="nn-pdp__desc">
-      <h2 class="font-headline text-2xl font-bold uppercase tracking-tight mb-6">Produktdetails</h2>
-      <div class="text-white/60 font-body text-sm leading-relaxed max-w-xl">{{ product.description }}</div>
-    </div>
-  {% endif %}
 </div>
 
-{% if product.available %}
+{%- if product.available -%}
 <div class="nn-sticky" id="nn-sticky" aria-hidden="true">
   <div class="nn-sticky__info">
     <div class="nn-sticky__t">{{ product.title }}</div>
-    <div class="nn-sticky__p" id="nn-sticky-price">{% if _factor != 1 %}{{ product.price | times: _factor | round | money }}{% else %}{{ product.price | money }}{% endif %}</div>
+    <div id="nn-sticky-price">{% if _factor != 1 %}{{ product.price | times: _factor | round | money }}{% else %}{{ product.price | money }}{% endif %}</div>
   </div>
-  <button type="button" class="nn-sticky__btn" onclick="var b=document.getElementById('pdp-add'); if(b){ if(b.disabled){ b.scrollIntoView({behavior:'smooth',block:'center'}); } else { b.click(); } }">In den Warenkorb</button>
+  <button type="button" class="nn-btn nn-btn--marker" tabindex="-1" onclick="var b=document.getElementById('pdp-add'); if(b){ if(b.disabled){ b.scrollIntoView({behavior:'smooth',block:'center'}); } else { b.click(); } }">In den Warenkorb</button>
 </div>
 <script>
   (function(){
@@ -278,42 +207,33 @@
     if (!bar || !btn || !('IntersectionObserver' in window)) return;
     new IntersectionObserver(function(entries){
       var e = entries[0];
-      var below = e.boundingClientRect.top < 0;
-      bar.classList.toggle('is-visible', !e.isIntersecting && below);
+      bar.classList.toggle('is-visible', !e.isIntersecting && e.boundingClientRect.top < 0);
     }).observe(btn);
   })();
 </script>
-{% endif %}
+{%- endif -%}
 
 <!-- Grössentabelle -->
-<div id="size-guide-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="document.getElementById('size-guide-modal').classList.add('hidden')"></div>
-  <div class="relative bg-surface-container-low border border-outline-variant w-full max-w-lg p-8 z-10">
-    <div class="flex justify-between items-center mb-8">
-      <h3 class="font-headline font-black text-2xl uppercase tracking-tighter">Grössentabelle</h3>
-      <button onclick="document.getElementById('size-guide-modal').classList.add('hidden')" class="text-white/40 hover:text-white text-2xl leading-none" aria-label="Schliessen">×</button>
+<div id="size-guide-modal" class="hidden nn-modal" role="dialog" aria-modal="true" aria-labelledby="size-guide-title">
+  <div class="nn-modal__schleier" onclick="document.getElementById('size-guide-modal').classList.add('hidden')"></div>
+  <div class="nn-modal__blatt nn-blatt">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h2 id="size-guide-title" class="nn-h3">Grössentabelle</h2>
+      <button type="button" class="nn-icon" onclick="document.getElementById('size-guide-modal').classList.add('hidden')" aria-label="Schliessen">{% render 'nn-scribble', art: 'kreuz' %}</button>
     </div>
-    <p class="text-white/40 text-xs font-body mb-6 uppercase tracking-widest">Alle Masse in Zentimetern (cm)</p>
-    <table class="w-full text-sm font-body">
-      <thead>
-        <tr class="border-b border-white/10">
-          <th class="text-left py-3 font-headline text-xs uppercase tracking-widest text-white/40">Grösse</th>
-          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Brust</th>
-          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Länge</th>
-          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Schulter</th>
-          <th class="text-center py-3 font-headline text-xs uppercase tracking-widest text-white/40">Ärmel</th>
-        </tr>
-      </thead>
+    <p class="nn-klein" style="margin:0 0 14px;">Alle Masse in Zentimetern (cm)</p>
+    <table class="nn-tabelle">
+      <thead><tr><th>Grösse</th><th>Brust</th><th>Länge</th><th>Schulter</th><th>Ärmel</th></tr></thead>
       <tbody>
-        <tr class="border-b border-white/5"><td class="py-3 font-headline font-bold text-primary">XS</td><td class="py-3 text-center text-white/70">86</td><td class="py-3 text-center text-white/70">64</td><td class="py-3 text-center text-white/70">41</td><td class="py-3 text-center text-white/70">62</td></tr>
-        <tr class="border-b border-white/5"><td class="py-3 font-headline font-bold text-primary">S</td><td class="py-3 text-center text-white/70">92</td><td class="py-3 text-center text-white/70">66</td><td class="py-3 text-center text-white/70">43</td><td class="py-3 text-center text-white/70">64</td></tr>
-        <tr class="border-b border-white/5"><td class="py-3 font-headline font-bold text-primary">M</td><td class="py-3 text-center text-white/70">100</td><td class="py-3 text-center text-white/70">68</td><td class="py-3 text-center text-white/70">46</td><td class="py-3 text-center text-white/70">66</td></tr>
-        <tr class="border-b border-white/5"><td class="py-3 font-headline font-bold text-primary">L</td><td class="py-3 text-center text-white/70">108</td><td class="py-3 text-center text-white/70">72</td><td class="py-3 text-center text-white/70">49</td><td class="py-3 text-center text-white/70">68</td></tr>
-        <tr class="border-b border-white/5"><td class="py-3 font-headline font-bold text-primary">XL</td><td class="py-3 text-center text-white/70">116</td><td class="py-3 text-center text-white/70">74</td><td class="py-3 text-center text-white/70">52</td><td class="py-3 text-center text-white/70">70</td></tr>
-        <tr><td class="py-3 font-headline font-bold text-primary">XXL</td><td class="py-3 text-center text-white/70">124</td><td class="py-3 text-center text-white/70">76</td><td class="py-3 text-center text-white/70">55</td><td class="py-3 text-center text-white/70">72</td></tr>
+        <tr><th>XS</th><td>86</td><td>64</td><td>41</td><td>62</td></tr>
+        <tr><th>S</th><td>92</td><td>66</td><td>43</td><td>64</td></tr>
+        <tr><th>M</th><td>100</td><td>68</td><td>46</td><td>66</td></tr>
+        <tr><th>L</th><td>108</td><td>72</td><td>49</td><td>68</td></tr>
+        <tr><th>XL</th><td>116</td><td>74</td><td>52</td><td>70</td></tr>
+        <tr><th>XXL</th><td>124</td><td>76</td><td>55</td><td>72</td></tr>
       </tbody>
     </table>
-    <p class="text-white/30 text-xs font-body mt-6">Tipp: Bestelle eine Nummer grösser.</p>
+    <p class="nn-hinweis" style="margin:14px 0 0;">Tipp: lieber eine Nummer grösser.</p>
   </div>
 </div>
 

@@ -96,7 +96,7 @@
   {{ 'theme.min.css' | asset_url | stylesheet_tag }}
   {{ 'nn.css' | asset_url | stylesheet_tag }}
 </head>
-<body class="nn-body">
+<body class="nn-body template-{{ template.name }}">
   <a class="nn-skip" href="#MainContent">Zum Inhalt springen</a>
   {% section 'ticker-bar' %}
   {% section 'announcement-bar' %}

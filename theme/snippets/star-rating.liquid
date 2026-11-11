@@ -2,23 +2,23 @@
 {%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
 {%- assign _full = _rating | floor -%}
 {%- if _count > 0 or show_button -%}
-<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;">
+<div class="nn-sterne">
   {%- if _count > 0 -%}
-    <div style="display:flex;gap:2px;align-items:center;">
+    <span class="nn-sterne__reihe" aria-label="{{ _rating }} von 5 Sternen">
       {%- for i in (1..5) -%}
-        {%- if i <= _full -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;">★</span>
-        {%- else -%}<span style="color:#ffb4a9;font-size:15px;line-height:1;opacity:0.25;">★</span>
+        {%- if i <= _full -%}<span aria-hidden="true">★</span>
+        {%- else -%}<span aria-hidden="true" class="is-leer">★</span>
         {%- endif -%}
       {%- endfor -%}
-    </div>
-    <span style="color:rgba(255,255,255,0.4);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.12em;">
+    </span>
+    <span class="nn-sterne__zahl">
       {{ _count }} {% if _count == 1 %}Bewertung{% else %}Bewertungen{% endif %}
     </span>
   {%- endif -%}
   {%- if show_button -%}
     <button type="button"
       onclick="var f=document.getElementById('jdgm-inline-{{ product.id }}');f.style.display=f.style.display==='none'?'block':'none';"
-      style="font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:#ffb4a9;background:transparent;border:1px solid rgba(255,180,169,0.4);padding:3px 10px;cursor:pointer;white-space:nowrap;">
+      class="nn-link nn-sterne__knopf">
       {% if _count > 0 %}+ Bewertung schreiben{% else %}Als Erste:r bewerten{% endif %}
     </button>
   {%- endif -%}
@@ -31,7 +31,7 @@
     #jdgm-inline-{{ product.id }} select { color: #1a1a1a !important; }
     #jdgm-inline-{{ product.id }} input::placeholder,
     #jdgm-inline-{{ product.id }} textarea::placeholder { color: #666666 !important; }
-    #jdgm-inline-{{ product.id }} .jdgm-submit-rev-btn { color: #ffffff !important; }
+    #jdgm-inline-{{ product.id }} .jdgm-submit-rev-btn { color: #ffffff !important; background: var(--marker) !important; }
   </style>
   <div id="jdgm-inline-{{ product.id }}" style="display:none;margin-top:16px;">
     <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}">
