@@ -44,7 +44,7 @@
             {%- assign link_title_lower = link.title | downcase -%}
             {%- if link_title_lower == 'faq' -%}{%- assign nav_url = '/pages/faq' -%}{%- endif -%}
             {%- unless link_title_lower contains 'widerruf' -%}
-              <li><a href="{{ nav_url }}">{{ link.title }}</a></li>
+              <li><a href="{{ nav_url }}">{% render 'nn-de', text: link.title %}</a></li>
             {%- endunless -%}
           {%- endfor -%}
           <li><a href="/pages/sitemap">Sitemap</a></li>
@@ -57,7 +57,7 @@
           {%- for policy in shop.policies -%}
             {%- assign policy_title_lower = policy.title | downcase -%}
             {%- unless policy_title_lower contains 'widerruf' -%}
-              {%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endif -%}
+              {%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{% render 'nn-de', text: policy.title %}</a></li>{%- endif -%}
             {%- endunless -%}
           {%- endfor -%}
           <li><a href="/pages/widerruf-formular">Widerruf</a></li>

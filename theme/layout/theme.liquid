@@ -7,8 +7,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="canonical" href="{{ canonical_url }}">
   <meta name="robots" content="index, follow">
-  <title>{{ page_title }}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
-  {% assign meta_desc = page_description | default: shop.description %}
+  {%- comment -%} Sprechende Titel/Beschreibungen für Seiten ohne eigene SEO-Daten im Shop {%- endcomment -%}
+  {%- assign _t = page_title -%}{%- assign _d = page_description | default: shop.description -%}
+  {%- if template.name == 'collection' and collection.handle == 'all' -%}{%- assign _t = 'JDM Merch & Streetwear: Hoodies, Shirts | Nippon Nites' -%}{%- assign _d = 'Alle JDM-Hoodies, T-Shirts, Caps und Accessoires von Nippon Nites aus Winterthur. Von Hand gezeichnet, auf Bestellung produziert, Versand CH, DE, AT.' -%}
+  {%- elsif template.name == '404' -%}{%- assign _t = 'Seite nicht gefunden | Nippon Nites' -%}{%- assign _d = 'Diese Seite gibt es nicht. Zu den Drops von Nippon Nites oder zur Startseite.' -%}
+  {%- elsif template.name == 'page' -%}
+    {%- case page.handle -%}
+      {%- when 'custom' -%}{%- assign _t = 'Custom Merch mit deinem Auto: Hoodie & Shirt | Nippon Nites' -%}{%- assign _d = 'Dein Auto als Unikat auf Hoodie oder T-Shirt, von Hand gezeichnet in Winterthur. Fertig in 1–2 Wochen plus Versand, für jede Automarke.' -%}
+      {%- when 'brandstory' -%}{%- assign _t = 'Über uns: Fabio Berta & die Celica | Nippon Nites' -%}{%- assign _d = 'Wie Nippon Nites entstand: Gründer Fabio Berta, ein 1992 Toyota Celica T18 und die Liebe zur JDM-Szene. Handgezeichnete Designs aus Winterthur.' -%}
+      {%- when 'brand-story' -%}{%- assign _t = 'Über uns: Fabio Berta & die Celica | Nippon Nites' -%}{%- assign _d = 'Wie Nippon Nites entstand: Gründer Fabio Berta, ein 1992 Toyota Celica T18 und die Liebe zur JDM-Szene. Handgezeichnete Designs aus Winterthur.' -%}
+      {%- when 'faq' -%}{%- assign _t = 'FAQ: Versand, Rückgabe & Custom | Nippon Nites' -%}{%- assign _d = 'Antworten zu Lieferzeit in die Schweiz, nach Deutschland und Österreich, Rückgabe, Grössen, Pflege und Custom-Merch mit deinem Auto.' -%}
+      {%- when 'contact' -%}{%- assign _t = 'Kontakt | Nippon Nites, JDM-Merch aus Winterthur' -%}{%- assign _d = 'Fragen zur Bestellung, Custom-Idee oder Grosshandel? Schreib Nippon Nites, Im Grüntal 10, 8405 Winterthur. Antwort meist innert 48 Stunden.' -%}
+      {%- when 'partner' -%}{%- assign _t = 'Partner werden: Affiliate-Programm | Nippon Nites' -%}{%- assign _d = 'Für Creator, Car-Clubs und Meet-Organisatoren: Empfiehl Nippon Nites mit deinem persönlichen Link und verdien an jeder Bestellung mit.' -%}
+      {%- when 'galerie' -%}{%- assign _t = 'Kunden-Galerie: Custom Car Merch | Nippon Nites' -%}{%- assign _d = 'Echte Kundenautos, von Hand gezeichnet und auf Hoodies und Shirts gebracht. Lass dich inspirieren und lass dein eigenes Auto zeichnen.' -%}
+    {%- endcase -%}
+  {%- endif -%}
+  <title>{{ _t | escape }}{% unless _t contains shop.name %} – {{ shop.name }}{% endunless %}</title>
+  {% assign meta_desc = _d %}
   {% if meta_desc %}<meta name="description" content="{{ meta_desc | escape }}">{% endif %}
   {%- comment -%} Link-Vorschau (WhatsApp, Instagram, Facebook): Produktbild → Kollektionsbild → Share-Bild aus Theme-Einstellungen → Logo {%- endcomment -%}
   {%- assign og_type = 'website' -%}
@@ -34,7 +49,7 @@
   <link rel="icon" type="image/png" href="{{ 'logo_nippon.png' | file_img_url: '64x64' }}">
   <link rel="apple-touch-icon" href="{{ 'logo_nippon.png' | file_img_url: '180x180' }}">
   <meta property="og:type" content="{{ og_type }}">
-  <meta property="og:title" content="{{ page_title | escape }}">
+  <meta property="og:title" content="{{ _t | escape }}">
   <meta property="og:url" content="{{ canonical_url }}">
   {% if meta_desc %}<meta property="og:description" content="{{ meta_desc | escape }}">{% endif %}
   <meta property="og:image" content="{{ og_img }}">
@@ -51,7 +66,7 @@
   <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
   {%- endif %}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page_title | escape }}">
+  <meta name="twitter:title" content="{{ _t | escape }}">
   {% if meta_desc %}<meta name="twitter:description" content="{{ meta_desc | escape }}">{% endif %}
   <meta name="twitter:image" content="{{ og_img }}">
   <script type="application/ld+json">
@@ -91,9 +106,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-  <style>.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }</style>
-  {{ 'theme.min.css' | asset_url | stylesheet_tag }}
   {{ 'nn.css' | asset_url | stylesheet_tag }}
 </head>
 <body class="nn-body template-{{ template.name }}">

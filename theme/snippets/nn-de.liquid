@@ -1,0 +1,12 @@
+{%- comment -%} Englische Titel aus Shop-Menüs/Richtlinien auf Deutsch anzeigen {%- endcomment -%}
+{%- case text -%}
+  {%- when 'Search' -%}Suche
+  {%- when 'Your Privacy Choices' -%}Datenschutz-Einstellungen
+  {%- when 'Privacy policy', 'Privacy Policy' -%}Datenschutz
+  {%- when 'Contact information', 'Contact Information' -%}Kontaktangaben
+  {%- when 'Legal notice', 'Legal Notice' -%}Impressum
+  {%- when 'Refund policy', 'Refund Policy' -%}Rückgabe
+  {%- when 'Terms of service', 'Terms of Service' -%}AGB
+  {%- when 'Shipping policy', 'Shipping Policy' -%}Versand
+  {%- else -%}{{ text }}
+{%- endcase -%}

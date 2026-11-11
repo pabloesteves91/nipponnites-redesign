@@ -29,7 +29,7 @@
     <ul>
       {%- for policy in shop.policies -%}
         {%- assign policy_title_lower = policy.title | downcase -%}
-        {%- unless policy_title_lower contains 'widerruf' -%}{%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{{ policy.title }}</a></li>{%- endif -%}{%- endunless -%}
+        {%- unless policy_title_lower contains 'widerruf' -%}{%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{% render 'nn-de', text: policy.title %}</a></li>{%- endif -%}{%- endunless -%}
       {%- endfor -%}
       <li><a href="/pages/widerruf-formular">Widerruf</a></li>
     </ul>
