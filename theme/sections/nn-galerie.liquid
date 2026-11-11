@@ -19,7 +19,8 @@
     {%- else -%}
       {%- comment -%} Solange keine Kundenfotos gepflegt sind: echte Custom-Arbeiten aus den Produktbildern {%- endcomment -%}
       {%- assign _n = 0 -%}
-      {%- for _h in 'custom-hoodie-t-shirt,custom-t-shirt' | split: ',' -%}
+      {%- assign _handles = 'custom-hoodie-t-shirt,custom-t-shirt' | split: ',' -%}
+      {%- for _h in _handles -%}
         {%- assign _p = all_products[_h] -%}
         {%- for _m in _p.media -%}
           {%- if _m.media_type == 'image' and _n < section.settings.limit -%}
