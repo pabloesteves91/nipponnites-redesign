@@ -10,6 +10,7 @@
   {%- comment -%} Sprechende Titel/Beschreibungen für Seiten ohne eigene SEO-Daten im Shop {%- endcomment -%}
   {%- assign _t = page_title -%}{%- assign _d = page_description | default: shop.description -%}
   {%- if template.name == 'collection' and collection.handle == 'all' -%}{%- assign _t = 'JDM Merch & Streetwear: Hoodies, Shirts | Nippon Nites' -%}{%- assign _d = 'Alle JDM-Hoodies, T-Shirts, Caps und Accessoires von Nippon Nites aus Winterthur. Von Hand gezeichnet, auf Bestellung produziert, Versand CH, DE, AT.' -%}
+  {%- elsif template.name == 'search' -%}{%- capture _t -%}Suche{% if search.performed %}: {{ search.terms }}{% endif %} | Nippon Nites{%- endcapture -%}
   {%- elsif template.name == '404' -%}{%- assign _t = 'Seite nicht gefunden | Nippon Nites' -%}{%- assign _d = 'Diese Seite gibt es nicht. Zu den Drops von Nippon Nites oder zur Startseite.' -%}
   {%- elsif template.name == 'page' -%}
     {%- case page.handle -%}
