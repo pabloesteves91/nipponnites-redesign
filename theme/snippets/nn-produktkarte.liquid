@@ -1,6 +1,7 @@
 {%- comment -%} Gemeinsame Produktkarte für alle Raster. Parameter: product, prio (true = erste Reihe sofort laden) {%- endcomment -%}
 {%- assign _b1 = product.featured_media -%}
 {%- assign _b2 = product.media[1] -%}
+{%- assign _factor = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
 {%- assign _sizes = '(min-width: 1000px) 25vw, (min-width: 600px) 33vw, 50vw' -%}
 <article class="nn-karte">
   <a class="nn-karte__link" href="{{ product.url }}">
@@ -19,7 +20,7 @@
       {%- assign _erstellt = product.created_at | date: '%s' | plus: 0 -%}
       {%- if product.type == 'Custom' -%}
         <span class="nn-karte__marke">{% render 'nn-stempel', text: '1 von 1' %}</span>
-      {%- elsif product.compare_at_price > product.price -%}
+      {%- elsif product.compare_at_price > product.price or _factor != 1 -%}
         <span class="nn-karte__marke">{% render 'nn-stempel', text: 'Aktion' %}</span>
       {%- elsif _erstellt > _neu_grenze -%}
         <span class="nn-karte__marke">{% render 'nn-stempel', text: 'Neu' %}</span>
@@ -27,9 +28,19 @@
     </div>
     <div class="nn-karte__info">
       <h3 class="nn-karte__titel">{{ product.title }}</h3>
+      {%- comment -%} Gleiche Rabattlogik wie im bisherigen Theme (Custom −20 %, Niko −15 %) {%- endcomment -%}
+      {%- assign _factor = 1 -%}
+      {%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}
+      {%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
       <span class="nn-karte__preis">
-        {%- if product.price_varies %}ab {% endif %}{{ product.price | money -}}
-        {%- if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif -%}
+        {%- if product.price_varies %}ab {% endif -%}
+        {%- if _factor != 1 -%}
+          {%- assign _disc = product.price_min | times: _factor | round -%}
+          {{ _disc | money }} <s>{{ product.price_min | money }}</s>
+        {%- else -%}
+          {{ product.price_min | money -}}
+          {%- if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif -%}
+        {%- endif -%}
       </span>
       {%- if product.metafields.reviews.rating_count > 0 -%}{% render 'star-rating', product: product %}{%- endif -%}
     </div>

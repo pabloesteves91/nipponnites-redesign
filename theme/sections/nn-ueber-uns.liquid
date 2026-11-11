@@ -1,0 +1,85 @@
+<section class="nn-abschnitt nn-wrap">
+  <div class="nn-ueber">
+    <div class="nn-ueber__fotos">
+      {% render 'nn-foto', bild: section.settings.foto_1, text: section.settings.foto_1_text, alt: 'Fabio Berta, Gründer von Nippon Nites', leer_text: 'Foto folgt: Fabio', sizes: '(min-width: 860px) 28vw, 66vw', fallen: true %}
+      {% render 'nn-foto', bild: section.settings.foto_2, text: section.settings.foto_2_text, alt: 'Toyota Celica T18 von 1992', leer_text: 'Foto folgt: die Celica', sizes: '(min-width: 860px) 24vw, 58vw', format: '4 / 3', fallen: true %}
+    </div>
+    <div>
+      {%- if section.settings.notiz != blank -%}<span class="nn-notiz">{{ section.settings.notiz }}</span>{%- endif -%}
+      <h2 class="nn-h2" style="margin:.15em 0 .6em;">{{ section.settings.titel }}</h2>
+      <div class="nn-text">{{ section.settings.text }}</div>
+      {%- if section.settings.unterschrift != blank -%}<p class="nn-unterschrift">{{ section.settings.unterschrift }}</p>{%- endif -%}
+      {%- if section.settings.button != blank -%}<div class="nn-knopfreihe"><a class="nn-btn" href="{{ section.settings.button_url | default: '/pages/brandstory' }}">{{ section.settings.button }}</a></div>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Über uns",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "foto_1",
+      "label": "Foto 1 – Fabio"
+    },
+    {
+      "type": "text",
+      "id": "foto_1_text",
+      "label": "Notiz Foto 1",
+      "default": "Fabio, Gründer"
+    },
+    {
+      "type": "image_picker",
+      "id": "foto_2",
+      "label": "Foto 2 – Celica"
+    },
+    {
+      "type": "text",
+      "id": "foto_2_text",
+      "label": "Notiz Foto 2",
+      "default": "Toyota Celica T18"
+    },
+    {
+      "type": "text",
+      "id": "notiz",
+      "label": "Handnotiz",
+      "default": "wer dahinter steckt"
+    },
+    {
+      "type": "text",
+      "id": "titel",
+      "label": "Titel",
+      "default": "Aus Winterthur, aus der Szene"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Hinter Nippon Nites steht Fabio Berta. Sein Vater schraubt seit über 20 Jahren an Autos, er selbst fährt einen 1992er Toyota Celica T18.</p><p>2024 haben wir angefangen, Autos zu zeichnen statt nur anzuschauen. Jedes Motiv entsteht von Hand, nicht im Bildgenerator. Für Leute, die ihr Auto lieben, egal ob Daily oder Projekt.</p>"
+    },
+    {
+      "type": "text",
+      "id": "unterschrift",
+      "label": "Unterschrift",
+      "default": "Fabio"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "Unsere Geschichte"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Über uns"
+    }
+  ]
+}
+{% endschema %}

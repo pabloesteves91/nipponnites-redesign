@@ -1,0 +1,137 @@
+{%- assign _fallback = all_products['custom-hoodie-t-shirt'].featured_media -%}
+<section class="nn-wrap" id="prozess-{{ section.id }}">
+  <div class="nn-prozess" data-prozess>
+    <div class="nn-prozess__buehne">
+      <div>
+        <span class="nn-notiz">{{ section.settings.notiz }}</span>
+        <h2 class="nn-h2" style="margin:.15em 0 .5em;">{{ section.settings.titel }}</h2>
+        <ol class="nn-prozess__schritte">
+          {%- for block in section.blocks -%}
+            <li{% if forloop.first %} class="is-aktiv"{% endif %} {{ block.shopify_attributes }}>
+              <span class="nn-prozess__nr">{{ forloop.index }}</span>
+              <div><h3 class="nn-h4">{{ block.settings.titel }}</h3><p>{{ block.settings.text }}</p></div>
+            </li>
+          {%- endfor -%}
+        </ol>
+        {%- if section.settings.button != blank -%}
+          <div class="nn-knopfreihe"><a class="nn-btn nn-btn--marker" href="{{ section.settings.button_url | default: '/pages/custom' }}">{{ section.settings.button }}</a></div>
+        {%- endif -%}
+      </div>
+      <div class="nn-prozess__bilder" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          {%- assign _b = block.settings.bild -%}
+          {%- if _b == blank and forloop.last -%}{%- assign _b = _fallback -%}{%- endif -%}
+          <div class="nn-prozess__ebene">
+            {%- if _b != blank -%}
+              {{ _b | image_url: width: 1000 | image_tag: widths: '400, 600, 800, 1000', sizes: '(min-width: 860px) 45vw, 90vw', alt: '', loading: 'lazy' }}
+            {%- else -%}
+              <div class="nn-foto__leer">{{ block.settings.leer }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+        <span class="nn-prozess__wisch"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vom Foto zum Unikat",
+  "settings": [
+    {
+      "type": "text",
+      "id": "notiz",
+      "label": "Handnotiz",
+      "default": "so läuft's"
+    },
+    {
+      "type": "text",
+      "id": "titel",
+      "label": "Titel",
+      "default": "Vom Foto zum Unikat"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "Custom bestellen"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "schritt",
+      "name": "Schritt",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "titel",
+          "label": "Titel",
+          "default": "Schritt"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "bild",
+          "label": "Bild"
+        },
+        {
+          "type": "text",
+          "id": "leer",
+          "label": "Notiz, solange kein Bild da ist",
+          "default": "Foto folgt"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vom Foto zum Unikat",
+      "blocks": [
+        {
+          "type": "schritt",
+          "settings": {
+            "titel": "Du schickst Fotos",
+            "text": "Nach der Bestellung melden wir uns per Mail. Du schickst uns Fotos von deinem Auto und erzählst, was dir wichtig ist.",
+            "leer": "Foto folgt: Kundenauto"
+          }
+        },
+        {
+          "type": "schritt",
+          "settings": {
+            "titel": "Wir skizzieren",
+            "text": "Mit Bleistift entsteht die Linie: Haltung, Felgen, Details. Du siehst den Entwurf, bevor wir weitermachen.",
+            "leer": "Foto folgt: Bleistiftskizze"
+          }
+        },
+        {
+          "type": "schritt",
+          "settings": {
+            "titel": "Farbe und Feinschliff",
+            "text": "Die Skizze wird sauber nachgezogen und koloriert. Änderungswünsche bauen wir ein.",
+            "leer": "Foto folgt: kolorierte Zeichnung"
+          }
+        },
+        {
+          "type": "schritt",
+          "settings": {
+            "titel": "Dein Unikat",
+            "text": "Druck oder Stickerei, Qualitätscheck, Versand. Ca. 1–2 Wochen Produktion plus Lieferung.",
+            "leer": "Foto folgt: fertiges Shirt"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

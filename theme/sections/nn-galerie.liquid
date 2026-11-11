@@ -1,0 +1,146 @@
+<section class="nn-abschnitt nn-wrap">
+  <div class="nn-kopfzeile">
+    <div>
+      {%- if section.settings.notiz != blank -%}<span class="nn-notiz">{{ section.settings.notiz }}</span>{%- endif -%}
+      {%- if section.settings.ueberschrift_h1 -%}<h1 class="nn-h1">{{ section.settings.titel }}</h1>{%- else -%}<h2 class="nn-h2">{{ section.settings.titel }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="nn-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+  </div>
+
+  <div class="nn-galerie__raster">
+    {%- if section.blocks.size > 0 -%}
+      {%- for block in section.blocks limit: section.settings.limit -%}
+        {%- capture _text -%}{{ block.settings.auto }}<span class="nn-galerie__meta">Custom-{{ block.settings.produkt_typ }}{% if block.settings.kunde != blank %} für {{ block.settings.kunde }}{% endif %}{% if block.settings.ort != blank %}, {{ block.settings.ort }}{% endif %}</span>{%- endcapture -%}
+        {%- capture _alt -%}Custom-{{ block.settings.produkt_typ }} mit {{ block.settings.auto | default: 'Kundenauto' }} – Nippon Nites{%- endcapture -%}
+        <div {{ block.shopify_attributes }}>
+          {% render 'nn-foto', bild: block.settings.bild, text: _text, alt: _alt, link: block.settings.produkt.url, sizes: '(min-width: 1000px) 30vw, (min-width: 600px) 45vw, 90vw', fallen: true %}
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      {%- comment -%} Solange keine Kundenfotos gepflegt sind: echte Custom-Arbeiten aus den Produktbildern {%- endcomment -%}
+      {%- assign _n = 0 -%}
+      {%- for _h in 'custom-hoodie-t-shirt,custom-t-shirt' | split: ',' -%}
+        {%- assign _p = all_products[_h] -%}
+        {%- for _m in _p.media -%}
+          {%- if _m.media_type == 'image' and _n < section.settings.limit -%}
+            {%- assign _n = _n | plus: 1 -%}
+            {%- capture _text -%}Custom-{% if _h contains 'hoodie' %}Hoodie{% else %}T-Shirt{% endif %}<span class="nn-galerie__meta">handgezeichnet in Winterthur</span>{%- endcapture -%}
+            {%- capture _alt -%}Custom-{% if _h contains 'hoodie' %}Hoodie{% else %}T-Shirt{% endif %} mit handgezeichnetem Kundenauto – Nippon Nites{%- endcapture -%}
+            {% render 'nn-foto', bild: _m, text: _text, alt: _alt, link: _p.url, sizes: '(min-width: 1000px) 30vw, (min-width: 600px) 45vw, 90vw', format: '1 / 1', fallen: true %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  {%- if section.settings.button != blank and section.settings.button_url != blank -%}
+    <div class="nn-knopfreihe"><a class="nn-btn" href="{{ section.settings.button_url }}">{{ section.settings.button }}</a></div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Kunden-Galerie",
+  "settings": [
+    {
+      "type": "text",
+      "id": "notiz",
+      "label": "Handnotiz",
+      "default": "eure Autos, unsere Linien"
+    },
+    {
+      "type": "text",
+      "id": "titel",
+      "label": "Titel",
+      "default": "Kunden-Galerie"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "Jedes Bild hier ist ein Einzelstück: ein echtes Kundenauto, von Hand gezeichnet und auf Hoodie oder Shirt gebracht."
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Anzahl Bilder (Teaser)",
+      "min": 3,
+      "max": 48,
+      "step": 3,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "ueberschrift_h1",
+      "label": "Titel als Hauptüberschrift (nur auf der Galerie-Seite)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button",
+      "default": "Ganze Galerie ansehen"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bild",
+      "name": "Kundenarbeit",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "bild",
+          "label": "Foto"
+        },
+        {
+          "type": "text",
+          "id": "auto",
+          "label": "Auto",
+          "info": "z. B. Toyota Corolla GR"
+        },
+        {
+          "type": "select",
+          "id": "produkt_typ",
+          "label": "Produkt",
+          "default": "Hoodie",
+          "options": [
+            {
+              "value": "Hoodie",
+              "label": "Hoodie"
+            },
+            {
+              "value": "T-Shirt",
+              "label": "T-Shirt"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "kunde",
+          "label": "Kunde (optional, nur mit Einverständnis)"
+        },
+        {
+          "type": "text",
+          "id": "ort",
+          "label": "Ort (optional)"
+        },
+        {
+          "type": "product",
+          "id": "produkt",
+          "label": "Produkt-Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Kunden-Galerie"
+    }
+  ]
+}
+{% endschema %}

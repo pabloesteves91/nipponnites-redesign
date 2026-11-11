@@ -26,7 +26,9 @@
           "blocks": {}
         }
       },
-      "block_order": ["ai_gen_block_ba62584_VNtnKR"],
+      "block_order": [
+        "ai_gen_block_ba62584_VNtnKR"
+      ],
       "settings": {}
     },
     "hero_product": {
@@ -35,42 +37,74 @@
         "product": "wheelhead-niko-premium",
         "product_alt": "wheelhead-niko-light",
         "badge": "Neu",
-        "eyebrow": "Unser Maskottchen",
-        "headline_line1": "WHEELHEAD",
-        "headline_outline": "NIKO",
-        "text": "Niko ist das Gesicht von Nippon Nites. Als PREMIUM mit komplett gesticktem Rückenmotiv auf 280 g/m² Heavyweight-Baumwolle, oder als LIGHT mit Print.",
-        "price_note": "LIGHT (Print) oder PREMIUM (voll gestickt)",
-        "cta_primary_label": "Jetzt shoppen",
+        "eyebrow": "Niko, unser Maskottchen",
+        "headline_line1": "Wheelhead",
+        "headline_outline": "Niko",
+        "text": "Halb Felge, halb Gang-Mitglied: Niko ist das Gesicht von Nippon Nites. Auf schwerem 280 g/m² Shirt im Boxy-Fit, als Light mit Print oder als Premium komplett gestickt.",
+        "price_note": "",
+        "cta_primary_label": "Niko ansehen",
         "cta_primary_url": "/products/wheelhead-niko-premium",
-        "cta_secondary_label": "Alle Drops",
+        "cta_secondary_label": "",
         "cta_secondary_url": "/collections/all"
       }
     },
     "trust": {
       "type": "trust-strip",
       "blocks": {
-        "t1": { "type": "item", "settings": { "icon": "payments", "text": "TWINT, PayPal & Karte" } },
-        "t2": { "type": "item", "settings": { "icon": "undo", "text": "14 Tage Rückgaberecht" } },
-        "t3": { "type": "item", "settings": { "icon": "draw", "text": "Eigene Designs, kein KI" } },
-        "t4": { "type": "item", "settings": { "icon": "location_on", "text": "Brand aus Winterthur" } }
+        "t1": {
+          "type": "item",
+          "settings": {
+            "icon": "payments",
+            "text": "TWINT, PayPal & Karte"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "icon": "undo",
+            "text": "14 Tage Rückgaberecht"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "icon": "draw",
+            "text": "Von Hand gezeichnet, kein KI"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "icon": "location_on",
+            "text": "Brand aus Winterthur"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
       "settings": {}
     },
     "hero": {
       "type": "hero",
-      "disabled": true,
       "settings": {
+        "headline_line1": "JDM-Merch,",
+        "headline_outline": "von Hand",
+        "headline_line2": "gezeichnet.",
+        "text": "Dein Auto als Unikat auf Hoodie oder Shirt, in 1–2 Wochen, gezeichnet in Winterthur statt von einer KI generiert.",
+        "badge": "Kein KI",
+        "cta_primary_label": "Dein Auto zeichnen lassen",
+        "cta_primary_url": "/pages/custom",
+        "cta_secondary_label": "Drops ansehen",
+        "cta_secondary_url": "/collections/all",
+        "foto_1_text": "Fabio am Zeichenbrett",
+        "foto_2_text": "unsere Celica T18, Bj. 1992",
+        "foto_3_text": "Custom für einen Kunden",
         "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
-        "bg_image_alt": "Tokyo night street",
-        "badge": "",
-        "headline_line1": "BESTELLE DEINEN",
-        "headline_outline": "EIGENEN",
-        "headline_line2": "MERCH",
-        "cta_primary_label": "Dein Merch",
-        "cta_primary_url": "/collections/all",
-        "cta_secondary_label": "Brand Story",
-        "cta_secondary_url": "/pages/brand-story"
+        "bg_image_alt": "Tokyo night street"
       }
     },
     "featured_duo": {
@@ -81,13 +115,14 @@
         "title_line1": "Community",
         "title_line2": "Favoriten",
         "description": "Die meistbestellten Teile. The Drift als Statement-Shirt, oder dein eigenes Custom-Design, von Hand gezeichnet."
-      }
+      },
+      "disabled": true
     },
     "collection_grid": {
       "type": "featured-collection",
       "settings": {
-        "eyebrow": "Shop",
-        "title": "Alle Drops",
+        "eyebrow": "frisch aus der Produktion",
+        "title": "Neue Drops",
         "collection": "",
         "products_to_show": 8
       }
@@ -98,17 +133,85 @@
         "bg_text": "PASSION",
         "headline_line1": "PASSION IS NOT",
         "headline_line2": "A CRIME.",
-        "subline": "Street Heritage // 2024"
+        "subline": "Street Heritage seit 2024"
+      }
+    },
+    "prozess": {
+      "type": "nn-prozess",
+      "blocks": {
+        "s1": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Du schickst Fotos",
+            "text": "Nach der Bestellung melden wir uns per Mail. Du schickst uns Fotos von deinem Auto und erzählst, was dir wichtig ist.",
+            "leer": "Foto folgt: Kundenauto"
+          }
+        },
+        "s2": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Wir skizzieren",
+            "text": "Mit Bleistift entsteht die Linie: Haltung, Felgen, Details. Du siehst den Entwurf, bevor wir weitermachen.",
+            "leer": "Foto folgt: Bleistiftskizze"
+          }
+        },
+        "s3": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Farbe und Feinschliff",
+            "text": "Die Skizze wird sauber nachgezogen und koloriert. Änderungswünsche bauen wir ein.",
+            "leer": "Foto folgt: kolorierte Zeichnung"
+          }
+        },
+        "s4": {
+          "type": "schritt",
+          "settings": {
+            "titel": "Dein Unikat",
+            "text": "Druck oder Stickerei, Qualitätscheck, Versand: ca. 1–2 Wochen Produktion plus Lieferung.",
+            "leer": "Foto folgt: fertiges Shirt"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "notiz": "so läuft's",
+        "titel": "Vom Foto zum Unikat",
+        "button": "Custom bestellen",
+        "button_url": "/pages/custom"
+      }
+    },
+    "galerie": {
+      "type": "nn-galerie",
+      "settings": {
+        "notiz": "eure Autos, unsere Linien",
+        "titel": "Kunden-Galerie",
+        "limit": 6,
+        "button": "Ganze Galerie ansehen",
+        "button_url": ""
+      }
+    },
+    "ueber": {
+      "type": "nn-ueber-uns",
+      "settings": {
+        "button_url": "/pages/brandstory"
       }
     }
   },
   "order": [
     "17829755496dd863a1",
-    "hero_product",
-    "trust",
     "hero",
-    "featured_duo",
+    "trust",
+    "prozess",
     "collection_grid",
-    "passion"
+    "hero_product",
+    "galerie",
+    "ueber",
+    "passion",
+    "featured_duo"
   ]
 }
