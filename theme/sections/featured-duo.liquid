@@ -1,0 +1,80 @@
+{% assign p1 = all_products[section.settings.product1] %}
+{% assign p2 = all_products[section.settings.product2] %}
+
+<section class="bg-surface py-32 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
+      <h2 class="font-headline text-4xl md:text-6xl uppercase font-black tracking-tighter">
+        {{ section.settings.title_line1 }}<br>
+        <span class="text-primary-fixed-dim">{{ section.settings.title_line2 }}</span>
+      </h2>
+      <p class="max-w-md text-tertiary-container font-body leading-relaxed">
+        {{ section.settings.description }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {% if p1.title == blank and p2.title == blank %}
+        <p class="col-span-2 text-white/30 text-center py-20">Produkte im Theme-Editor auswählen.</p>
+      {% endif %}
+
+      {% for i in (1..2) %}
+        {% if i == 1 %}{% assign p = p1 %}{% else %}{% assign p = p2 %}{% endif %}
+        {% if p.title != blank %}
+        <div class="group">
+          <div class="aspect-[4/5] overflow-hidden bg-surface-container-low relative">
+            {% if p.featured_image %}
+              <a href="{{ p.url }}" class="block w-full h-full">
+                <img src="{{ p.featured_image | img_url: '800x1000', crop: 'center' }}"
+                     alt="{{ p.featured_image.alt | default: p.title | escape }}"
+                     loading="lazy"
+                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+              </a>
+            {% else %}
+              <div class="w-full h-full bg-surface-container-highest"></div>
+            {% endif %}
+          </div>
+          <div class="bg-surface-container-low px-6 py-6 flex justify-between items-start gap-4">
+            <div>
+              {% if p.type != blank %}<span class="text-primary text-[10px] tracking-[0.2em] font-bold uppercase block mb-1">{{ p.type }}</span>{% endif %}
+              <h3 class="font-headline text-xl uppercase font-bold leading-tight">
+                <a href="{{ p.url }}" class="hover:text-primary transition-colors">{{ p.title }}</a>
+              </h3>
+              {%- assign _count = p.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- if _count > 0 -%}
+                {%- assign _rating = p.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
+                {%- assign _full = _rating | floor -%}
+                <div style="display:flex;align-items:center;gap:8px;margin-top:5px;">
+                  {%- for s in (1..5) -%}{%- if s <= _full -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:13px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
+                  <span style="color:rgba(255,255,255,0.3);font-size:10px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.1em;">{{ _count }} {% if _count == 1 %}Bewertung{% else %}Bewertungen{% endif %}</span>
+                </div>
+              {%- endif -%}
+            </div>
+            {%- assign _factor = 1 -%}{%- if p.handle == 'custom-hoodie-t-shirt' or p.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if p.handle == 'wheelhead-niko-light' or p.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+            {%- if _factor != 1 -%}
+              {%- assign _disc = p.price_min | times: _factor | round -%}
+              <span class="font-headline font-bold text-lg shrink-0"><s style="color:rgba(255,255,255,0.35);font-weight:400;font-size:0.875em;">{{ p.price_min | money }}</s> <span class="text-on-surface/80">{{ _disc | money }}</span></span>
+            {%- else -%}
+              <span class="font-headline font-bold text-lg text-on-surface/80 shrink-0">{% if p.price_varies %}ab {% endif %}{{ p.price_min | money }}</span>
+            {%- endif -%}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Duo",
+  "settings": [
+    { "type": "product", "id": "product1", "label": "Produkt 1" },
+    { "type": "product", "id": "product2", "label": "Produkt 2" },
+    { "type": "text",    "id": "title_line1", "label": "Titel Zeile 1", "default": "Tokyo Drift" },
+    { "type": "text",    "id": "title_line2", "label": "Titel Zeile 2", "default": "Edition" },
+    { "type": "textarea","id": "description", "label": "Beschreibung",  "default": "Inspired by the underground night meets of Shinjuku and the relentless pursuit of speed." }
+  ],
+  "presets": [{ "name": "Featured Duo" }]
+}
+{% endschema %}

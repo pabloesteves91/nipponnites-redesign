@@ -1,0 +1,114 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "17829755496dd863a1": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_ba62584_VNtnKR": {
+          "type": "ai_gen_block_ba62584",
+          "name": "Promo Banner",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/Unbenannt-1_cd0b41c7-af7e-4a12-8bdf-29d466e7a30e.png",
+            "aspect_ratio": "21/9",
+            "desktop_width_percent": 100,
+            "border_radius": 0,
+            "placeholder_bg_color": "#1b1b1b"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": ["ai_gen_block_ba62584_VNtnKR"],
+      "settings": {}
+    },
+    "hero_product": {
+      "type": "hero-product",
+      "settings": {
+        "product": "wheelhead-niko-premium",
+        "product_alt": "wheelhead-niko-light",
+        "badge": "Neu",
+        "eyebrow": "Unser Maskottchen",
+        "headline_line1": "WHEELHEAD",
+        "headline_outline": "NIKO",
+        "text": "Niko ist das Gesicht von Nippon Nites. Als PREMIUM mit komplett gesticktem Rückenmotiv auf 280 g/m² Heavyweight-Baumwolle, oder als LIGHT mit Print.",
+        "price_note": "LIGHT (Print) oder PREMIUM (voll gestickt)",
+        "cta_primary_label": "Jetzt shoppen",
+        "cta_primary_url": "/products/wheelhead-niko-premium",
+        "cta_secondary_label": "Alle Drops",
+        "cta_secondary_url": "/collections/all"
+      }
+    },
+    "trust": {
+      "type": "trust-strip",
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "payments", "text": "TWINT, PayPal & Karte" } },
+        "t2": { "type": "item", "settings": { "icon": "undo", "text": "14 Tage Rückgaberecht" } },
+        "t3": { "type": "item", "settings": { "icon": "draw", "text": "Eigene Designs, kein KI" } },
+        "t4": { "type": "item", "settings": { "icon": "location_on", "text": "Brand aus Winterthur" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {
+        "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
+        "bg_image_alt": "Tokyo night street",
+        "badge": "",
+        "headline_line1": "BESTELLE DEINEN",
+        "headline_outline": "EIGENEN",
+        "headline_line2": "MERCH",
+        "cta_primary_label": "Dein Merch",
+        "cta_primary_url": "/collections/all",
+        "cta_secondary_label": "Brand Story",
+        "cta_secondary_url": "/pages/brand-story"
+      }
+    },
+    "featured_duo": {
+      "type": "featured-duo",
+      "settings": {
+        "product1": "what-the-drift",
+        "product2": "custom-t-shirt",
+        "title_line1": "Community",
+        "title_line2": "Favoriten",
+        "description": "Die meistbestellten Teile. The Drift als Statement-Shirt, oder dein eigenes Custom-Design, von Hand gezeichnet."
+      }
+    },
+    "collection_grid": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Shop",
+        "title": "Alle Drops",
+        "collection": "",
+        "products_to_show": 8
+      }
+    },
+    "passion": {
+      "type": "passion-banner",
+      "settings": {
+        "bg_text": "PASSION",
+        "headline_line1": "PASSION IS NOT",
+        "headline_line2": "A CRIME.",
+        "subline": "Street Heritage // 2024"
+      }
+    }
+  },
+  "order": [
+    "17829755496dd863a1",
+    "hero_product",
+    "trust",
+    "hero",
+    "featured_duo",
+    "collection_grid",
+    "passion"
+  ]
+}

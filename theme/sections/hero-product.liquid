@@ -1,0 +1,77 @@
+{%- assign hp = all_products[section.settings.product] -%}
+{%- assign hp_alt = all_products[section.settings.product_alt] -%}
+<style>
+  .nn-hp{background:#131313;padding:24px 16px 48px;}
+  .nn-hp__wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;}
+  .nn-hp__media{position:relative;display:block;background:#fff;aspect-ratio:4/3;overflow:hidden;}
+  .nn-hp__media img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .7s;}
+  .nn-hp__media:hover img{transform:scale(1.04);}
+  .nn-hp__badge{position:absolute;top:12px;left:12px;background:#F05241;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;}
+  .nn-hp__eyebrow{font-family:'Space Grotesk',sans-serif;color:#ffb4a9;font-weight:700;font-size:12px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 12px;}
+  .nn-hp__title{font-family:'Space Grotesk',sans-serif;font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.03em;font-size:44px;margin:0 0 14px;color:#fff;}
+  .nn-hp__title span{color:transparent;-webkit-text-stroke:2px #ffb4a9;}
+  .nn-hp__text{font-family:'Inter',sans-serif;color:rgba(255,255,255,.72);font-size:16px;line-height:1.6;max-width:520px;margin:0 0 22px;}
+  .nn-hp__price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:#fff;margin:0 0 22px;}
+  .nn-hp__price small{display:block;font-weight:300;font-size:13px;color:rgba(255,255,255,.5);margin-top:4px;letter-spacing:.04em;}
+  .nn-hp__ctas{display:flex;flex-direction:column;gap:12px;}
+  .nn-hp__btn{display:block;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:16px;padding:18px 28px;text-decoration:none;transition:transform .2s,background .2s;}
+  .nn-hp__btn--primary{background:linear-gradient(to right,#ffb4a9,#fb5a48);color:#410000;}
+  .nn-hp__btn--primary:hover{transform:scale(1.03);}
+  .nn-hp__btn--ghost{border:1px solid rgba(255,255,255,.2);color:#fff;}
+  .nn-hp__btn--ghost:hover{background:#2a2a2a;}
+  @media (min-width:768px){
+    .nn-hp{padding:64px 32px 96px;}
+    .nn-hp__wrap{grid-template-columns:1.05fr 1fr;gap:64px;}
+    .nn-hp__media{order:2;aspect-ratio:4/5;}
+    .nn-hp__title{font-size:96px;margin-bottom:18px;}
+    .nn-hp__ctas{flex-direction:row;}
+  }
+</style>
+<section class="nn-hp">
+  <div class="nn-hp__wrap">
+    <a href="{{ hp.url | default: section.settings.cta_primary_url }}" class="nn-hp__media">
+      {%- if hp.featured_image -%}
+        <img src="{{ hp.featured_image | image_url: width: 1200 }}" alt="{{ hp.featured_image.alt | default: hp.title | escape }}" width="1200" height="1200" fetchpriority="high">
+      {%- endif -%}
+      {%- if section.settings.badge != blank -%}<span class="nn-hp__badge">{{ section.settings.badge }}</span>{%- endif -%}
+    </a>
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="nn-hp__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="nn-hp__title">{{ section.settings.headline_line1 }}<br><span>{{ section.settings.headline_outline }}</span></h1>
+      {%- if section.settings.text != blank -%}<p class="nn-hp__text">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if hp != blank -%}
+        {%- assign _from = hp.price_min -%}
+        {%- if hp_alt != blank and hp_alt.price_min < _from -%}{%- assign _from = hp_alt.price_min -%}{%- endif -%}
+        <p class="nn-hp__price">ab {{ _from | money }}{%- if section.settings.price_note != blank -%}<small>{{ section.settings.price_note }}</small>{%- endif -%}</p>
+      {%- endif -%}
+      <div class="nn-hp__ctas">
+        {%- if section.settings.cta_primary_label != blank -%}
+          <a href="{{ section.settings.cta_primary_url | default: hp.url }}" class="nn-hp__btn nn-hp__btn--primary">{{ section.settings.cta_primary_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta_secondary_label != blank -%}
+          <a href="{{ section.settings.cta_secondary_url }}" class="nn-hp__btn nn-hp__btn--ghost">{{ section.settings.cta_secondary_label }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero – Produkt",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Hauptprodukt (Bild)" },
+    { "type": "product", "id": "product_alt", "label": "Alternative Version (für ab-Preis)" },
+    { "type": "text", "id": "badge", "label": "Badge", "default": "Neu" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "text", "id": "headline_line1", "label": "Headline Zeile 1", "default": "WHEELHEAD" },
+    { "type": "text", "id": "headline_outline", "label": "Headline Outline", "default": "NIKO" },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "text", "id": "price_note", "label": "Hinweis unter Preis" },
+    { "type": "text", "id": "cta_primary_label", "label": "Button 1", "default": "Jetzt shoppen" },
+    { "type": "url", "id": "cta_primary_url", "label": "Button 1 Link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "Button 2", "default": "Alle Drops" },
+    { "type": "url", "id": "cta_secondary_url", "label": "Button 2 Link" }
+  ],
+  "presets": [{ "name": "Hero – Produkt" }]
+}
+{% endschema %}

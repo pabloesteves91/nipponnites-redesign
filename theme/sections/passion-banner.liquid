@@ -1,0 +1,31 @@
+<section class="w-full py-40 relative bg-surface-container-low overflow-hidden">
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 left-0 text-[20rem] font-black leading-none select-none -translate-x-20 -translate-y-20 font-headline uppercase whitespace-nowrap">
+      {{ section.settings.bg_text }} {{ section.settings.bg_text }} {{ section.settings.bg_text }}
+    </div>
+  </div>
+  <div class="relative z-10 px-8 flex flex-col items-center text-center">
+    <h2 class="font-headline text-6xl md:text-9xl uppercase font-black tracking-tighter italic">
+      {{ section.settings.headline_line1 }}<br>
+      <span class="text-primary">{{ section.settings.headline_line2 }}</span>
+    </h2>
+    <div class="mt-12 flex items-center space-x-4">
+      <span class="h-[2px] w-20 bg-primary"></span>
+      <p class="font-headline text-sm tracking-[0.4em] uppercase">{{ section.settings.subline }}</p>
+      <span class="h-[2px] w-20 bg-primary"></span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Passion Banner",
+  "settings": [
+    { "type": "text", "id": "bg_text",        "label": "Hintergrund-Text",   "default": "PASSION" },
+    { "type": "text", "id": "headline_line1", "label": "Headline Zeile 1",   "default": "PASSION IS NOT" },
+    { "type": "text", "id": "headline_line2", "label": "Headline Zeile 2",   "default": "A CRIME." },
+    { "type": "text", "id": "subline",        "label": "Subline",            "default": "Street Heritage // 2024" }
+  ],
+  "presets": [{ "name": "Passion Banner" }]
+}
+{% endschema %}

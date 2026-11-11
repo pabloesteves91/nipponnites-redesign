@@ -1,0 +1,26 @@
+<div style="background:#131313;min-height:100vh;">
+  <div style="max-width:640px;margin:0 auto;padding:5rem 1.5rem 4rem;">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin:0 0 1rem;">Affiliate Program</p>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:1.05;color:#fff;margin:0 0 1.25rem;">
+      {{ section.settings.title | default: 'Werde Partner' }}
+    </h1>
+    {% if section.settings.description != blank %}
+      <p style="font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.75;margin:0 0 3rem;">{{ section.settings.description }}</p>
+    {% endif %}
+    {%- for block in section.blocks -%}
+      {%- render block -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Partner Page",
+  "blocks": [{ "type": "@app" }],
+  "settings": [
+    { "type": "text",     "id": "title",       "label": "Titel",        "default": "Werde Partner" },
+    { "type": "textarea", "id": "description",  "label": "Beschreibung" }
+  ],
+  "presets": [{ "name": "Partner Page" }]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+<div class="bg-night min-h-screen">
+
+  <!-- Header -->
+  <div class="bg-surface-container-low border-b border-white/5 px-6 lg:px-10 py-16">
+    <div class="max-w-screen-xl mx-auto">
+      <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-primary mb-4">Übersicht</p>
+      <h1 class="font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter text-white">Sitemap</h1>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="max-w-screen-xl mx-auto px-6 lg:px-10 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+      <!-- Shop -->
+      <div>
+        <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6 pb-3 border-b border-white/5">Shop</p>
+        <ul class="space-y-3">
+          <li><a href="/collections/all" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Alle Produkte</a></li>
+          {% for collection in collections %}
+            {% if collection.handle != 'frontpage' %}
+              <li><a href="{{ collection.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ collection.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Info -->
+      <div>
+        <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6 pb-3 border-b border-white/5">Info</p>
+        <ul class="space-y-3">
+          <li><a href="/" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Startseite</a></li>
+          <li><a href="/pages/brand-story" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Über uns</a></li>
+          <li><a href="/pages/faq" class="text-white/60 hover:text-primary text-sm font-body transition-colors">FAQ</a></li>
+          <li><a href="/pages/contact" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Kontakt</a></li>
+          <li><a href="/search" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Suche</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-6 pb-3 border-b border-white/5">Legal</p>
+        <ul class="space-y-3">
+          {% for policy in shop.policies %}
+            {% assign policy_title_lower = policy.title | downcase %}
+            {% unless policy_title_lower contains 'widerruf' %}
+              {% if policy.body != blank %}
+                <li><a href="{{ policy.url }}" class="text-white/60 hover:text-primary text-sm font-body transition-colors">{{ policy.title }}</a></li>
+              {% endif %}
+            {% endunless %}
+          {% endfor %}
+          <li><a href="/pages/widerruf-formular" class="text-white/60 hover:text-primary text-sm font-body transition-colors">Widerruf</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Sitemap",
+  "presets": [{ "name": "Sitemap" }]
+}
+{% endschema %}

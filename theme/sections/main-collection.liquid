@@ -1,0 +1,172 @@
+{% paginate collection.products by 50 %}
+
+{% assign seen_types = '|' %}
+{% assign product_types_raw = '' %}
+{% for product in collection.products %}
+  {% if product.type != blank %}
+    {% assign pt_key = product.type | downcase | prepend: '|' | append: '|' %}
+    {% unless seen_types contains pt_key %}
+      {% assign seen_types = seen_types | append: pt_key %}
+      {% assign product_types_raw = product_types_raw | append: product.type | append: '|||' %}
+    {% endunless %}
+  {% endif %}
+{% endfor %}
+{% assign type_array = product_types_raw | split: '|||' %}
+{% if collection.handle == 'all' %}{% assign col_title = 'Alle Produkte' %}{% else %}{% assign col_title = collection.title %}{% endif %}
+
+<style>
+  .nn-col-hero{padding:32px 16px 24px;}
+  .nn-col-hero h1{font-size:44px;}
+  .nn-col-wrap{padding:16px 16px 48px;gap:24px;}
+  .nn-col-count{display:none;}
+  .nn-col-filters{display:flex;flex-direction:row;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
+  .nn-col-filters .filter-tab{white-space:nowrap;flex-shrink:0;}
+  .nn-col-side h3{display:none;}
+  .nn-col-side{display:flex;flex-direction:column;gap:16px;}
+  .nn-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px 12px;}
+  .nn-col-grid h3{font-size:14px;}
+  @media (min-width:768px){
+    .nn-col-hero{padding:64px 32px;}
+    .nn-col-hero h1{font-size:96px;}
+    .nn-col-wrap{padding:48px 32px;gap:48px;}
+    .nn-col-count{display:block;}
+    .nn-col-filters{flex-direction:column;overflow:visible;}
+    .nn-col-side h3{display:block;}
+    .nn-col-side{gap:48px;}
+    .nn-col-grid{grid-template-columns:repeat(2,1fr);gap:64px 32px;}
+    .nn-col-grid h3{font-size:18px;}
+  }
+  @media (min-width:1024px){ .nn-col-grid{grid-template-columns:repeat(3,1fr);} }
+</style>
+
+<section class="nn-col-hero bg-[#1b1b1b]">
+  <div class="max-w-screen-xl mx-auto">
+    <span class="font-label tracking-[0.2em] uppercase text-primary mb-4 block text-sm">Shop / {{ col_title }}</span>
+    <h1 class="font-black font-headline uppercase tracking-tighter mb-4 leading-none">{{ col_title }}</h1>
+    {% if collection.description != blank %}
+      <div class="text-white/50 max-w-xl font-body leading-relaxed">{{ collection.description }}</div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="nn-col-wrap max-w-screen-xl mx-auto flex flex-col md:flex-row">
+  <aside class="nn-col-side w-full md:w-64 shrink-0">
+    <div class="nn-col-count bg-[#1b1b1b] p-6 border-l-4 border-primary">
+      <p class="font-label text-[10px] tracking-[0.2em] uppercase opacity-50 mb-1">Produkte</p>
+      <p id="product-count" class="font-headline font-black text-3xl text-primary">{{ collection.products_count }}</p>
+    </div>
+
+    {% if type_array.size > 1 %}
+      <div>
+        <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Filter</h3>
+        <div class="nn-col-filters">
+          <button onclick="filterProducts('all', this)" data-filter="all" class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-primary bg-primary text-[#410000] transition-all">Alle ({{ collection.products_count }})</button>
+          {% for type in type_array %}
+            {% if type != blank %}
+              {% assign type_lower = type | downcase %}
+              {% assign type_count = 0 %}
+              {% for p in collection.products %}
+                {% assign p_lower = p.type | downcase %}
+                {% if p_lower == type_lower %}{% assign type_count = type_count | plus: 1 %}{% endif %}
+              {% endfor %}
+              <button onclick="filterProducts('{{ type_lower | escape }}', this)" data-filter="{{ type_lower | escape }}" class="filter-tab text-left px-4 py-3 font-headline font-bold text-xs uppercase tracking-widest border border-[#5a403d] text-white/50 hover:text-primary hover:border-primary transition-all">{{ type }} ({{ type_count }})</button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div>
+      <h3 class="font-headline font-bold uppercase tracking-widest text-sm mb-6 border-b border-[#353535] pb-2">Sortieren</h3>
+      <select aria-label="Sortieren" onchange="window.location = '{{ collection.url }}?sort_by=' + this.value" class="w-full bg-[#1b1b1b] border border-[#5a403d] text-sm font-headline uppercase tracking-widest text-primary focus:ring-0 cursor-pointer py-3 px-4">
+        <option value="manual" {% if collection.sort_by == 'manual' %}selected{% endif %}>Empfohlen</option>
+        <option value="best-selling" {% if collection.sort_by == 'best-selling' %}selected{% endif %}>Bestseller</option>
+        <option value="created-descending" {% if collection.sort_by == 'created-descending' %}selected{% endif %}>Neueste</option>
+        <option value="price-ascending" {% if collection.sort_by == 'price-ascending' %}selected{% endif %}>Preis aufsteigend</option>
+        <option value="price-descending" {% if collection.sort_by == 'price-descending' %}selected{% endif %}>Preis absteigend</option>
+      </select>
+    </div>
+  </aside>
+
+  <div class="flex-1">
+    {% if collection.products.size > 0 %}
+      <div id="product-grid" class="nn-col-grid">
+        {% for product in collection.products %}
+          {%- assign _factor = 1 -%}{%- if product.handle == 'custom-hoodie-t-shirt' or product.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if product.handle == 'wheelhead-niko-light' or product.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+          <div class="group relative product-card" data-type="{{ product.type | downcase | escape }}">
+            <div class="aspect-[3/4] overflow-hidden bg-[#1b1b1b] mb-4 relative">
+              <a href="{{ product.url }}">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" {% if forloop.index > 4 %}loading="lazy"{% endif %} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center text-white/10 font-headline text-xs uppercase">Kein Bild</div>
+                {% endif %}
+              </a>
+              {% if product.available == false %}
+                <div class="absolute top-3 left-3"><span class="bg-[#353535] text-white/60 px-3 py-1 text-[10px] font-black uppercase tracking-widest">Ausverkauft</span></div>
+              {% elsif product.compare_at_price > product.price or _factor != 1 %}
+                <div class="absolute top-3 left-3"><span class="bg-primary text-[#410000] px-3 py-1 text-[10px] font-black uppercase tracking-widest">Sale</span></div>
+              {% endif %}
+            </div>
+            <div class="space-y-1">
+              {% if product.type != blank %}
+                <p class="text-[10px] text-primary font-headline font-bold uppercase tracking-[0.2em]">{{ product.type }}</p>
+              {% endif %}
+              <h3 class="font-headline font-bold uppercase leading-tight group-hover:text-primary transition-colors"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+              {%- if _factor != 1 -%}
+                {%- assign _disc = product.price_min | times: _factor | round -%}
+                <p class="font-body text-sm"><s style="color:rgba(255,255,255,0.35);font-weight:400;">{{ product.price_min | money }}</s> <span class="text-white/80">{{ _disc | money }}</span></p>
+              {%- else -%}
+                <p class="font-body text-sm text-white/80">{% if product.price_varies %}ab {% endif %}{{ product.price_min | money }}</p>
+              {%- endif -%}
+              {%- assign _count = product.metafields.reviews.rating_count | default: 0 | plus: 0 -%}
+              {%- if _count > 0 -%}
+                {%- assign _rating = product.metafields.reviews.rating.value | default: 0 | times: 1.0 -%}
+                {%- assign _full = _rating | floor -%}
+                <div style="display:flex;align-items:center;gap:6px;margin-top:4px;">
+                  {%- for i in (1..5) -%}{%- if i <= _full -%}<span style="color:#ffb4a9;font-size:12px;line-height:1;">★</span>{%- else -%}<span style="color:#ffb4a9;font-size:12px;line-height:1;opacity:0.25;">★</span>{%- endif -%}{%- endfor -%}
+                  <span style="color:rgba(255,255,255,0.35);font-size:10px;font-family:'Space Grotesk',sans-serif;">({{ _count }})</span>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center py-32">
+        <p class="font-headline text-4xl font-black uppercase tracking-tighter text-white/20">Keine Produkte.</p>
+        <a href="/collections/all" class="inline-block mt-8 px-12 py-4 bg-gradient-to-r from-primary to-[#fb5a48] text-[#410000] font-headline font-black uppercase tracking-widest">Alle ansehen</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="py-16 bg-[#0e0e0e] overflow-hidden">
+  <div class="whitespace-nowrap flex">
+    <span class="font-headline font-black text-[8vw] text-[#353535] uppercase leading-none px-8">PASSION IS NOT A CRIME •&nbsp;</span>
+    <span class="font-headline font-black text-[8vw] text-[#353535] uppercase leading-none px-8">PASSION IS NOT A CRIME •&nbsp;</span>
+  </div>
+</section>
+
+{% endpaginate %}
+
+<script>
+function filterProducts(type, btn) {
+  document.querySelectorAll('.filter-tab').forEach(function(b) { b.classList.remove('bg-primary', 'text-[#410000]', 'border-primary'); b.classList.add('text-white/50', 'border-[#5a403d]'); });
+  btn.classList.remove('text-white/50', 'border-[#5a403d]');
+  btn.classList.add('bg-primary', 'text-[#410000]', 'border-primary');
+  var visible = 0;
+  document.querySelectorAll('.product-card').forEach(function(card) {
+    if (type === 'all' || card.dataset.type === type) { card.style.display = ''; visible++; } else { card.style.display = 'none'; }
+  });
+  var c = document.getElementById('product-count'); if (c) c.textContent = visible;
+}
+</script>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [],
+  "presets": [{ "name": "Collection Page" }]
+}
+{% endschema %}

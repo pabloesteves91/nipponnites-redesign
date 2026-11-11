@@ -1,0 +1,223 @@
+<!-- Hero -->
+<section class="relative h-screen flex items-end overflow-hidden pt-20 bg-surface">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.hero_image != blank %}
+      <img
+        src="{{ section.settings.hero_image | img_url: '2000x' }}"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        class="w-full h-full object-cover brightness-50"
+      >
+    {% else %}
+      <div class="w-full h-full bg-surface-container-high"></div>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+  </div>
+  <div class="relative z-10 w-full px-8 pb-16 md:pb-24 flex flex-col items-start max-w-7xl mx-auto">
+    <span class="font-label text-primary uppercase tracking-[0.4em] mb-4 text-sm">Individualität ohne Kompromisse</span>
+    <h1 class="font-headline text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-8 max-w-4xl">
+      Bestelle deinen <span style="-webkit-text-stroke: 2px #ffb4a9; color: transparent;">eigenen</span> Merch
+    </h1>
+    <a
+      href="{{ section.settings.cta_url | default: '/pages/shop?filter=custom' }}"
+      class="inline-block bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold uppercase py-6 px-12 tracking-wider hover:brightness-110 active:scale-95 transition-all"
+    >
+      GET YOUR OWN
+    </a>
+  </div>
+</section>
+
+
+<!-- 3-Step Bento Grid -->
+<section class="bg-surface-container-low py-32 px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+      <h2 class="font-headline text-5xl md:text-7xl font-black uppercase max-w-2xl leading-[0.9]">
+        Dein Weg zum<br>Unikat.
+      </h2>
+      <div class="text-primary font-headline text-6xl italic opacity-20">01—03</div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0">
+
+      <!-- Step 1 -->
+      <div class="bg-surface-container border-r border-surface-variant p-12 flex flex-col min-h-[400px]">
+        <span class="font-headline text-primary text-4xl mb-8">01.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Select</h3>
+        <p class="text-on-surface/60 mb-12 flex-grow">Wähle aus Hoodie oder T-Shirt und welche Stickereien.</p>
+        {% if section.settings.step1_image != blank %}
+          <img
+            src="{{ section.settings.step1_image | img_url: '600x' }}"
+            alt="{{ section.settings.step1_image.alt | escape }}"
+            class="w-full grayscale brightness-75"
+          >
+        {% else %}
+          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-white/20">checkroom</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Step 2 -->
+      <div class="bg-surface p-12 flex flex-col min-h-[400px]">
+        <span class="font-headline text-primary text-4xl mb-8">02.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Choose Design</h3>
+        <p class="text-on-surface/60 mb-12 flex-grow">Schick uns deine Idee per Mail an <a href="mailto:info@nipponnites.com" class="text-primary hover:brightness-110 transition-all">info@nipponnites.com</a>. Wir besprechen es gemeinsam und ich illustriere dein Design von Hand — kein KI, echte Handarbeit.</p>
+        {% if section.settings.step2_image != blank %}
+          <div class="relative overflow-hidden group">
+            <img
+              src="{{ section.settings.step2_image | img_url: '600x' }}"
+              alt="{{ section.settings.step2_image.alt | escape }}"
+              class="w-full"
+            >
+            <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </div>
+        {% else %}
+          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-white/20">draw</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Step 3 -->
+      <div class="bg-surface-container border-l border-surface-variant p-12 flex flex-col min-h-[400px]">
+        <span class="font-headline text-primary text-4xl mb-8">03.</span>
+        <h3 class="font-headline text-2xl uppercase mb-4">Final Order</h3>
+        <p class="text-on-surface/60 mb-12 flex-grow">Wir lassen dein Design prüfen, produzieren dein Einzelstück und senden es direkt zu dir.</p>
+        {% if section.settings.step3_image != blank %}
+          <img
+            src="{{ section.settings.step3_image | img_url: '600x' }}"
+            alt="{{ section.settings.step3_image.alt | escape }}"
+            class="w-full brightness-50"
+          >
+        {% else %}
+          <div class="w-full h-32 bg-surface-container-highest flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl text-white/20">local_shipping</span>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Passion Statement -->
+<section class="bg-surface py-32 px-8">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+    <div>
+      {% if section.settings.passion_image != blank %}
+        <img
+          src="{{ section.settings.passion_image | img_url: '1200x' }}"
+          alt="{{ section.settings.passion_image.alt | escape }}"
+          class="w-full h-auto object-cover grayscale"
+        >
+      {% else %}
+        <div class="aspect-[4/3] bg-surface-container-high"></div>
+      {% endif %}
+    </div>
+    <div class="flex flex-col items-start">
+      <h2 class="font-headline text-5xl font-black uppercase mb-8 leading-tight">Passion is not a crime.</h2>
+      <p class="font-body text-xl text-on-surface/70 mb-12 leading-relaxed">
+        Wir glauben, dass Kleidung mehr ist als nur Stoff. Es ist ein Statement. Nippon Nites wurde in den schattigen Hinterhöfen und nächtlichen Parkhäusern geboren. Dein Custom Hoodie trägt diese Energie weiter.
+      </p>
+      <div class="flex flex-col gap-6 w-full">
+        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">local_fire_department</span>
+          <div>
+            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Unikat Garantie</span>
+            <span class="text-on-surface/60 text-sm">Jedes Design wird nur für dich angefertigt.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">speed</span>
+          <div>
+            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Express Production</span>
+            <span class="text-on-surface/60 text-sm">Fertigstellung innerhalb von 7–10 Werktagen.</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-container-high p-6 hover:bg-surface-variant transition-all">
+          <span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings:'FILL' 1">eco</span>
+          <div>
+            <span class="block font-headline uppercase text-sm tracking-widest text-primary mb-1">Bio-Baumwolle</span>
+            <span class="text-on-surface/60 text-sm">100% organisch. Qualität die man spürt.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="bg-primary py-24 text-center">
+  <div class="max-w-4xl mx-auto px-8">
+    <h2 class="font-headline text-4xl md:text-6xl font-black text-on-primary-fixed uppercase tracking-tighter mb-12">
+      Bereit für deinen Merch?
+    </h2>
+    <a
+      href="{{ section.settings.cta_url | default: '/pages/shop?filter=custom' }}"
+      class="inline-block bg-surface text-primary font-headline font-bold uppercase py-6 px-16 tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-2xl"
+    >
+      GET YOUR OWN
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Hoodie Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Hintergrundbild"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA Link"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Button Text",
+      "default": "GET YOUR OWN"
+    },
+{
+      "type": "header",
+      "content": "3-Step Process"
+    },
+    {
+      "type": "image_picker",
+      "id": "step1_image",
+      "label": "Step 1 Bild (Hoodie Auswahl)"
+    },
+    {
+      "type": "image_picker",
+      "id": "step2_image",
+      "label": "Step 2 Bild (Design)"
+    },
+    {
+      "type": "image_picker",
+      "id": "step3_image",
+      "label": "Step 3 Bild (Packaging)"
+    },
+    {
+      "type": "header",
+      "content": "Passion Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "passion_image",
+      "label": "Passion Bild (Model + Car)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hoodie Page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+<section class="relative h-[75vh] w-full overflow-hidden flex items-end">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.bg_image != blank %}
+      <img src="{{ section.settings.bg_image | img_url: '1920x' }}"
+           alt="{{ section.settings.bg_image_alt | escape }}"
+           class="w-full h-full object-cover grayscale brightness-50">
+    {% else %}
+      <div class="w-full h-full bg-[#1b1b1b]"></div>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 px-8 pb-24 md:pb-32 max-w-7xl">
+    {% if section.settings.badge != blank %}
+      <span class="inline-block bg-primary text-on-primary-fixed px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase mb-6">
+        {{ section.settings.badge }}
+      </span>
+    {% endif %}
+
+    <h1 class="font-headline text-5xl md:text-8xl lg:text-9xl uppercase font-black tracking-tighter leading-none mb-8">
+      {{ section.settings.headline_line1 }}
+      <br>
+      <span class="text-transparent" style="-webkit-text-stroke: 2px #ffb4a9;">
+        {{ section.settings.headline_outline }}
+      </span>
+      {{ section.settings.headline_line2 }}
+    </h1>
+
+    <div class="flex flex-col md:flex-row gap-6">
+      {% if section.settings.cta_primary_label != blank %}
+        <a href="{{ section.settings.cta_primary_url }}"
+           class="bg-gradient-to-r from-primary to-primary-container text-on-primary-fixed font-headline font-bold uppercase py-5 px-10 tracking-wider text-xl hover:scale-105 active:scale-95 transition-transform inline-block text-center">
+          {{ section.settings.cta_primary_label }}
+        </a>
+      {% endif %}
+      {% if section.settings.cta_secondary_label != blank %}
+        <a href="{{ section.settings.cta_secondary_url }}"
+           class="border border-outline-variant/20 text-white font-headline font-bold uppercase py-5 px-10 tracking-wider text-xl hover:bg-surface-container-highest transition-all inline-block text-center">
+          {{ section.settings.cta_secondary_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero – Night Runner",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image",           "label": "Background image" },
+    { "type": "text",         "id": "bg_image_alt",       "label": "Image alt text",        "default": "Tokyo night street" },
+    { "type": "text",         "id": "badge",              "label": "Badge text",             "default": "Limited Drop 001" },
+    { "type": "text",         "id": "headline_line1",     "label": "Headline line 1",        "default": "BESTELLE DEINEN" },
+    { "type": "text",         "id": "headline_outline",   "label": "Outline word",           "default": "EIGENEN" },
+    { "type": "text",         "id": "headline_line2",     "label": "Headline line 2",        "default": "HOODIE" },
+    { "type": "text",         "id": "cta_primary_label",  "label": "Primary button",         "default": "Dein Hoodie" },
+    { "type": "url",          "id": "cta_primary_url",    "label": "Primary button URL" },
+    { "type": "text",         "id": "cta_secondary_label","label": "Secondary button",        "default": "Lookbook" },
+    { "type": "url",          "id": "cta_secondary_url",  "label": "Secondary button URL" }
+  ],
+  "presets": [{ "name": "Hero – Night Runner" }]
+}
+{% endschema %}

@@ -1,0 +1,167 @@
+<div class="bg-night min-h-screen">
+
+  <!-- Header -->
+  <div class="bg-surface-container-low border-b border-white/5 px-6 lg:px-10 py-16">
+    <div class="max-w-2xl mx-auto">
+      <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-primary mb-4">Verbraucherrechte · EU</p>
+      <h1 class="font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter text-white">Widerruf&shy;formular</h1>
+      <p class="mt-4 text-white/40 font-body text-sm leading-relaxed">
+        Dieses Formular gilt ausschliesslich für Bestellungen, die in die <strong class="text-white/70">Europäische Union</strong> geliefert werden. EU-Verbraucher haben gemäss § 355 BGB das Recht, ihren Kauf innerhalb von <strong class="text-white/70">14 Tagen</strong> ohne Angabe von Gründen zu widerrufen.
+      </p>
+      <p class="mt-3 text-white/30 font-body text-sm leading-relaxed">
+        Für Bestellungen in die <strong class="text-white/50">Schweiz</strong> oder andere Länder gilt kein gesetzliches Widerrufsrecht. Bitte lies unsere <a href="/policies/refund-policy" class="text-primary hover:brightness-110 transition-colors">Rückgabebedingungen</a> und <a href="/policies/terms-of-service" class="text-primary hover:brightness-110 transition-colors">AGB</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="max-w-2xl mx-auto px-6 lg:px-10 py-16">
+
+    <!-- Company address block -->
+    <div class="border border-white/10 bg-surface-container-low p-6 mb-10" style="border-left: 2px solid #ffb4a9;">
+      <p class="font-headline font-bold text-xs uppercase tracking-[0.2em] text-white/30 mb-3">An</p>
+      <p class="font-body text-white/60 text-sm leading-relaxed">
+        Nippon Nites<br>
+        Fabio Berta<br>
+        Im Grüntal 10<br>
+        8405 Winterthur ZH<br>
+        Switzerland<br>
+        <a href="mailto:info@nipponnites.com" class="text-primary hover:brightness-110 transition-all">info@nipponnites.com</a>
+      </p>
+    </div>
+
+    {% form 'contact' %}
+      {{ form.errors | default_errors }}
+
+      {% if form.posted_successfully? %}
+        <div class="border border-primary/30 bg-primary/5 p-6 mb-8">
+          <p class="font-headline font-bold uppercase tracking-tighter text-primary">Widerruf eingegangen</p>
+          <p class="text-white/60 font-body text-sm mt-2">Wir haben deinen Widerruf erhalten und melden uns innerhalb von 1–2 Werktagen per E-Mail.</p>
+        </div>
+      {% endif %}
+
+      <input type="hidden" name="contact[subject]" value="Widerruf – Bestellung">
+
+      <p class="font-body text-white/50 text-sm leading-relaxed mb-8">
+        Hiermit widerrufe(n) ich/wir den von mir/uns abgeschlossenen Vertrag über den Kauf der folgenden Waren:
+      </p>
+
+      <div class="space-y-5">
+
+        <!-- Name -->
+        <div>
+          <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Vor- und Nachname *</label>
+          <input
+            type="text"
+            name="contact[name]"
+            value="{{ form.name }}"
+            required
+            class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors"
+            placeholder="Max Mustermann"
+          >
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">E-Mail-Adresse *</label>
+          <input
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            required
+            class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors"
+            placeholder="deine@email.com"
+          >
+        </div>
+
+        <!-- Address -->
+        <div>
+          <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Anschrift *</label>
+          <textarea
+            name="contact[anschrift]"
+            rows="3"
+            required
+            class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors resize-none"
+            placeholder="Strasse, PLZ Ort, Land"
+          ></textarea>
+        </div>
+
+        <!-- Order Number + Dates -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div>
+            <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Bestellnummer *</label>
+            <input
+              type="text"
+              name="contact[bestellnummer]"
+              required
+              class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors"
+              placeholder="#1001"
+            >
+          </div>
+          <div>
+            <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Bestelldatum *</label>
+            <input
+              type="date"
+              name="contact[bestelldatum]"
+              required
+              class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary transition-colors"
+              style="color-scheme: dark;"
+            >
+          </div>
+        </div>
+
+        <!-- Received Date -->
+        <div>
+          <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Warenerhalt am *</label>
+          <input
+            type="date"
+            name="contact[warenerhalt]"
+            required
+            class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary transition-colors"
+            style="color-scheme: dark;"
+          >
+        </div>
+
+        <!-- Reason (optional) -->
+        <div>
+          <label class="block font-headline font-bold text-xs uppercase tracking-[0.15em] text-white/40 mb-2">Grund <span class="text-white/20 normal-case tracking-normal font-body font-normal">(optional)</span></label>
+          <textarea
+            name="contact[body]"
+            rows="4"
+            class="w-full bg-transparent border border-white/10 text-white font-body text-sm px-5 py-4 focus:outline-none focus:border-primary placeholder:text-white/20 transition-colors resize-none"
+            placeholder="Artikelbeschreibung, Grösse, Farbe ..."
+          ></textarea>
+        </div>
+
+      </div>
+
+      <!-- Legal note -->
+      <p class="font-body text-white/25 text-xs leading-relaxed mt-8 mb-6">
+        Mit dem Absenden bestätigst du, dass du die <a href="/policies/privacy-policy" class="underline hover:text-white/50 transition-colors">Datenschutzerklärung</a> gelesen hast. Deine Angaben werden ausschliesslich zur Bearbeitung deines Widerrufs verwendet.
+      </p>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="w-full py-5 font-headline font-black uppercase tracking-tighter text-lg text-[#410000] hover:brightness-110 active:scale-[0.98] transition-all duration-300"
+        style="background: linear-gradient(to right, #ffb4a9, #fb5a48);"
+      >
+        Widerruf verbindlich absenden →
+      </button>
+
+    {% endform %}
+
+    <!-- Note -->
+    <p class="font-body text-white/20 text-xs text-center mt-8 leading-relaxed">
+      Du kannst den Widerruf auch formlos per E-Mail an <a href="mailto:info@nipponnites.com" class="text-white/40 hover:text-primary transition-colors">info@nipponnites.com</a> einreichen.
+    </p>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Widerrufformular",
+  "presets": [{ "name": "Widerrufformular" }]
+}
+{% endschema %}

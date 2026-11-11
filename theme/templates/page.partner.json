@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-partner",
+      "blocks": {
+        "uppromote_affiliate_registration_form_6WPbW7": {
+          "type": "shopify://apps/uppromote-affiliate/blocks/registration-form/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
+          "settings": {
+            "section_width": 100,
+            "border_radius": 0,
+            "top_margin": 0,
+            "bottom_margin": 0
+          }
+        }
+      },
+      "block_order": [
+        "uppromote_affiliate_registration_form_6WPbW7"
+      ],
+      "settings": {
+        "hero_image": "shopify://shop_images/IMG_5161.png",
+        "hero_title": "Das lukrativste Affiliate Program",
+        "hero_text": "",
+        "benefits_image": "shopify://shop_images/F1E44EB0-8EF7-426B-8167-B365FE43C8EF.png",
+        "form_image": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

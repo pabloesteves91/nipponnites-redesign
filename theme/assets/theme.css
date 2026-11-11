@@ -1,0 +1,17 @@
+/* NIPPON NITES – Night Runner Theme */
+*, *::before, *::after { box-sizing: border-box; }
+body { background-color: #131313; color: #ffffff; font-family: 'Inter', sans-serif; margin: 0; }
+.shopify-section { margin: 0 !important; padding: 0 !important; }
+h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Space Grotesk', sans-serif; }
+.gradient-bg { background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(240,82,65,0.15), transparent); }
+.card-glow:hover { box-shadow: 0 0 24px rgba(240,82,65,0.25); transition: box-shadow 0.3s ease; }
+.btn-primary { background-color: #F05241; color: #fff; font-family: 'Space Grotesk',sans-serif; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.75rem 1.75rem; border: none; cursor: pointer; transition: background-color 0.2s ease, transform 0.1s ease; }
+.btn-primary:hover { background-color: #d43f2e; transform: translateY(-1px); }
+.btn-outline { background-color: transparent; color: #fff; font-family: 'Space Grotesk',sans-serif; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.75rem 1.75rem; border: 1px solid rgba(255,255,255,0.3); cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease; }
+.btn-outline:hover { border-color: #F05241; color: #F05241; }
+.cart-badge { background-color: #F05241; color: white; font-size: 0.6rem; font-weight: 700; width: 1.1rem; height: 1.1rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: absolute; top: -4px; right: -4px; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #131313; }
+::-webkit-scrollbar-thumb { background: #F05241; border-radius: 3px; }
+:focus-visible { outline: 2px solid #F05241; outline-offset: 2px; }
+.shopify-payment-button__button { border-radius: 0 !important; font-family: 'Space Grotesk',sans-serif !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.05em !important; }

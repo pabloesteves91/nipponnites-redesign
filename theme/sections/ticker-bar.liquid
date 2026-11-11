@@ -1,0 +1,28 @@
+{% if section.settings.show %}
+<div style="background:#e00000;overflow:hidden;white-space:nowrap;height:2rem;display:flex;align-items:center;">
+  <div class="nn-ticker-track" style="display:inline-flex;align-items:center;gap:0;animation:nn-ticker {{ section.settings.speed }}s linear infinite;">
+    {%- assign text = section.settings.ticker_text | default: 'Aktuelle Aktion — Jetzt entdecken' -%}
+    {%- for i in (1..6) -%}
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:0.6875rem;font-weight:900;text-transform:uppercase;letter-spacing:0.15em;color:#fff;padding:0 3rem;">{{ text }}</span>
+    {%- endfor -%}
+  </div>
+</div>
+<style>
+@keyframes nn-ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Ticker Bar",
+  "settings": [
+    { "type": "checkbox", "id": "show",        "label": "Anzeigen",           "default": true },
+    { "type": "text",     "id": "ticker_text", "label": "Text (Lauftext)",    "default": "Aktuelle Aktion — Jetzt entdecken" },
+    { "type": "range",    "id": "speed",       "label": "Geschwindigkeit (s)","min": 8, "max": 40, "step": 2, "default": 20 }
+  ],
+  "presets": [{ "name": "Ticker Bar" }]
+}
+{% endschema %}

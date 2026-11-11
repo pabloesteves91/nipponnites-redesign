@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "share_image": "shopify://shop_images/nippon-nites-vorschau.jpg",
+    "color_primary": "#F05241",
+    "color_background": "#131313",
+    "color_card": "#1b1b1b",
+    "color_accent": "#ffb4a9",
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "show_announcement": false,
+          "announcement_text": "10% Discount: NIPPON10 🇯🇵"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify://shop_images/logo_nippon.png",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Premium streetwear for those who run the night.",
+          "footer_menu": "footer",
+          "instagram_url": "https://www.instagram.com/nipponnites/",
+          "tiktok_url": "",
+          "youtube_url": ""
+        }
+      },
+      "ticker-bar": {
+        "type": "ticker-bar",
+        "settings": {
+          "show": true,
+          "ticker_text": "20% rabatt auf alle customs",
+          "speed": 20
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  },
+  "presets": {}
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Nippon Nites",
+    "theme_version": "1.0.0",
+    "theme_author": "Nippon Nites",
+    "theme_documentation_url": "https://nipponnites.com",
+    "theme_support_url": "https://nipponnites.com/pages/contact"
+  },
+  {
+    "name": "Social Sharing",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Dieses Bild erscheint, wenn du einen Link zur Startseite oder einer allgemeinen Seite per WhatsApp, Instagram oder Facebook teilst. Produktseiten zeigen automatisch das Produktbild."
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Vorschaubild für geteilte Links",
+        "info": "Ideal 1200 × 630 px. Wird mittig auf dieses Format zugeschnitten."
+      }
+    ]
+  }
+]

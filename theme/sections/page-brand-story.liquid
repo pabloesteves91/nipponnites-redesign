@@ -1,0 +1,189 @@
+<!-- Hero Section -->
+<header class="relative min-h-[75vh] flex items-end pt-20 pb-20 px-8 lg:px-16 overflow-hidden bg-surface">
+  <div class="absolute inset-0 z-0">
+    {% if section.settings.hero_image != blank %}
+      <img
+        src="{{ section.settings.hero_image | img_url: '2000x' }}"
+        alt="{{ section.settings.hero_image.alt | escape }}"
+        class="w-full h-full object-cover grayscale opacity-60 contrast-125"
+      >
+    {% else %}
+      <div class="w-full h-full bg-surface-container-high"></div>
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-surface/20"></div>
+  </div>
+  <div class="relative z-10 w-full">
+    <p class="font-label text-primary tracking-[0.4em] uppercase mb-4 text-sm md:text-base">ESTABLISHED IN THE DARK — WINTERTHUR × TOKYO</p>
+    <h1 class="font-headline font-black text-6xl md:text-[10rem] leading-[0.85] uppercase tracking-tighter mb-8 italic">
+      PASSION <span style="-webkit-text-stroke: 2px #ffb4a9; color: transparent;">IS NOT A</span><br>CRIME.
+    </h1>
+    <div class="flex flex-col md:flex-row gap-12 md:items-end">
+      <p class="max-w-md text-on-surface/70 font-medium text-lg border-l-2 border-primary pl-6">
+        Gegründet 2024. Inspiriert von den Nächten auf der Shuto Expressway und dem Neonlicht Akihabaras.
+      </p>
+      <div class="font-headline font-bold text-3xl tracking-tighter text-primary/40 uppercase">
+        00:00 — 05:00
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Founder Section -->
+<section class="py-0 bg-surface">
+  <div class="grid grid-cols-1 lg:grid-cols-2">
+
+    <!-- Image -->
+    <div class="relative aspect-[4/5] lg:aspect-auto lg:min-h-[700px] overflow-hidden">
+      {% if section.settings.founder_image != blank %}
+        <img
+          src="{{ section.settings.founder_image | img_url: '1200x' }}"
+          alt="Fabio Berta – Founder Nippon Nites"
+          class="w-full h-full object-cover"
+        >
+      {% else %}
+        <div class="w-full h-full bg-surface-container-high flex items-center justify-center">
+          <span class="font-headline text-white/10 text-2xl uppercase font-black">Founder Photo</span>
+        </div>
+      {% endif %}
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface/30 hidden lg:block"></div>
+      <!-- Badge overlay -->
+      <div class="absolute bottom-8 left-8 bg-surface/80 backdrop-blur-sm p-6 border-l-4 border-primary max-w-xs">
+        <p class="font-headline font-black text-primary text-lg uppercase tracking-tighter">1992 Toyota Celica T18</p>
+        <p class="font-label text-xs tracking-widest text-white/50 uppercase mt-1">Winterthur, Schweiz</p>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div class="flex flex-col justify-center px-8 lg:px-16 py-24 bg-surface-container-low">
+      <p class="font-label text-primary tracking-[0.3em] uppercase text-xs mb-8">Über den Gründer</p>
+      <h2 class="font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none mb-12">
+        FABIO<br><span class="text-primary">BERTA</span>
+      </h2>
+      <div class="space-y-6 text-on-surface/70 font-body leading-relaxed max-w-lg">
+        <p>
+          Ich bin Fabio Berta aus Winterthur, und meine Begeisterung für Autos begann schon in jungen Jahren, da mein Vater seit über 20 Jahren als Mechaniker arbeitet.
+        </p>
+        <p>
+          Heute fahre ich einen <span class="text-primary font-bold">1992 Toyota Celica T18</span> und habe 2024 Nippon Nites gegründet — eine Marke, die die Liebe zur JDM-Kultur und zur japanischen Nachtkultur vereint.
+        </p>
+        <p>
+          <span class="text-primary font-bold">Nippon</span> bedeutet auf Japanisch „Japan", und <span class="text-primary font-bold">Nites</span> steht für „Nights" — um das besondere Flair der nächtlichen Tuning-Szene einzufangen.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brand Philosophy -->
+<section class="py-16 bg-surface">
+  <div class="max-w-7xl mx-auto px-8 lg:px-16">
+    <div class="max-w-3xl space-y-8 text-on-surface/70 font-body leading-relaxed">
+      <p class="text-lg border-l-2 border-primary pl-6 text-on-surface/90">
+        Unsere Designs, ob Custom oder Stock, sind in der Schweiz einzigartig. Jedes Design wird von Hand illustriert — wir arbeiten bewusst nicht mit künstlicher Intelligenz.
+      </p>
+      <p>
+        Für uns geht es nicht nur ums Verkaufen, sondern darum, unsere Leidenschaft und Liebe für JDM weiterzugeben und mit anderen zu teilen.
+      </p>
+      <p>
+        Qualität ist uns ebenso wichtig, weshalb wir ausschließlich <span class="text-primary font-bold">Bio-Baumwolle</span> verwenden. Jedes Stück verkörpert die Leidenschaft für die japanische Autokultur — ein echtes Statement für JDM-Enthusiasten.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Values Grid -->
+<section class="bg-surface-container-low py-24">
+  <div class="px-8 lg:px-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
+        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">draw</span>
+        <div>
+          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Hand-illustriert</h3>
+          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">Kein KI. Jedes Design von Hand gezeichnet.</p>
+        </div>
+      </div>
+      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
+        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">eco</span>
+        <div>
+          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Bio-Baumwolle</h3>
+          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">100% organisch. Qualität die man spürt.</p>
+        </div>
+      </div>
+      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
+        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">favorite</span>
+        <div>
+          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Mit Leidenschaft</h3>
+          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">JDM-Kultur — nicht nur ein Style, ein Lifestyle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0">
+    {% if section.settings.cta_image != blank %}
+      <img
+        src="{{ section.settings.cta_image | img_url: '2000x' }}"
+        alt="{{ section.settings.cta_image.alt | escape }}"
+        class="w-full h-full object-cover grayscale brightness-50"
+      >
+    {% else %}
+      <div class="w-full h-full bg-surface-container-low"></div>
+    {% endif %}
+  </div>
+  <div class="relative z-10 text-center px-8">
+    <h2 class="font-headline font-black text-6xl md:text-9xl uppercase tracking-tighter mb-12">
+      JOIN THE<br><span class="text-primary italic">UNDERGROUND</span>
+    </h2>
+    <div class="flex flex-col md:flex-row gap-6 justify-center">
+      <a href="/pages/shop" class="bg-gradient-to-r from-primary to-primary-container px-12 py-6 font-headline font-black uppercase text-on-primary-fixed tracking-widest text-xl hover:brightness-110 active:scale-[0.98] transition-all">
+        SHOP THE DROP
+      </a>
+      <a href="/pages/contact" class="border-2 border-outline-variant px-12 py-6 font-headline font-black uppercase tracking-widest text-xl hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
+        KONTAKT
+      </a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Hintergrundbild"
+    },
+    {
+      "type": "header",
+      "content": "Gründer-Sektion"
+    },
+    {
+      "type": "image_picker",
+      "id": "founder_image",
+      "label": "Gründer-Foto (Fabio + Celica)"
+    },
+    {
+      "type": "header",
+      "content": "CTA-Sektion"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA Hintergrundbild"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story"
+    }
+  ]
+}
+{% endschema %}

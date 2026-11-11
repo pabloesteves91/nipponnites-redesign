@@ -1,0 +1,65 @@
+{% assign related_collection = product.collections.first %}
+{% if related_collection %}
+  {% assign related_products = related_collection.products %}
+  {% assign has_related = false %}
+  {% for p in related_products %}
+    {% unless p.id == product.id %}
+      {% assign has_related = true %}
+    {% endunless %}
+  {% endfor %}
+
+  {% if has_related %}
+  <section class="bg-surface-container-low py-20 px-8">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <p class="font-label text-xs tracking-[0.3em] uppercase text-primary mb-2">Das könnte dir auch gefallen</p>
+          <h2 class="font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none">Ähnliche <span style="-webkit-text-stroke: 1px #ffb4a9; color: transparent;">Drops</span></h2>
+        </div>
+        <a href="{{ related_collection.url }}" class="hidden md:flex items-center gap-2 font-headline font-bold text-xs uppercase tracking-widest text-white/40 hover:text-primary transition-colors">
+          Alle ansehen <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {% assign count = 0 %}
+        {% for p in related_products %}
+          {% unless p.id == product.id %}
+            {% if count < 4 %}
+              <div class="group">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container-high mb-4 relative">
+                  <a href="{{ p.url }}">
+                    {% if p.featured_image %}
+                      <img src="{{ p.featured_image | img_url: '500x667', crop: 'center' }}" alt="{{ p.featured_image.alt | default: p.title | escape }}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    {% endif %}
+                  </a>
+                  {% unless p.available %}
+                    <div class="absolute top-3 left-3">
+                      <span class="bg-surface-container-highest text-white/60 px-2 py-1 text-[10px] font-black uppercase tracking-widest">Ausverkauft</span>
+                    </div>
+                  {% endunless %}
+                </div>
+                <p class="text-[10px] text-primary font-headline font-bold uppercase tracking-[0.2em] mb-1">{{ p.type }}</p>
+                <h3 class="font-headline font-bold text-sm uppercase leading-tight group-hover:text-primary transition-colors mb-1">
+                  <a href="{{ p.url }}">{{ p.title }}</a>
+                </h3>
+                {%- assign _factor = 1 -%}{%- if p.handle == 'custom-hoodie-t-shirt' or p.handle == 'custom-t-shirt' -%}{%- assign _factor = 0.8 -%}{%- endif -%}{%- if p.handle == 'wheelhead-niko-light' or p.handle == 'wheelhead-niko-premium' -%}{%- assign _factor = 0.85 -%}{%- endif -%}
+                <p class="text-white/50 text-sm font-body">{% if p.price_varies %}ab {% endif %}{% if _factor != 1 %}{{ p.price_min | times: _factor | round | money }}{% else %}{{ p.price_min | money }}{% endif %}</p>
+              </div>
+              {% assign count = count | plus: 1 %}
+            {% endif %}
+          {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Cross-Sell",
+  "settings": [],
+  "presets": [{ "name": "Cross-Sell" }]
+}
+{% endschema %}

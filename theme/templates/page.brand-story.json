@@ -1,0 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page-brand-story",
+      "settings": {
+        "hero_image": "shopify://shop_images/255074859_410320580752336_6840346860518617659_n_b47aa016-eac8-49d2-b261-afa78e217453.webp",
+        "founder_image": "shopify://shop_images/IMG_6578.jpg",
+        "cta_image": "shopify://shop_images/join.jpg"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
