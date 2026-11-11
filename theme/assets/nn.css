@@ -143,11 +143,11 @@ body.nn-body {
 .nn-punkte { background-image: radial-gradient(rgba(30,27,23,.17) 1px, transparent 1.2px); background-size: 24px 24px; }
 
 /* Polaroid mit Klebeband */
-.nn-foto { position: relative; margin: 0; background: #fffdf8; padding: 10px 10px 0; box-shadow: 0 1px 0 rgba(30,27,23,.15), 0 10px 22px -12px rgba(30,27,23,.45); transform: rotate(var(--dreh, -1.5deg)); }
+.nn-foto { display: block; position: relative; margin: 0; background: #fffdf8; padding: 10px 10px 0; box-shadow: 0 1px 0 rgba(30,27,23,.15), 0 10px 22px -12px rgba(30,27,23,.45); transform: rotate(var(--dreh, -1.5deg)); }
 .nn-foto:nth-of-type(even) { --dreh: 1deg; }
 .nn-foto__bild { aspect-ratio: var(--format, 4 / 5); background: var(--karton); overflow: hidden; }
 .nn-foto__bild img { width: 100%; height: 100%; object-fit: cover; }
-.nn-foto figcaption { font-family: var(--hand); color: var(--blaustift); font-size: 1.45rem; line-height: 1.05; padding: 8px 4px 12px; min-height: 2.6em; }
+.nn-foto figcaption, .nn-foto__text { display: block; font-family: var(--hand); color: var(--blaustift); font-size: 1.45rem; line-height: 1.05; padding: 8px 4px 12px; min-height: 2.6em; }
 .nn-foto::before { content: ""; position: absolute; top: -12px; left: 50%; width: 92px; height: 26px; margin-left: -46px; background: var(--tape); transform: rotate(-3deg); clip-path: polygon(2% 0, 98% 6%, 100% 92%, 0 100%); z-index: 2; }
 .nn-foto--leer .nn-foto__bild { display: grid; place-items: center; border: 2px dashed rgba(30,27,23,.3); background: transparent; text-align: center; padding: 14px; }
 .nn-foto--leer .nn-foto__bild span { font-family: var(--hand); color: var(--graphit); font-size: 1.6rem; line-height: 1.05; }
@@ -207,7 +207,7 @@ body.nn-body {
 .nn-wahl strong { font: 800 1.5rem/1 var(--kopf); text-transform: uppercase; }
 
 /* Scroll-Story «Vom Foto zum Unikat» */
-.nn-prozess { position: relative; height: 340vh; }
+.nn-prozess { position: relative; height: 280vh; }
 .nn-prozess__buehne { position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(24px, 4vw, 64px); align-items: center; }
 .nn-prozess__schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 .nn-prozess__schritte li { display: grid; grid-template-columns: 52px 1fr; gap: 10px; padding: 14px 0; border-bottom: 1px dashed var(--linie); opacity: .38; transition: opacity .35s; }
@@ -223,11 +223,11 @@ body.nn-body {
 .nn-prozess__wisch { position: absolute; top: 12px; bottom: 12px; width: 3px; background: var(--marker); left: calc(12px + (100% - 24px) * var(--wisch, 0)); z-index: 6; opacity: var(--wisch-sicht, 0); }
 
 /* Galerie */
-.nn-galerie__raster { columns: 3 260px; column-gap: clamp(18px, 2.6vw, 40px); }
-.nn-galerie__raster .nn-foto { break-inside: avoid; margin: 0 0 clamp(26px, 3vw, 44px); }
-.nn-galerie__raster .nn-foto:nth-child(3n+1) { --dreh: -2deg; }
-.nn-galerie__raster .nn-foto:nth-child(3n+2) { --dreh: 1.4deg; }
-.nn-galerie__raster .nn-foto:nth-child(3n) { --dreh: -.6deg; }
+.nn-galerie__raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: clamp(30px, 3.4vw, 52px) clamp(18px, 2.6vw, 40px); align-items: start; }
+
+.nn-galerie__raster > :nth-child(3n+1) .nn-foto, .nn-galerie__raster > .nn-foto:nth-child(3n+1) { --dreh: -2deg; }
+.nn-galerie__raster > :nth-child(3n+2) .nn-foto, .nn-galerie__raster > .nn-foto:nth-child(3n+2) { --dreh: 1.4deg; }
+.nn-galerie__raster > :nth-child(3n) .nn-foto, .nn-galerie__raster > .nn-foto:nth-child(3n) { --dreh: -.6deg; }
 .nn-galerie__meta { display: block; font-family: var(--text); font-size: .85rem; color: var(--graphit); margin-top: 4px; }
 .nn-galerie__raster a.nn-foto:hover { transform: rotate(0) translateY(-4px); }
 
@@ -243,7 +243,7 @@ body.nn-body {
 .nn-passion { text-align: center; padding-block: clamp(80px, 12vw, 160px); border-block: 2px solid var(--tinte); }
 .nn-passion__schrift { display: inline-block; position: relative; }
 .nn-passion .nn-h1 { font-size: clamp(3rem, 10vw, 8.6rem); }
-.nn-passion__kreis { position: absolute; inset: -10% -6%; width: 112%; height: 120%; color: var(--marker); stroke-width: 2.6; pointer-events: none; }
+.nn-passion__kreis { position: absolute; left: -9%; top: -22%; width: 118%; height: 150%; color: var(--marker); stroke-width: 2.6; pointer-events: none; }
 
 /* Brotkrumen */
 .nn-krumen ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 24px; padding: 0; font-size: .92rem; color: var(--graphit); }
@@ -295,7 +295,7 @@ body.nn-body {
 .nn-menge input::-webkit-inner-spin-button { -webkit-appearance: none; }
 
 /* Footer */
-.nn-footer { background: var(--karton); border-top: 2px solid var(--tinte); margin-top: clamp(64px, 8vw, 120px); }
+.nn-footer { background: var(--karton); border-top: 2px solid var(--tinte); }
 .nn-footer__news { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; align-items: end; padding-block: clamp(48px, 6vw, 80px) 40px; border-bottom: 1px dashed rgba(30,27,23,.35); }
 .nn-footer__form { display: flex; gap: 10px; }
 .nn-footer__form .nn-eingabe { flex: 1; min-height: 52px; }
@@ -360,6 +360,7 @@ body.nn-body {
   .nn-prozess { height: auto; }
   .nn-prozess__buehne { position: static; height: auto; grid-template-columns: 1fr; padding-block: 24px; }
   .nn-prozess__bilder { order: -1; max-width: 460px; }
+  .nn-prozess__schritte li { opacity: 1; }
 }
 @media (max-width: 600px) {
   body.nn-body { font-size: 16px; }
@@ -368,7 +369,13 @@ body.nn-body {
   .nn-wahl, .nn-karten2 { grid-template-columns: 1fr; }
   .nn-footer__spalten { grid-template-columns: 1fr; }
   .nn-footer__form { flex-direction: column; }
-  .nn-hero__collage { min-height: 320px; }
+  .nn-hero__collage { min-height: 400px; }
+  .nn-hero__collage .nn-foto { width: 50%; padding: 7px 7px 0; }
+  .nn-hero__collage .nn-foto:nth-child(2) { width: 46%; }
+  .nn-hero__collage .nn-foto:nth-child(3) { width: 54%; left: 22%; }
+  .nn-hero__collage .nn-foto figcaption { font-size: 1.15rem; min-height: 2.2em; padding: 6px 2px 8px; }
+  .nn-hero__collage .nn-foto--leer .nn-foto__bild span { font-size: 1.2rem; }
+  .nn-hero__collage .nn-stempel { width: 84px; height: 84px; font-size: .9rem; right: 0; bottom: auto; top: 44%; }
   .nn-header__logo span { font-size: 1.25rem; }
 }
 
