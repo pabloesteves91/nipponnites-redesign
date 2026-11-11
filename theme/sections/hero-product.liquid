@@ -4,7 +4,7 @@
   <div class="nn-wrap nn-duo">
     <div style="position:relative;">
       {% render 'nn-foto', bild: hp.featured_media, alt: hp.title, text: section.settings.eyebrow, sizes: '(min-width: 860px) 45vw, 92vw', format: '1 / 1', dreh: '-2deg', fallen: true, link: hp.url %}
-      {%- if section.settings.badge != blank -%}<span style="position:absolute;right:-8px;top:-18px;z-index:3;">{% render 'nn-stempel', text: section.settings.badge, klein: true %}</span>{%- endif -%}
+      {%- if section.settings.badge != blank -%}<span style="position:absolute;right:6px;top:-18px;z-index:3;">{% render 'nn-stempel', text: section.settings.badge, klein: true %}</span>{%- endif -%}
     </div>
     <div>
       <h2 class="nn-h2">{{ section.settings.headline_line1 }} <span class="nn-marker">{{ section.settings.headline_outline }}</span></h2>
