@@ -1,0 +1,26 @@
+<section class="nn-wrap nn-404 nn-punkte">
+  {% render 'nn-scribble', art: 'pfeil', zeichnen: true %}
+  <span class="nn-notiz">Fehler 404</span>
+  <h1 class="nn-h1">{{ section.settings.titel }}</h1>
+  <p class="nn-lead" style="margin-inline:auto;">{{ section.settings.text }}</p>
+  <div class="nn-knopfreihe" style="justify-content:center;">
+    <a class="nn-btn nn-btn--marker" href="/collections/all">Drops ansehen</a>
+    <a class="nn-btn" href="/">Zur Startseite</a>
+  </div>
+  <form action="/search" method="get" role="search" class="nn-suche" style="margin:36px auto 0;width:100%;">
+    <label class="nn-sr" for="nn-404-q">Suchbegriff</label>
+    <input id="nn-404-q" class="nn-eingabe" type="search" name="q" placeholder="Was hast du gesucht?">
+    <button type="submit" class="nn-btn">Suchen</button>
+  </form>
+</section>
+
+{% schema %}
+{
+  "name": "Seite nicht gefunden",
+  "settings": [
+    { "type": "text", "id": "titel", "label": "Titel", "default": "Falsch abgebogen" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Diese Seite gibt es nicht (mehr). Vielleicht ist der Drop ausverkauft oder der Link hat einen Tippfehler." }
+  ],
+  "presets": [{ "name": "Seite nicht gefunden" }]
+}
+{% endschema %}

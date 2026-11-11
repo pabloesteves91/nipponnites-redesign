@@ -1,150 +1,54 @@
-<!-- Hero Section -->
-<header class="relative min-h-[75vh] flex items-end pt-20 pb-20 px-8 lg:px-16 overflow-hidden bg-surface">
-  <div class="absolute inset-0 z-0">
-    {% if section.settings.hero_image != blank %}
-      <img
-        src="{{ section.settings.hero_image | img_url: '2000x' }}"
-        alt="{{ section.settings.hero_image.alt | escape }}"
-        class="w-full h-full object-cover grayscale opacity-60 contrast-125"
-      >
-    {% else %}
-      <div class="w-full h-full bg-surface-container-high"></div>
-    {% endif %}
-    <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-surface/20"></div>
-  </div>
-  <div class="relative z-10 w-full">
-    <p class="font-label text-primary tracking-[0.4em] uppercase mb-4 text-sm md:text-base">ESTABLISHED IN THE DARK — WINTERTHUR × TOKYO</p>
-    <h1 class="font-headline font-black text-6xl md:text-[10rem] leading-[0.85] uppercase tracking-tighter mb-8 italic">
-      PASSION <span style="-webkit-text-stroke: 2px #ffb4a9; color: transparent;">IS NOT A</span><br>CRIME.
-    </h1>
-    <div class="flex flex-col md:flex-row gap-12 md:items-end">
-      <p class="max-w-md text-on-surface/70 font-medium text-lg border-l-2 border-primary pl-6">
-        Gegründet 2024. Inspiriert von den Nächten auf der Shuto Expressway und dem Neonlicht Akihabaras.
-      </p>
-      <div class="font-headline font-bold text-3xl tracking-tighter text-primary/40 uppercase">
-        00:00 — 05:00
-      </div>
+<section class="nn-seitenkopf nn-wrap nn-punkte">
+  <nav class="nn-krumen" aria-label="Brotkrumen"><ol><li><a href="/">Home</a></li><li aria-current="page">Brand Story</li></ol></nav>
+  <span class="nn-notiz">Winterthur, seit 2024</span>
+  <h1 class="nn-h1">Passion is not <span class="nn-unter">a crime.{% render 'nn-scribble', art: 'unterstrich', zeichnen: true %}</span></h1>
+  <p class="nn-lead">Nippon Nites ist eine kleine Marke aus Winterthur. Wir zeichnen Autos von Hand und bringen sie auf Kleidung, für Leute, die nachts noch eine Runde drehen.</p>
+</section>
+
+<section class="nn-abschnitt nn-wrap" style="padding-top:clamp(24px,4vw,56px);">
+  <div class="nn-ueber" style="grid-template-columns:1fr 1fr;">
+    <div style="position:relative;">
+      {% render 'nn-foto', bild: section.settings.founder_image, text: 'Fabio und seine Celica T18', alt: 'Fabio Berta, Gründer von Nippon Nites, mit seinem Toyota Celica T18', leer_text: 'Foto folgt: Fabio und die Celica', sizes: '(min-width: 860px) 45vw, 92vw', format: '3 / 2', prio: true, dreh: '-1.5deg' %}
+      <span style="position:absolute;right:-10px;bottom:-34px;z-index:3;">{% render 'nn-stempel', text: 'Kein KI' %}</span>
     </div>
-  </div>
-</header>
-
-<!-- Founder Section -->
-<section class="py-0 bg-surface">
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-
-    <!-- Image -->
-    <div class="relative aspect-[4/5] lg:aspect-auto lg:min-h-[700px] overflow-hidden">
-      {% if section.settings.founder_image != blank %}
-        <img
-          src="{{ section.settings.founder_image | img_url: '1200x' }}"
-          alt="Fabio Berta – Founder Nippon Nites"
-          class="w-full h-full object-cover"
-        >
-      {% else %}
-        <div class="w-full h-full bg-surface-container-high flex items-center justify-center">
-          <span class="font-headline text-white/10 text-2xl uppercase font-black">Founder Photo</span>
-        </div>
-      {% endif %}
-      <div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface/30 hidden lg:block"></div>
-      <!-- Badge overlay -->
-      <div class="absolute bottom-8 left-8 bg-surface/80 backdrop-blur-sm p-6 border-l-4 border-primary max-w-xs">
-        <p class="font-headline font-black text-primary text-lg uppercase tracking-tighter">1992 Toyota Celica T18</p>
-        <p class="font-label text-xs tracking-widest text-white/50 uppercase mt-1">Winterthur, Schweiz</p>
+    <div>
+      <span class="nn-notiz">über den Gründer</span>
+      <h2 class="nn-h2" style="margin:.15em 0 .6em;">Fabio Berta</h2>
+      <div class="nn-text">
+        <p>Ich bin Fabio Berta aus Winterthur. Meine Begeisterung für Autos begann früh: Mein Vater arbeitet seit über 20 Jahren als Mechaniker.</p>
+        <p>Heute fahre ich einen <strong>1992 Toyota Celica T18</strong> und habe 2024 Nippon Nites gegründet, eine Marke, die JDM-Kultur und die japanische Nachtszene verbindet.</p>
+        <p><strong>Nippon</strong> heisst auf Japanisch «Japan», <strong>Nites</strong> steht für «Nights»: das Gefühl der nächtlichen Tuning-Szene.</p>
       </div>
-    </div>
-
-    <!-- Text -->
-    <div class="flex flex-col justify-center px-8 lg:px-16 py-24 bg-surface-container-low">
-      <p class="font-label text-primary tracking-[0.3em] uppercase text-xs mb-8">Über den Gründer</p>
-      <h2 class="font-headline font-black text-4xl md:text-5xl uppercase tracking-tighter leading-none mb-12">
-        FABIO<br><span class="text-primary">BERTA</span>
-      </h2>
-      <div class="space-y-6 text-on-surface/70 font-body leading-relaxed max-w-lg">
-        <p>
-          Ich bin Fabio Berta aus Winterthur, und meine Begeisterung für Autos begann schon in jungen Jahren, da mein Vater seit über 20 Jahren als Mechaniker arbeitet.
-        </p>
-        <p>
-          Heute fahre ich einen <span class="text-primary font-bold">1992 Toyota Celica T18</span> und habe 2024 Nippon Nites gegründet — eine Marke, die die Liebe zur JDM-Kultur und zur japanischen Nachtkultur vereint.
-        </p>
-        <p>
-          <span class="text-primary font-bold">Nippon</span> bedeutet auf Japanisch „Japan", und <span class="text-primary font-bold">Nites</span> steht für „Nights" — um das besondere Flair der nächtlichen Tuning-Szene einzufangen.
-        </p>
-      </div>
+      <p class="nn-unterschrift">Fabio</p>
     </div>
   </div>
 </section>
 
-<!-- Brand Philosophy -->
-<section class="py-16 bg-surface">
-  <div class="max-w-7xl mx-auto px-8 lg:px-16">
-    <div class="max-w-3xl space-y-8 text-on-surface/70 font-body leading-relaxed">
-      <p class="text-lg border-l-2 border-primary pl-6 text-on-surface/90">
-        Unsere Designs, ob Custom oder Stock, sind in der Schweiz einzigartig. Jedes Design wird von Hand illustriert — wir arbeiten bewusst nicht mit künstlicher Intelligenz.
-      </p>
-      <p>
-        Für uns geht es nicht nur ums Verkaufen, sondern darum, unsere Leidenschaft und Liebe für JDM weiterzugeben und mit anderen zu teilen.
-      </p>
-      <p>
-        Qualität ist uns ebenso wichtig, weshalb wir ausschließlich <span class="text-primary font-bold">Bio-Baumwolle</span> verwenden. Jedes Stück verkörpert die Leidenschaft für die japanische Autokultur — ein echtes Statement für JDM-Enthusiasten.
-      </p>
+<section class="nn-abschnitt nn-wrap" style="background:var(--karton);border-block:2px solid var(--tinte);max-width:none;">
+  <div class="nn-wrap nn-zweispaltig" style="padding-inline:0;">
+    <div>
+      <span class="nn-notiz">eine Nacht bei uns</span>
+      <h2 class="nn-h2">Vom Parkhaus aufs Shirt</h2>
     </div>
+    <ol class="nn-zeitstrahl">
+      <li><time>00:00</time>Leeres Parkhaus, warme Motoren. Hier fangen die meisten Ideen an.</li>
+      <li><time>01:30</time>Inspiriert von Nächten auf der Shuto Expressway und dem Neonlicht in Akihabara.</li>
+      <li><time>03:00</time>Bleistift, Papier, ein Auto als Vorlage. Jedes Motiv beginnt als Handzeichnung.</li>
+      <li><time>05:00</time>Morgengrauen in Winterthur. Das Motiv geht in Produktion, für dich.</li>
+    </ol>
   </div>
 </section>
 
-<!-- Values Grid -->
-<section class="bg-surface-container-low py-24">
-  <div class="px-8 lg:px-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
-      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
-        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">draw</span>
-        <div>
-          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Hand-illustriert</h3>
-          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">Kein KI. Jedes Design von Hand gezeichnet.</p>
-        </div>
-      </div>
-      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
-        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">eco</span>
-        <div>
-          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Bio-Baumwolle</h3>
-          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">100% organisch. Qualität die man spürt.</p>
-        </div>
-      </div>
-      <div class="bg-surface p-12 flex flex-col justify-between h-64 group hover:bg-primary transition-colors duration-500">
-        <span class="material-symbols-outlined text-4xl text-primary group-hover:text-on-primary-fixed" style="font-variation-settings: 'FILL' 1;">favorite</span>
-        <div>
-          <h3 class="font-headline font-bold text-xl mb-2 group-hover:text-on-primary-fixed uppercase">Mit Leidenschaft</h3>
-          <p class="text-on-surface/60 group-hover:text-on-primary-fixed/80 text-sm">JDM-Kultur — nicht nur ein Style, ein Lifestyle.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="relative h-[60vh] flex items-center justify-center overflow-hidden">
-  <div class="absolute inset-0">
-    {% if section.settings.cta_image != blank %}
-      <img
-        src="{{ section.settings.cta_image | img_url: '2000x' }}"
-        alt="{{ section.settings.cta_image.alt | escape }}"
-        class="w-full h-full object-cover grayscale brightness-50"
-      >
-    {% else %}
-      <div class="w-full h-full bg-surface-container-low"></div>
-    {% endif %}
-  </div>
-  <div class="relative z-10 text-center px-8">
-    <h2 class="font-headline font-black text-6xl md:text-9xl uppercase tracking-tighter mb-12">
-      JOIN THE<br><span class="text-primary italic">UNDERGROUND</span>
-    </h2>
-    <div class="flex flex-col md:flex-row gap-6 justify-center">
-      <a href="/pages/shop" class="bg-gradient-to-r from-primary to-primary-container px-12 py-6 font-headline font-black uppercase text-on-primary-fixed tracking-widest text-xl hover:brightness-110 active:scale-[0.98] transition-all">
-        SHOP THE DROP
-      </a>
-      <a href="/pages/contact" class="border-2 border-outline-variant px-12 py-6 font-headline font-black uppercase tracking-widest text-xl hover:bg-surface-container-highest transition-colors active:scale-[0.98]">
-        KONTAKT
-      </a>
-    </div>
+<section class="nn-abschnitt nn-wrap">
+  <div class="nn-kopfzeile"><div><span class="nn-notiz">woran wir uns halten</span><h2 class="nn-h2">Drei Regeln</h2></div></div>
+  <ul class="nn-check" data-abhaken style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px;">
+    <li style="align-items:start;"><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>Von Hand gezeichnet<span class="nn-klein" style="display:block;font:400 1rem/1.5 var(--text);text-transform:none;margin-top:6px;">Kein Motiv kommt aus dem Bildgenerator. Jedes Design entsteht auf dem Zeichenbrett.</span></span></li>
+    <li style="align-items:start;"><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>Gute Stoffe<span class="nn-klein" style="display:block;font:400 1rem/1.5 var(--text);text-transform:none;margin-top:6px;">Bio-Baumwolle und schwere Heavyweight-Qualitäten. Die genaue Zusammensetzung steht bei jedem Produkt.</span></span></li>
+    <li style="align-items:start;"><span class="nn-check__box">{% render 'nn-scribble', art: 'haken', zeichnen: true %}</span><span>Aus der Szene<span class="nn-klein" style="display:block;font:400 1rem/1.5 var(--text);text-transform:none;margin-top:6px;">Es geht uns nicht nur ums Verkaufen, sondern darum, die Liebe zu JDM zu teilen.</span></span></li>
+  </ul>
+  <div class="nn-knopfreihe" style="margin-top:48px;">
+    <a class="nn-btn nn-btn--marker" href="/collections/all">Drops ansehen</a>
+    <a class="nn-btn" href="/pages/contact">Schreib uns</a>
   </div>
 </section>
 

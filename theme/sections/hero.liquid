@@ -20,7 +20,7 @@
     </div>
 
     <div class="nn-hero__collage">
-      {% render 'nn-foto', bild: section.settings.foto_1, text: section.settings.foto_1_text, alt: section.settings.foto_1_text, leer_text: 'Foto folgt: Fabio beim Zeichnen', sizes: '(min-width: 860px) 26vw, 56vw', fallen: true %}
+      {% render 'nn-foto', bild: section.settings.foto_1, text: section.settings.foto_1_text, alt: section.settings.foto_1_text, leer_text: 'Foto folgt: Fabio beim Zeichnen', sizes: '(min-width: 860px) 26vw, 56vw', format: '4 / 3', fallen: true %}
       {% render 'nn-foto', bild: section.settings.foto_2, text: section.settings.foto_2_text, alt: section.settings.foto_2_text, leer_text: 'Foto folgt: die Celica', sizes: '(min-width: 860px) 24vw, 50vw', fallen: true %}
       {% render 'nn-foto', bild: _foto3, text: section.settings.foto_3_text, alt: 'Custom-Hoodie mit handgezeichnetem Kundenauto – Nippon Nites', leer_text: 'Foto folgt', sizes: '(min-width: 860px) 24vw, 50vw', prio: true, format: '1 / 1' %}
       {%- if section.settings.badge != blank -%}{% render 'nn-stempel', text: section.settings.badge %}{%- endif -%}

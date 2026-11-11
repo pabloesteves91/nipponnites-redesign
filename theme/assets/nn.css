@@ -283,6 +283,10 @@ body.nn-body {
 
 /* Produktseite */
 .nn-produkt { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.nn-produkt__medien { grid-column: 1; grid-row: 1; }
+.nn-produkt__info { grid-column: 2; grid-row: 1 / span 2; }
+.nn-produkt__details { grid-column: 1; grid-row: 2; }
+.nn-text p:empty { display: none; }
 .nn-produkt__galerie { display: grid; gap: 14px; }
 .nn-produkt__bild { background: var(--karton); aspect-ratio: 1; overflow: hidden; }
 .nn-produkt__bild img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
@@ -381,6 +385,7 @@ body.nn-body {
 @media (max-width: 860px) {
   .nn-sticky { display: flex; }
   .nn-produkt__info { padding-bottom: 20px; }
+  .nn-produkt__medien, .nn-produkt__info, .nn-produkt__details { grid-column: 1; grid-row: auto; }
   body.template-product #scroll-top-btn { bottom: 88px !important; }
 }
 
@@ -409,6 +414,25 @@ body.nn-body {
 
 .nn-suche { display: flex; gap: 10px; max-width: 640px; margin-top: 24px; }
 .nn-suche .nn-eingabe { flex: 1; min-height: 52px; font-size: 1.1rem; }
+
+/* ---------- FAQ, Widerruf, 404 ---------- */
+.nn-faq-gruppe { margin-bottom: clamp(36px, 5vw, 56px); max-width: 900px; }
+.nn-faq-gruppe .nn-h3 { margin-bottom: 12px; }
+.nn-formular { display: grid; gap: 18px; }
+.nn-widerruf { max-width: 760px; padding-block: clamp(32px, 5vw, 64px) clamp(56px, 8vw, 112px); }
+.nn-widerruf h1 { font: 800 clamp(2.4rem, 6vw, 4.2rem)/.95 var(--kopf); text-transform: uppercase; margin: 0 0 16px; }
+.nn-widerruf > div > p:first-child { font-family: var(--hand); color: var(--blaustift); font-size: 1.6rem; margin: 0 0 6px; }
+.nn-widerruf p { max-width: 40em; }
+.nn-widerruf a { text-decoration: underline; text-decoration-color: var(--marker); text-underline-offset: 3px; }
+.nn-widerruf > div + div > div:first-child { background: #fffdf8; border: 2px solid var(--tinte); padding: 18px 20px; margin: 24px 0; box-shadow: 4px 4px 0 var(--tinte); }
+.nn-widerruf form > div { display: grid; gap: 16px; }
+.nn-widerruf form > div > div { display: grid; gap: 6px; }
+.nn-widerruf label { font: 600 1.05rem/1 var(--kopf); text-transform: uppercase; letter-spacing: .03em; }
+.nn-widerruf input, .nn-widerruf textarea { width: 100%; background: #fffdf8; border: 2px solid var(--tinte); padding: 12px 14px; font-size: 1rem; }
+.nn-widerruf input:focus, .nn-widerruf textarea:focus { outline: none; box-shadow: 3px 3px 0 var(--blaustift); }
+.nn-widerruf form > p { margin: 22px 0; font-size: .92rem; color: var(--graphit); }
+.nn-404 { text-align: center; min-height: 60vh; display: grid; place-content: center; justify-items: center; padding-block: clamp(48px, 8vw, 120px); }
+.nn-404 svg.nn-scribble { width: 220px; height: 110px; color: var(--marker); margin-bottom: 8px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {

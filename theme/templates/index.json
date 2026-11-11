@@ -100,12 +100,13 @@
         "cta_primary_url": "/pages/custom",
         "cta_secondary_label": "Drops ansehen",
         "cta_secondary_url": "/collections/all",
-        "foto_1_text": "Fabio am Zeichenbrett",
-        "foto_2_text": "unsere Celica am Meet",
+        "foto_1_text": "Fabio und seine Celica T18",
+        "foto_2_text": "am Meet mit der Crew",
         "foto_3_text": "Custom für einen Kunden",
         "bg_image": "shopify://shop_images/Guide-to-Experience-Tokyo-Nightlife-1.jpg",
         "bg_image_alt": "Tokyo night street",
-        "foto_2": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg"
+        "foto_2": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg",
+        "foto_1": "shopify://shop_images/IMG_6578.jpg"
       }
     },
     "featured_duo": {
@@ -201,7 +202,9 @@
       "settings": {
         "button_url": "/pages/brandstory",
         "foto_2": "shopify://shop_images/1FABEE4C-38EC-41D3-9371-7A72B5B3C944_1_105_c.jpg",
-        "foto_2_text": "Celica T18 am Meet"
+        "foto_2_text": "Celica T18 am Meet",
+        "foto_1": "shopify://shop_images/IMG_6578.jpg",
+        "foto_1_text": "Fabio, Gründer"
       }
     }
   },

@@ -1,17 +1,20 @@
-<div style="background:#131313;min-height:100vh;">
-  <div style="max-width:640px;margin:0 auto;padding:5rem 1.5rem 4rem;">
-    <p style="font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.25em;color:#ffb4a9;margin:0 0 1rem;">Affiliate Program</p>
-    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:900;font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;letter-spacing:-0.03em;line-height:1.05;color:#fff;margin:0 0 1.25rem;">
-      {{ section.settings.title | default: 'Werde Partner' }}
-    </h1>
-    {% if section.settings.description != blank %}
-      <p style="font-family:'Inter',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.75;margin:0 0 3rem;">{{ section.settings.description }}</p>
-    {% endif %}
+<section class="nn-seitenkopf nn-wrap">
+  <nav class="nn-krumen" aria-label="Brotkrumen"><ol><li><a href="/">Home</a></li><li aria-current="page">Partner</li></ol></nav>
+  <span class="nn-notiz">für Creator, Clubs und Meets</span>
+  <h1 class="nn-h1">{{ section.settings.title | default: 'Werde Partner' }}</h1>
+  {%- if section.settings.description != blank -%}
+    <p class="nn-lead">{{ section.settings.description }}</p>
+  {%- else -%}
+    <p class="nn-lead">Du fotografierst Autos, organisierst Meets oder hast einen Club? Empfiehl Nippon Nites mit deinem persönlichen Link und verdien an jeder Bestellung mit.</p>
+  {%- endif -%}
+</section>
+<section class="nn-wrap" style="padding-bottom:clamp(56px,8vw,112px);">
+  <div class="nn-blatt" style="max-width:760px;">
     {%- for block in section.blocks -%}
       {%- render block -%}
     {%- endfor -%}
   </div>
-</div>
+</section>
 
 {% schema %}
 {

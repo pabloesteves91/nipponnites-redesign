@@ -53,7 +53,7 @@
 
   <div class="nn-produkt">
     <!-- Bilder -->
-    <div>
+    <div class="nn-produkt__medien">
       <div id="pdp-slider" class="nn-produkt__slider">
         <div id="pdp-slides" class="nn-produkt__spur">
           {%- for image in product.images -%}
@@ -107,12 +107,6 @@
         })();
       </script>
 
-      {%- if product.description != blank -%}
-        <div class="nn-produkt__details">
-          <h2 class="nn-h3">Produktdetails</h2>
-          <div class="nn-text">{{ product.description }}</div>
-        </div>
-      {%- endif -%}
     </div>
 
     <!-- Kaufbereich -->
@@ -218,6 +212,12 @@
         {%- endif -%}
       </div>
     </div>
+    {%- if product.description != blank -%}
+        <div class="nn-produkt__details">
+          <h2 class="nn-h3">Produktdetails</h2>
+          <div class="nn-text">{{ product.description }}</div>
+        </div>
+      {%- endif -%}
   </div>
 </div>
 
