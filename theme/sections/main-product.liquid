@@ -57,11 +57,13 @@
       <div id="pdp-slider" class="nn-produkt__slider">
         <div id="pdp-slides" class="nn-produkt__spur">
           {%- for image in product.images -%}
+            {%- comment -%} Shop-Alt-Texte sind teils Platzhalter wie «0--», darum Produktname + Ansicht {%- endcomment -%}
+            {%- capture _alt -%}{{ product.title | replace: ' | ', ' ' }} – Ansicht {{ forloop.index }}{%- endcapture -%}
             <div class="nn-produkt__bild">
               {%- if forloop.first -%}
-                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: image.alt | default: product.title, fetchpriority: 'high', loading: 'eager' }}
+                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: _alt, fetchpriority: 'high', loading: 'eager' }}
               {%- else -%}
-                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: image.alt | default: product.title, loading: 'lazy' }}
+                {{ image | image_url: width: 1400 | image_tag: widths: '480, 720, 1000, 1400', sizes: '(min-width: 860px) 55vw, 100vw', alt: _alt, loading: 'lazy' }}
               {%- endif -%}
             </div>
           {%- endfor -%}
